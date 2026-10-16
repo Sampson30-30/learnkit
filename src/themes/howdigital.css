@@ -1,0 +1,143 @@
+/* LearnKit theme: HoW Digital.
+
+   The HoW Digital look, taken from the HoW Digital design system in Claude
+   Design: one dark neutral (ink) and four bright accents (coral, sky, orchid
+   and lime), rounded shapes, and ink text on every accent fill. Light and dark.
+
+   The design system has no dark mode and no status colours, so the dark
+   colours (ink as the base, lime as the accent) and the success, warning,
+   danger and info colours are LearnKit's own choices in the same spirit.
+   Replace them if HoW Digital sets its own. The accents are never used as
+   text on white, as the design system asks.
+
+   Fonts: HoW Digital uses Raleway for headings and Source Sans 3 for body
+   text. This theme names them first but does not load them, so nothing is
+   fetched from the internet. Without them the page falls back to the system
+   font. To use them, see docs/theming.md.
+
+   Use:  <html data-lk-theme="howdigital">
+   Scope it to one section by putting the attribute on a wrapper instead.
+   Force dark with data-lk-mode="dark" on the same element. */
+
+@layer lk.theme {
+  /* ---- Tokens: light ---- */
+
+  [data-lk-theme='howdigital'] {
+    --lk-font: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --lk-font-heading: 'Raleway', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --lk-radius: 16px;
+    --lk-radius-control: 8px;
+    --lk-border-width: 1px;
+    --lk-shadow: none;
+
+    /* The four accents. Always put ink text on them. */
+    --lk-hd-coral: #eb5c63;
+    --lk-hd-sky: #62c3de;
+    --lk-hd-orchid: #f291e9;
+    --lk-hd-lime: #addb49;
+    --lk-hd-ink: #2a2b25;
+
+    --lk-color-page: #ffffff;
+    --lk-color-bg: #ffffff;
+    --lk-color-surface: #f3f3ee;
+    --lk-color-text: #2a2b25;
+    --lk-color-muted: #595a50;
+    --lk-color-border: #76776b;
+    --lk-color-divider: #e2e2d9;
+    --lk-color-primary: #2a2b25;
+    --lk-color-primary-text: #ffffff;
+    --lk-color-focus: #d6404a;
+    --lk-color-backdrop: rgb(42 43 37 / 55%);
+    --lk-color-success: #3f6b0f;
+    --lk-color-success-bg: #eef7d6;
+    --lk-color-warning: #8a5a00;
+    --lk-color-warning-bg: #fbefd2;
+    --lk-color-danger: #b3261e;
+    --lk-color-danger-bg: #fde8e8;
+    --lk-color-info: #17667c;
+    --lk-color-info-bg: #e0f3f8;
+  }
+
+  /* ---- Tokens: dark ---- */
+
+  @media (prefers-color-scheme: dark) {
+    [data-lk-theme='howdigital']:not([data-lk-mode='light']) {
+      --lk-color-page: #1b1c17;
+      --lk-color-bg: #2a2b25;
+      --lk-color-surface: #35362f;
+      --lk-color-text: #f5f5ee;
+      --lk-color-muted: #b9baad;
+      --lk-color-border: #8b8c7f;
+      --lk-color-divider: #45463d;
+      --lk-color-primary: #addb49;
+      --lk-color-primary-text: #2a2b25;
+      --lk-color-focus: #62c3de;
+      --lk-color-backdrop: rgb(0 0 0 / 65%);
+      --lk-color-success: #addb49;
+      --lk-color-success-bg: #222b10;
+      --lk-color-warning: #f3b84a;
+      --lk-color-warning-bg: #33260f;
+      --lk-color-danger: #ff8a90;
+      --lk-color-danger-bg: #3d1b1e;
+      --lk-color-info: #62c3de;
+      --lk-color-info-bg: #112a32;
+      --lk-shadow: none;
+    }
+  }
+
+  [data-lk-theme='howdigital'][data-lk-mode='dark'] {
+    --lk-color-page: #1b1c17;
+    --lk-color-bg: #2a2b25;
+    --lk-color-surface: #35362f;
+    --lk-color-text: #f5f5ee;
+    --lk-color-muted: #b9baad;
+    --lk-color-border: #8b8c7f;
+    --lk-color-divider: #45463d;
+    --lk-color-primary: #addb49;
+    --lk-color-primary-text: #2a2b25;
+    --lk-color-focus: #62c3de;
+    --lk-color-backdrop: rgb(0 0 0 / 65%);
+    --lk-color-success: #addb49;
+    --lk-color-success-bg: #222b10;
+    --lk-color-warning: #f3b84a;
+    --lk-color-warning-bg: #33260f;
+    --lk-color-danger: #ff8a90;
+    --lk-color-danger-bg: #3d1b1e;
+    --lk-color-info: #62c3de;
+    --lk-color-info-bg: #112a32;
+    --lk-shadow: none;
+  }
+
+  /* ---- Components ---- */
+
+  /* The chosen tab is a coral pill with ink text. */
+  [data-lk-theme='howdigital'] .lk-tabs__tab {
+    border-bottom: 0;
+    border-radius: 999px;
+  }
+
+  [data-lk-theme='howdigital'] .lk-tabs__tab[aria-selected='true'] {
+    color: var(--lk-hd-ink);
+    background: var(--lk-hd-coral);
+  }
+
+  /* Dialogs and the largest panels use the roundest corners. */
+  [data-lk-theme='howdigital'] .lk-modal__dialog {
+    border-radius: 24px;
+  }
+
+  [data-lk-theme='howdigital'] .lk-modal__header {
+    color: var(--lk-color-primary-text);
+    background: var(--lk-color-primary);
+    border-bottom: 0;
+  }
+
+  /* The close button must stay readable on the ink header, in light and dark. */
+  [data-lk-theme='howdigital'] .lk-modal__close {
+    color: inherit;
+  }
+
+  [data-lk-theme='howdigital'] .lk-modal__close:hover {
+    background: color-mix(in srgb, currentColor 20%, transparent);
+  }
+}

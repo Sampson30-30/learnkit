@@ -9,6 +9,7 @@ export const THEMES = [
   { id: 'bold', name: 'Bold', note: 'Thick outlines, flat colour, hard shadows.' },
   { id: 'soft', name: 'Soft', note: 'Gentle, rounded, warm neutrals and berry.' },
   { id: 'blc', name: 'Blended Learning Consortium', note: 'The BLC look: white and warm grey, charcoal text, BLC pink.' },
+  { id: 'howdigital', name: 'HoW Digital', note: 'Bold and friendly: dark ink, bright coral, sky, orchid and lime.' },
 ];
 
 export const DEMOS = [

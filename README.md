@@ -59,7 +59,7 @@ Version 0.1.0. Everything on the [roadmap](ROADMAP.md) is built.
 | `<lk-hotspot>` | Numbered points on a picture or diagram, tracking what is explored |
 | `<lk-flow>` | Process chart or decision tree from nested lists, with a walk-through that marks your route |
 
-LearnKit is a free UI shop with three layers: **components**, **themes** that give any component a complete look, and a **customiser** to make a theme your own. Available themes: `homepage`, `clean`, `contrast`, `bold`, `soft` and `blc` (the Blended Learning Consortium look).
+LearnKit is a free UI shop with three layers: **components**, **themes** that give any component a complete look, and a **customiser** to make a theme your own. Available themes: `homepage`, `clean`, `contrast`, `bold`, `soft`, `blc` (the Blended Learning Consortium look) and `howdigital` (the HoW Digital look).
 
 ## Principles
 
