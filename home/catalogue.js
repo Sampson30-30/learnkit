@@ -15,6 +15,7 @@ export const SHELVES = [
       { id: 'lk-quiz', tags: 'lk-quiz', name: 'Quiz', what: 'Questions with instant feedback. Learners can try again.' },
       { id: 'lk-flashcards', tags: 'lk-flashcards', name: 'Flashcards', what: 'Practise recall. Cards a learner misses come round again.' },
       { id: 'lk-order', tags: 'lk-order', name: 'Put in order', what: 'Learners arrange steps into the right order, using buttons or by dragging.' },
+      { id: 'lk-matrix', tags: 'lk-matrix', name: 'Fill-in table', what: 'A table where learners type or tick the missing cells, then check their answers.', wide: true },
       { id: 'lk-spectrum', tags: 'lk-spectrum', name: 'Comparison spectrum', what: 'Learners place their view on a slider, then see where an expert would put it.' },
       { id: 'lk-rating', tags: 'lk-rating', name: 'Self-assessment', what: 'Learners rate how confident they feel, and see a summary.' },
     ],

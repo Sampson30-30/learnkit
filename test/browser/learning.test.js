@@ -177,3 +177,70 @@ test('hotspot: exploring everything fires one completion event', async () => {
   equal(done, [{ total: 2 }]);
   equal(el.querySelector('.lk-hotspot__progress').textContent, 'All 2 explored');
 });
+
+// ---- lk-matrix ----
+
+const MATRIX = `<lk-matrix label="Theories" show-answers>
+  <table>
+    <thead><tr><th>Theory</th><th>Idea</th><th>Active</th></tr></thead>
+    <tbody>
+      <tr><th>Behaviourism</th><td data-answer="Habits|Behaviour">Behaviour</td><td data-tick="no"></td></tr>
+      <tr><th>Constructivism</th><td data-answer="Meaning">Meaning</td><td data-tick="yes"></td></tr>
+    </tbody>
+  </table>
+</lk-matrix>`;
+
+test('matrix: answer cells become named boxes and the answers are not shown', async () => {
+  const el = await mount(MATRIX);
+  const boxes = el.querySelectorAll('input');
+  equal(boxes.length, 4);
+  equal(boxes[0].getAttribute('aria-label'), 'Behaviourism, Idea');
+  equal(boxes[1].getAttribute('aria-label'), 'Behaviourism, Active');
+  equal(boxes[0].type, 'text');
+  equal(boxes[1].type, 'checkbox');
+  assert(!el.textContent.includes('Meaning'), 'answer text removed from the page');
+});
+
+test('matrix: checking marks each cell in words and reports the score', async () => {
+  const el = await mount(MATRIX);
+  const seen = listen(el, 'lk-check');
+  const boxes = el.querySelectorAll('input');
+  boxes[0].value = 'behaviour';
+  boxes[2].value = 'wrong';
+  click(find(el, 'Check answers'));
+  const words = [...el.querySelectorAll('.lk-matrix__mark')].map((m) => m.textContent);
+  equal(words, ['Right', 'Right', 'Not quite', 'Not quite']);
+  equal(seen[0], { score: 2, total: 4, complete: false });
+  equal(boxes[2].getAttribute('aria-invalid'), 'true');
+  assert(!find(el, 'Show answers').hidden, 'show answers offered');
+});
+
+test('matrix: changing a box clears its mark, and a full set of right answers completes', async () => {
+  const el = await mount(MATRIX);
+  const boxes = el.querySelectorAll('input');
+  click(find(el, 'Check answers'));
+  equal(boxes[0].dataset.mark, 'blank');
+  boxes[0].value = 'Habits';
+  boxes[0].dispatchEvent(new Event('input', { bubbles: true }));
+  assert(!boxes[0].dataset.mark, 'mark cleared');
+  boxes[2].value = 'meaning';
+  boxes[3].checked = true;
+  const seen = listen(el, 'lk-check');
+  click(find(el, 'Check answers'));
+  equal(seen[0], { score: 4, total: 4, complete: true });
+  assert(find(el, 'Show answers').hidden, 'no reveal needed');
+});
+
+test('matrix: show answers fills and locks, and start again clears', async () => {
+  const el = await mount(MATRIX);
+  click(find(el, 'Check answers'));
+  click(find(el, 'Show answers'));
+  const boxes = el.querySelectorAll('input');
+  equal(boxes[0].value, 'Habits');
+  equal(boxes[3].checked, true);
+  assert(boxes[0].disabled, 'locked');
+  click(find(el, 'Start again'));
+  equal(boxes[0].value, '');
+  assert(!boxes[0].disabled, 'unlocked');
+  equal(el.querySelector('.lk-matrix__feedback').textContent, '');
+});

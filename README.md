@@ -54,6 +54,7 @@ Version 0.1.0. Everything on the [roadmap](ROADMAP.md) is built.
 | `<lk-scenario>` | Branching story from markup or JSON |
 | `<lk-flashcards>` | Recall practice where missed cards come round again |
 | `<lk-order>` | Put items in sequence with buttons or drag, marked in words |
+| `<lk-matrix>` | Fill-in and tick-box tables, marked in words, from an ordinary table |
 | `<lk-hotspot>` | Numbered points on a picture or diagram, tracking what is explored |
 | `<lk-flow>` | Process chart or decision tree from nested lists, with a walk-through that marks your route |
 

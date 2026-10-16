@@ -624,6 +624,25 @@ The learner puts items in sequence. **Write the items in the correct order**; th
 
 Every item has named Move up and Move down buttons, so it works by keyboard, screen reader and touch; each move is announced ("Plan moved to position 2 of 4") and focus follows the item. Pointer users can also drag. "Check order" marks each item right or wrong **in words as well as symbols**, and moving anything clears the marks. Events: `lk-orderchange` `{ order, labels }`, `lk-check` `{ score, total, complete }`. `el.sequence` reads the current order as text.
 
+### `<lk-matrix>`
+
+A table the learner completes. It starts as an ordinary table, so it still reads without JavaScript. Mark the cells to complete in the markup.
+
+```html
+<lk-matrix label="Complete the table" show-answers>
+  <table>
+    <caption>Learning theories</caption>
+    <thead><tr><th>Theory</th><th>Main idea</th><th>Learner is active</th></tr></thead>
+    <tbody>
+      <tr><th>Behaviourism</th><td data-answer="Habits|Behaviour">Behaviour</td><td data-tick="no"></td></tr>
+      <tr><th>Constructivism</th><td data-answer="Meaning">Meaning</td><td data-tick="yes"></td></tr>
+    </tbody>
+  </table>
+</lk-matrix>
+```
+
+`data-answer` makes a text box. Separate accepted answers with `|`; capitals and spare spaces are ignored. `data-tick="yes"` makes a tick box that should be ticked, and `data-tick="no"` one that should be left empty. Each box is named by its row and column headings (for example "Behaviourism, Main idea"). "Check answers" marks every box **in words as well as colour** (Right, Not quite, Empty), and changing a box clears its mark. Add `show-answers` for a "Show answers" button that appears after a check. Events: `lk-check` `{ score, total, complete }`, `lk-reveal`. Methods: `check()`, `reset()`, `reveal()`. `el.values` reads what the learner has entered.
+
 ### `<lk-hotspot>`
 
 Numbered points on a picture or diagram. Choosing a point shows its explanation, and the component tracks what has been explored.

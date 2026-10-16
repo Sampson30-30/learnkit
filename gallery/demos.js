@@ -314,6 +314,22 @@ export const DEMOS = [
       </lk-order>`,
   },
   {
+    id: 'lk-matrix',
+    title: 'Fill-in table',
+    html: () => `
+      <lk-matrix label="Complete the table, then tick who learns by doing" show-answers>
+        <table>
+          <caption>Learning theories</caption>
+          <thead><tr><th>Theory</th><th>Main idea</th><th>Learner is active</th></tr></thead>
+          <tbody>
+            <tr><th>Behaviourism</th><td data-answer="Habits|Behaviour">Behaviour</td><td data-tick="no"></td></tr>
+            <tr><th>Constructivism</th><td data-answer="Meaning|Building knowledge">Meaning</td><td data-tick="yes"></td></tr>
+            <tr><th>Social learning</th><td data-answer="Watching others|Observation">Observation</td><td data-tick="yes"></td></tr>
+          </tbody>
+        </table>
+      </lk-matrix>`,
+  },
+  {
     id: 'lk-hotspot',
     title: 'Hotspot picture',
     html: () => `
