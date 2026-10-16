@@ -1,0 +1,141 @@
+/* LearnKit theme: Sankofa.
+
+   The Sankofa look, taken from the Sankofa design system in Claude Design (a
+   writer's companion): warm paper surfaces, dark brown ink, indigo for
+   actions, serif text for reading and writing, sans-serif for controls, no
+   shadows, and controls at least 48px tall. Light and dark, both warm. Neither
+   uses pure black or pure white.
+
+   The design system has no warning or info colours and no tinted backgrounds
+   for statuses, so those are LearnKit's own choices from the same palette.
+   Gold is a marker in the design system, not a text colour, and is not used
+   here except for the dark focus ring, as the design system sets.
+
+   Fonts: Noto Serif (reading) and Noto Sans (controls) were chosen for how
+   well they show African-language text, including stacked tone marks. This
+   theme names them first but does not load them, so nothing is fetched from
+   the internet. Without them it falls back to Georgia and the system font,
+   which may draw some tone marks less well. To use the Noto fonts, see
+   docs/theming.md.
+
+   Use:  <html data-lk-theme="sankofa">
+   Scope it to one section by putting the attribute on a wrapper instead.
+   Force dark with data-lk-mode="dark" on the same element. */
+
+@layer lk.theme {
+  /* ---- Tokens: light ---- */
+
+  [data-lk-theme='sankofa'] {
+    --lk-font: 'Noto Serif', 'Charis SIL', Georgia, serif;
+    --lk-font-heading: var(--lk-font);
+    --lk-sk-sans: 'Noto Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --lk-radius: 10px;
+    --lk-radius-control: 10px;
+    --lk-border-width: 1px;
+    --lk-shadow: none;
+
+    --lk-color-page: #f6efe3;
+    --lk-color-bg: #fcf8ee;
+    --lk-color-surface: #ebe1cf;
+    --lk-color-text: #231a14;
+    --lk-color-muted: #5a4a3d;
+    --lk-color-border: #8a7660;
+    --lk-color-divider: #d6c6ac;
+    --lk-color-primary: #2b3a7d;
+    --lk-color-primary-text: #f6efe3;
+    --lk-color-focus: #2b3a7d;
+    --lk-color-backdrop: rgb(35 26 20 / 50%);
+    --lk-color-success: #1b6a8c;
+    --lk-color-success-bg: #e0eff5;
+    --lk-color-warning: #7a5200;
+    --lk-color-warning-bg: #f7ead0;
+    --lk-color-danger: #9a3b22;
+    --lk-color-danger-bg: #f8e4dc;
+    --lk-color-info: #2b3a7d;
+    --lk-color-info-bg: #e6e9f7;
+
+    /* Tall lines, so stacked tone marks are never clipped. */
+    line-height: 1.6;
+  }
+
+  /* ---- Tokens: dark ---- */
+
+  @media (prefers-color-scheme: dark) {
+    [data-lk-theme='sankofa']:not([data-lk-mode='light']) {
+      --lk-color-page: #17110d;
+      --lk-color-bg: #221a14;
+      --lk-color-surface: #0f0a07;
+      --lk-color-text: #f3e9d8;
+      --lk-color-muted: #c2b29b;
+      --lk-color-border: #8f7d68;
+      --lk-color-divider: #3a2f26;
+      --lk-color-primary: #aab8f6;
+      --lk-color-primary-text: #141a3c;
+      --lk-color-focus: #e8b84a;
+      --lk-color-backdrop: rgb(0 0 0 / 65%);
+      --lk-color-success: #7cc4e4;
+      --lk-color-success-bg: #0f2530;
+      --lk-color-warning: #e8b84a;
+      --lk-color-warning-bg: #33260f;
+      --lk-color-danger: #e8967a;
+      --lk-color-danger-bg: #34190f;
+      --lk-color-info: #aab8f6;
+      --lk-color-info-bg: #1a2040;
+    }
+  }
+
+  [data-lk-theme='sankofa'][data-lk-mode='dark'] {
+    --lk-color-page: #17110d;
+    --lk-color-bg: #221a14;
+    --lk-color-surface: #0f0a07;
+    --lk-color-text: #f3e9d8;
+    --lk-color-muted: #c2b29b;
+    --lk-color-border: #8f7d68;
+    --lk-color-divider: #3a2f26;
+    --lk-color-primary: #aab8f6;
+    --lk-color-primary-text: #141a3c;
+    --lk-color-focus: #e8b84a;
+    --lk-color-backdrop: rgb(0 0 0 / 65%);
+    --lk-color-success: #7cc4e4;
+    --lk-color-success-bg: #0f2530;
+    --lk-color-warning: #e8b84a;
+    --lk-color-warning-bg: #33260f;
+    --lk-color-danger: #e8967a;
+    --lk-color-danger-bg: #34190f;
+    --lk-color-info: #aab8f6;
+    --lk-color-info-bg: #1a2040;
+  }
+
+  /* ---- Components ---- */
+
+  /* Controls are sans-serif and at least 48px tall. Never upper case. */
+  [data-lk-theme='sankofa'] .lk-button,
+  [data-lk-theme='sankofa'] .lk-tabs__tab,
+  [data-lk-theme='sankofa'] .lk-field__label {
+    font-family: var(--lk-sk-sans);
+    font-weight: 600;
+    text-transform: none;
+  }
+
+  [data-lk-theme='sankofa'] .lk-button,
+  [data-lk-theme='sankofa'] .lk-control,
+  [data-lk-theme='sankofa'] .lk-tabs__tab {
+    min-height: 3rem;
+  }
+
+  /* Inputs use the smaller corner. */
+  [data-lk-theme='sankofa'] .lk-control {
+    border-radius: 4px;
+  }
+
+  /* Opened reading surfaces are the roundest. */
+  [data-lk-theme='sankofa'] .lk-modal__dialog {
+    border-radius: 32px;
+  }
+
+  /* A solid 2px focus ring with a 2px gap, on every surface. */
+  [data-lk-theme='sankofa'] :focus-visible {
+    outline: 2px solid var(--lk-color-focus);
+    outline-offset: 2px;
+  }
+}

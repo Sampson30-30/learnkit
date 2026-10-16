@@ -62,13 +62,13 @@ test('home: each look is visibly its own look', async () => {
   const { frame, doc, win } = await openHome(1200);
   try {
     const looks = [...doc.querySelectorAll('.look')];
-    equal(looks.length, 7);
+    equal(looks.length, 8);
     const signature = (l) => {
       const s = win.getComputedStyle(l);
       const b = win.getComputedStyle(l.querySelector('.lk-button[data-variant=primary]'));
       return [s.backgroundColor, b.backgroundColor, s.fontFamily, b.borderRadius].join('|');
     };
-    equal(new Set(looks.map(signature)).size, 7, 'no two looks are the same');
+    equal(new Set(looks.map(signature)).size, 8, 'no two looks are the same');
   } finally {
     frame.remove();
   }

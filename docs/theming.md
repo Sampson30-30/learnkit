@@ -80,12 +80,19 @@ Available themes:
 | `bold` | Loud and playful: thick black outlines, flat saturated colour, heavy headings, hard shadows that buttons press into. Yellow page in light, near black in dark. |
 | `soft` | Gentle and friendly: generous rounding and spacing, a rounded font, warm neutrals, berry accent, soft shadows. |
 | `howdigital` | The HoW Digital look, from the HoW Digital design system: dark ink, coral pill tabs with ink text, rounded panels, ink dialog headers. Light and dark. |
+| `sankofa` | The Sankofa writer’s companion look, from the Sankofa design system: warm paper and brown ink, indigo actions, serif text, sans-serif controls at least 48px tall, no shadows. Light and dark, both warm. |
 | `blc` | The Blended Learning Consortium look, from the BLC design system: white and warm grey, charcoal text, BLC pink accent, 8px corners, controls at least 44px tall. Light and dark. |
 
 **Fonts for `blc` and `howdigital`.** The themes ask for Raleway (headings) and Source Sans 3 (body) but do not load them, so nothing is fetched from the internet and a course works offline. Without them it uses the system font. To use the real fonts, add this to the page, or host the font files yourself:
 
 ```html
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Source+Sans+3:wght@400;700&display=swap" />
+```
+
+**Fonts for `sankofa`.** The theme asks for Noto Serif (reading) and Noto Sans (controls), chosen because they show African-language text, including stacked tone marks, well. They are not loaded, so without them the page uses Georgia and the system font, which may draw some tone marks less well. To use them, add this to the page, or host the font files yourself:
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600&family=Noto+Sans:wght@400;600&display=swap" />
 ```
 
 ## 3. Write a theme
