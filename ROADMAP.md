@@ -39,6 +39,12 @@ Everything below is built (see the checked items). It is kept as a record of the
 - [x] Theme gallery: a static page showing every component in every theme, side by side (`/gallery/`)
 - [x] Customiser: pick a theme, change tokens with live preview, warn on failing contrast, export the CSS (`/customiser/`)
 
+## Added since the first plan
+
+- [x] More components: table, glossary, alert, chip, avatar, switch, breadcrumbs, pagination, menu, tree, drawer, flashcards, order, fill-in table (`lk-matrix`), hotspot and flow chart. See the [README](README.md).
+- [x] Themes from the design systems in Claude Design: `blc`, `howdigital` and `sankofa`, alongside `homepage`. Each is contrast-checked in light and dark.
+- [x] A shop-front home page, an examples page with ideas beside each component, and a Rise compatibility test.
+
 ## Build order followed
 
 1. Accordion and modal, to prove the primitives pattern beyond tabs.

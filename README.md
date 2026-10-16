@@ -59,7 +59,20 @@ Version 0.1.0. Everything on the [roadmap](ROADMAP.md) is built.
 | `<lk-hotspot>` | Numbered points on a picture or diagram, tracking what is explored |
 | `<lk-flow>` | Process chart or decision tree from nested lists, with a walk-through that marks your route |
 
-LearnKit is a free UI shop with three layers: **components**, **themes** that give any component a complete look, and a **customiser** to make a theme your own. Available themes: `homepage`, `clean`, `contrast`, `bold`, `soft`, `blc` (the Blended Learning Consortium look) `howdigital` (the HoW Digital look) and `sankofa` (the Sankofa writer’s companion look).
+LearnKit is a free UI shop with three layers: **components**, **themes** that give any component a complete look, and a **customiser** to make a theme your own.
+
+**Themes**
+
+| Theme | Look |
+| --- | --- |
+| `homepage` | Mid 1990s document web, from the Homepage design system |
+| `clean`, `soft`, `bold` | Quiet and modern, gentle and rounded, and loud and playful |
+| `contrast` | High contrast, meeting WCAG AAA for text |
+| `blc` | Blended Learning Consortium, from the BLC design system |
+| `howdigital` | HoW Digital, from the HoW Digital design system |
+| `sankofa` | A writer's companion look, from the Sankofa design system |
+
+`homepage`, `blc`, `howdigital` and `sankofa` are built from design systems in Claude Design. Where a design system has no dark mode or status colours, the theme says which colours are LearnKit's own. `blc`, `howdigital` and `sankofa` name fonts they do not load, so nothing is fetched from the internet. See [the font notes in docs/theming.md](docs/theming.md) to add them.
 
 ## Principles
 
