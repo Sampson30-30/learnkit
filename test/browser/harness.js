@@ -51,6 +51,16 @@ export function press(el, key, init = {}) {
   el.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true, ...init }));
 }
 
+/**
+ * Jumps every running animation under `el` to its end. Animations take real
+ * time, and a page that is not being drawn steadily (a background tab, a
+ * hidden pane) can take many times longer than the animation says. Tests that
+ * measure where something ends up call this instead of waiting for the clock.
+ */
+export function settle(el) {
+  for (const animation of el.getAnimations({ subtree: true })) animation.finish();
+}
+
 /** Records events of one type fired on or below `target`. */
 export function listen(target, type) {
   const seen = [];

@@ -69,8 +69,9 @@ test('flow: branches that flow on get a join; branches that end do not', async (
 
 test('flow: the joins line up at the bottom of the branches and the bar reaches the centre', async () => {
   const el = await mount(PROCESS);
-  // The bar is placed after layout, by a resize observer.
-  await waitFor(() => el.querySelectorAll('.lk-flow__joinbar').length === el.querySelectorAll('.lk-flow__branches[data-joins]').length, 2000);
+  // The bar is placed after layout, by a resize observer. A page that is not being
+  // drawn steadily can be slow to run it, so allow plenty of time.
+  await waitFor(() => el.querySelectorAll('.lk-flow__joinbar').length === el.querySelectorAll('.lk-flow__branches[data-joins]').length, 5000);
   for (const ul of el.querySelectorAll('.lk-flow__branches[data-joins]')) {
     const box = ul.getBoundingClientRect();
     const joins = [...ul.querySelectorAll(':scope > .lk-flow__branch > .lk-flow__join')];
@@ -206,7 +207,7 @@ test('flow detail: with a walk-through it appears in the panel on arrival, not i
 
 test('flow: a chart wider than its region starts centred on the first step', async () => {
   const el = await mount(`<div style="width:300px">${TREE}</div>`);
-  await waitFor(() => el.querySelector('.lk-flow__scroll').scrollLeft > 0, 2000);
+  await waitFor(() => el.querySelector('.lk-flow__scroll').scrollLeft > 0, 5000);
   const region = el.querySelector('.lk-flow__scroll').getBoundingClientRect();
   const first = el.querySelector('.lk-flow__step .lk-flow__node').getBoundingClientRect();
   assert(first.left >= region.left && first.right <= region.right, 'the first step is inside the visible area');
