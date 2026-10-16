@@ -1,0 +1,121 @@
+/* LearnKit theme: BLC.
+
+   The Blended Learning Consortium look, taken from the BLC design system in
+   Claude Design: white and warm grey surfaces, charcoal text, the BLC pink as
+   the accent, and 8px corners. Light and dark. The dark colours are the BLC
+   CRM's own.
+
+   Fonts: BLC uses Raleway for headings and Source Sans 3 for body text. This
+   theme names them first but does not load them, so nothing is fetched from
+   the internet. Without them the page falls back to the system font. To use
+   them, load them from Google Fonts or host the files yourself (see
+   docs/theming.md).
+
+   Status colours (success, warning, danger, info) are not defined by the BLC
+   design system, so these are LearnKit's own choices in the BLC palette's
+   spirit. Replace them if BLC sets its own.
+
+   Use:  <html data-lk-theme="blc">
+   Scope it to one section by putting the attribute on a wrapper instead.
+   Force dark with data-lk-mode="dark" on the same element. */
+
+@layer lk.theme {
+  /* ---- Tokens: light ---- */
+
+  [data-lk-theme='blc'] {
+    --lk-font: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --lk-font-heading: 'Raleway', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --lk-radius: 8px;
+    --lk-radius-control: 8px;
+    --lk-border-width: 1px;
+    --lk-shadow: none;
+
+    --lk-color-page: #ffffff;
+    --lk-color-bg: #ffffff;
+    --lk-color-surface: #f7f5f4;
+    --lk-color-text: #333333;
+    --lk-color-muted: #666666;
+    --lk-color-border: #8a8481;
+    --lk-color-divider: #e2dfdd;
+    --lk-color-primary: #d40e6e;
+    --lk-color-primary-text: #ffffff;
+    --lk-color-focus: #d40e6e;
+    --lk-color-backdrop: rgb(19 19 31 / 50%);
+    --lk-color-success: #1e6b3d;
+    --lk-color-success-bg: #e3f3ea;
+    --lk-color-warning: #946200;
+    --lk-color-warning-bg: #fbf0d4;
+    --lk-color-danger: #b3261e;
+    --lk-color-danger-bg: #fbe4e1;
+    --lk-color-info: #006064;
+    --lk-color-info-bg: #def3f4;
+  }
+
+  /* ---- Tokens: dark ---- */
+
+  @media (prefers-color-scheme: dark) {
+    [data-lk-theme='blc']:not([data-lk-mode='light']) {
+      --lk-color-page: #13131f;
+      --lk-color-bg: #13131f;
+      --lk-color-surface: #1e1e2e;
+      --lk-color-text: #e0e0e0;
+      --lk-color-muted: #a3a3ad;
+      --lk-color-border: #7d7d96;
+      --lk-color-divider: #34344a;
+      --lk-color-primary: #ff5ba8;
+      --lk-color-primary-text: #13131f;
+      --lk-color-focus: #ff5ba8;
+      --lk-color-backdrop: rgb(0 0 0 / 65%);
+      --lk-color-success: #6fd39a;
+      --lk-color-success-bg: #12281b;
+      --lk-color-warning: #f3b84a;
+      --lk-color-warning-bg: #2d2110;
+      --lk-color-danger: #ff9a92;
+      --lk-color-danger-bg: #341a18;
+      --lk-color-info: #4db6bc;
+      --lk-color-info-bg: #0f2a30;
+      --lk-shadow: none;
+    }
+  }
+
+  [data-lk-theme='blc'][data-lk-mode='dark'] {
+    --lk-color-page: #13131f;
+    --lk-color-bg: #13131f;
+    --lk-color-surface: #1e1e2e;
+    --lk-color-text: #e0e0e0;
+    --lk-color-muted: #a3a3ad;
+    --lk-color-border: #7d7d96;
+    --lk-color-divider: #34344a;
+    --lk-color-primary: #ff5ba8;
+    --lk-color-primary-text: #13131f;
+    --lk-color-focus: #ff5ba8;
+    --lk-color-backdrop: rgb(0 0 0 / 65%);
+    --lk-color-success: #6fd39a;
+    --lk-color-success-bg: #12281b;
+    --lk-color-warning: #f3b84a;
+    --lk-color-warning-bg: #2d2110;
+    --lk-color-danger: #ff9a92;
+    --lk-color-danger-bg: #341a18;
+    --lk-color-info: #4db6bc;
+    --lk-color-info-bg: #0f2a30;
+    --lk-shadow: none;
+  }
+
+  /* ---- Components ---- */
+
+  /* Every control is at least 44px tall, as the BLC design system asks. */
+  [data-lk-theme='blc'] .lk-button,
+  [data-lk-theme='blc'] .lk-control,
+  [data-lk-theme='blc'] .lk-tabs__tab {
+    min-height: 2.75rem;
+  }
+
+  [data-lk-theme='blc'] .lk-tabs__tab[aria-selected='true'] {
+    color: var(--lk-color-primary);
+  }
+
+  /* Large panels and dialogs use the larger BLC radius. */
+  [data-lk-theme='blc'] .lk-modal__dialog {
+    border-radius: 16px;
+  }
+}

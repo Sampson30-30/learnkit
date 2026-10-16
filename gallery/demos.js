@@ -8,6 +8,7 @@ export const THEMES = [
   { id: 'contrast', name: 'Contrast', note: 'High contrast, WCAG AAA text, no shadows.' },
   { id: 'bold', name: 'Bold', note: 'Thick outlines, flat colour, hard shadows.' },
   { id: 'soft', name: 'Soft', note: 'Gentle, rounded, warm neutrals and berry.' },
+  { id: 'blc', name: 'Blended Learning Consortium', note: 'The BLC look: white and warm grey, charcoal text, BLC pink.' },
 ];
 
 export const DEMOS = [

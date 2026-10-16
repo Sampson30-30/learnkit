@@ -79,6 +79,13 @@ Available themes:
 | `contrast` | High contrast: black and white with 2px outlines, no shadows, underlined hover states. Text meets WCAG AAA (7:1). Dark mode is yellow and cyan on black. |
 | `bold` | Loud and playful: thick black outlines, flat saturated colour, heavy headings, hard shadows that buttons press into. Yellow page in light, near black in dark. |
 | `soft` | Gentle and friendly: generous rounding and spacing, a rounded font, warm neutrals, berry accent, soft shadows. |
+| `blc` | The Blended Learning Consortium look, from the BLC design system: white and warm grey, charcoal text, BLC pink accent, 8px corners, controls at least 44px tall. Light and dark. |
+
+**Fonts for `blc`.** The theme asks for Raleway (headings) and Source Sans 3 (body) but does not load them, so nothing is fetched from the internet and a course works offline. Without them it uses the system font. To use the real fonts, add this to the page, or host the font files yourself:
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Source+Sans+3:wght@400;700&display=swap" />
+```
 
 ## 3. Write a theme
 
