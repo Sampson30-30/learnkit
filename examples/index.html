@@ -8,9 +8,18 @@
     <link rel="stylesheet" href="../src/themes/homepage.css" />
     <link rel="stylesheet" href="../src/themes/clean.css" />
     <style>
-      body { font-family: var(--lk-font); color: var(--lk-color-text); background: var(--lk-color-page); max-width: 42rem; margin: 2rem auto; padding: 0 1rem; }
+      body { font-family: var(--lk-font); color: var(--lk-color-text); background: var(--lk-color-page); max-width: 72rem; margin: 2rem auto; padding: 0 1rem; }
       h1, h2 { font-family: var(--lk-font-heading); }
-      h2 { margin-top: 2.5rem; }
+      h2 { margin-top: 0; }
+      .lk-guide, .back-link, h1 { max-width: 42rem; }
+      .ex { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 1.5rem 2.5rem; align-items: start; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--lk-color-divider); }
+      .ex__notes { position: sticky; top: 1rem; padding: 1rem 1.25rem; background: var(--lk-color-surface); border: var(--lk-border-width) solid var(--lk-color-border); border-radius: var(--lk-radius); }
+      .ex__good { margin: 0 0 1rem; font-weight: 700; }
+      .ex__title { margin: 0 0 0.375rem; font-size: 0.875rem; font-weight: 700; color: var(--lk-color-muted); text-transform: uppercase; letter-spacing: 0.03em; }
+      .ex__notes ul { margin: 0 0 1rem; padding-inline-start: 1.25rem; }
+      .ex__notes li { margin-block-end: 0.375rem; }
+      .ex__cta { display: inline-block; margin-inline-end: 0.75rem; font-weight: 700; }
+      @media (max-width: 52rem) { .ex { grid-template-columns: minmax(0, 1fr); } .ex__notes { position: static; } }
       .back-link { margin: 0 0 1rem; font-size: 0.9375rem; }
       .theme-box { padding: 1rem; margin-top: 1rem; background: var(--lk-color-page); color: var(--lk-color-text); font-family: var(--lk-font); }
     </style>
@@ -22,17 +31,20 @@
     <details class="lk-guide" open>
       <summary>About this page</summary>
       <div class="lk-guide__body">
-        <p><strong>What this is.</strong> Every LearnKit building block, working, on one page. The heading above each one is its name, such as <code>lk-quiz</code>.</p>
+        <p><strong>What this is.</strong> Every LearnKit building block, working, on one page. The heading above each one is its name, such as <code>lk-quiz</code>. Beside each one are some ideas for using it.</p>
         <p class="lk-guide__title">What you can do here</p>
         <ul>
-          <li>Try each block: click it, type in it, and use the keyboard.</li>
+          <li>Try each block on the left: click it, type in it, and use the keyboard.</li>
+          <li>Read the ideas on the right, then follow &ldquo;See it in every look&rdquo; to view it in each style.</li>
           <li>Note the names of the ones you like. When you ask Claude to build something, you can use those names. For example: &ldquo;use an lk-quiz for the check at the end&rdquo;.</li>
           <li>Ignore the short pieces of code in grey. They are for Claude, and for whoever looks after the code.</li>
         </ul>
       </div>
     </details>
 
-    <h2>lk-tabs</h2>
+        <section class="ex" id="lk-tabs">
+      <div class="ex__demo">
+        <h2>lk-tabs</h2>
     <lk-tabs label="Course sections" selected="0">
       <div data-lk-tab="Overview"><p>Each child marked with <code>data-lk-tab</code> becomes a tab.</p></div>
       <div data-lk-tab="Details"><p>Use the arrow keys, Home and End to move between tabs.</p></div>
@@ -40,8 +52,21 @@
     </lk-tabs>
 
     <p id="log" aria-live="polite"></p>
-
-    <h2>lk-accordion</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-tabs">
+        <p class="ex__good">Good for splitting one topic into parts the learner picks between.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>Show the same case study from three points of view: the learner, the tutor and the employer.</li>
+          <li>Put "Overview", "Try it" and "Check yourself" side by side, so learners choose their own route.</li>
+          <li>Keep each tab short. If learners must read them in order, use a step-by-step process instead.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-tabs">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-accordion">
+      <div class="ex__demo">
+        <h2>lk-accordion</h2>
     <lk-accordion label="Course topics">
       <div data-lk-item="What you will learn" open><p>One section is open at a time by default.</p></div>
       <div data-lk-item="How it is assessed"><p>Use the up and down arrows, Home and End to move between headings.</p></div>
@@ -54,8 +79,21 @@
       <div data-lk-item="Which heading level is used?" open><p>Set <code>level</code> from 1 to 6. The default is 3.</p></div>
       <div data-lk-item="How do I react to changes?"><p>Listen for <code>lk-toggle</code>.</p></div>
     </lk-accordion>
-
-    <h2>lk-modal</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-accordion">
+        <p class="ex__good">Good for content learners dip into, not read from top to bottom.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>A frequently asked questions list at the end of a unit.</li>
+          <li>Glossary terms, with the meaning tucked under each word.</li>
+          <li>Turn on "multiple" when learners may want to compare two answers at once.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-accordion">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-modal">
+      <div class="ex__demo">
+        <h2>lk-modal</h2>
     <p>
       <button type="button" data-lk-open="demo-modal">Open a modal</button>
       <button type="button" data-lk-open="confirm-modal">Delete the course</button>
@@ -77,8 +115,21 @@
         <button type="button" data-lk-close="delete">Delete course</button>
       </div>
     </lk-modal>
-
-    <h2>Buttons and badges</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-modal">
+        <p class="ex__good">Good for a short message that needs a decision before moving on.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>A "before you start" reminder about what the activity expects.</li>
+          <li>An "are you sure?" check before a learner submits their work.</li>
+          <li>Do not hide teaching content in one. Learners may never open it.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-modal">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="buttons">
+      <div class="ex__demo">
+        <h2>Buttons and badges</h2>
     <p>
       <button type="button" class="lk-button">Default</button>
       <button type="button" class="lk-button" data-variant="primary">Primary</button>
@@ -95,8 +146,20 @@
       <span class="lk-badge" data-tone="danger">Overdue</span>
       <span class="lk-badge" data-tone="info">Optional</span>
     </p>
-
-    <h2>lk-quiz</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for Buttons and badges">
+        <p class="ex__good">Good for any action a learner can take.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>Use one main button per screen, so the next step is obvious.</li>
+          <li>Badges suit short labels such as "New", "Optional" or "Level 2".</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=buttons">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-quiz">
+      <div class="ex__demo">
+        <h2>lk-quiz</h2>
     <lk-quiz label="Check your understanding" title="Formative assessment">
       <div data-lk-question="Which of these is formative assessment?">
         <div data-lk-option correct data-feedback="Yes: it informs the next lesson.">A quick quiz in class</div>
@@ -110,8 +173,21 @@
         <div data-lk-option>A grade with no comment</div>
       </div>
     </lk-quiz>
-
-    <h2>lk-timeline</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-quiz">
+        <p class="ex__good">Good for a quick check of what a learner took in.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>Three questions after a short lesson, with feedback that explains why each answer is right or wrong.</li>
+          <li>A low-stakes starter quiz to find out what learners already know.</li>
+          <li>Learners can try again, so it works for practice as well as for checking.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-quiz">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-timeline">
+      <div class="ex__demo">
+        <h2>lk-timeline</h2>
     <lk-timeline label="History of the college" collapsible>
       <div data-lk-date="1962" data-title="Founded"><p>The first classes began in a rented hall.</p></div>
       <div data-lk-date="1990" data-title="New campus"><p>The college moved to its current site.</p></div>
@@ -123,8 +199,21 @@
       <div data-lk-date="Week 6" data-title="First review"><p>Check progress against your goals.</p></div>
       <div data-lk-date="Week 12" data-title="Final assessment"><p>Show what you have learned.</p></div>
     </lk-timeline>
-
-    <h2>lk-grid-explorer</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-timeline">
+        <p class="ex__good">Good for events or stages that happen in a set order.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>The key dates in a policy, a case study or a historical period.</li>
+          <li>A course calendar that shows what happens each week.</li>
+          <li>Reveal events one at a time to build a story as the learner goes.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-timeline">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-grid-explorer">
+      <div class="ex__demo">
+        <h2>lk-grid-explorer</h2>
     <lk-grid-explorer label="Learning theories" columns="3">
       <div data-lk-cell="Behaviourism"><p>Learning as a change in behaviour, shaped by reinforcement.</p></div>
       <div data-lk-cell="Cognitivism"><p>Learning as processing and organising information in memory.</p></div>
@@ -133,15 +222,41 @@
       <div data-lk-cell="Connectivism"><p>Learning across networks of people and information.</p></div>
       <div data-lk-cell="Humanism"><p>Learning driven by the whole person and their needs.</p></div>
     </lk-grid-explorer>
-
-    <h2>lk-process</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-grid-explorer">
+        <p class="ex__good">Good for a set of topics learners can explore in any order.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>Six learning theories, each tile opening a short explanation.</li>
+          <li>A map of support services, one tile for each.</li>
+          <li>It tracks what has been opened, so you can tell learners when they have seen everything.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-grid-explorer">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-process">
+      <div class="ex__demo">
+        <h2>lk-process</h2>
     <lk-process label="Planning a lesson">
       <div data-lk-step="Set the outcome"><p>Decide what learners will be able to do by the end.</p></div>
       <div data-lk-step="Plan the activities"><p>Choose activities that let learners practise that outcome.</p></div>
       <div data-lk-step="Check understanding"><p>Decide how you will know the outcome was met.</p></div>
     </lk-process>
-
-    <h2>lk-scenario</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-process">
+        <p class="ex__good">Good for a task that must be learned in steps.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>How to complete a safeguarding referral, one step at a time.</li>
+          <li>A software walkthrough, with a screenshot and a short note on each step.</li>
+          <li>Every step can hold its own text, picture or video.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-process">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-scenario">
+      <div class="ex__demo">
+        <h2>lk-scenario</h2>
     <lk-scenario label="A late submission" start="start">
       <div data-lk-node="start" data-title="An email arrives">
         <p>A learner who has never been late before asks for an extra week on their assignment.</p>
@@ -161,36 +276,114 @@
       <div data-lk-node="ext" data-end data-outcome="good" data-title="The learner catches up"><p>They submit on the new date and say the check-in helped.</p></div>
       <div data-lk-node="ext-only" data-end data-outcome="mixed" data-title="Work arrives late"><p>The work arrives, but a chance to offer support was missed.</p></div>
     </lk-scenario>
-
-    <h2>lk-spectrum</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-scenario">
+        <p class="ex__good">Good for practising decisions where the choice changes what happens.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>A difficult conversation with a learner, with several ways to respond.</li>
+          <li>A workplace dilemma where each choice leads somewhere different.</li>
+          <li>Include at least one choice that goes badly. Learners remember those.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-scenario">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-spectrum">
+      <div class="ex__demo">
+        <h2>lk-spectrum</h2>
     <lk-spectrum statement="How should feedback be given to learners?" left="Written" right="Spoken" expert="70"
       explanation="Spoken feedback allows a conversation and quick clarification, but it works best when the key points are also written down."></lk-spectrum>
-
-    <h2>lk-rating</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-spectrum">
+        <p class="ex__good">Good for questions with no single right answer.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>Ask learners how far they agree with a statement, then show where an expert would stand.</li>
+          <li>Use it to start a discussion about teaching approaches.</li>
+          <li>The gap between the two positions is what gets people talking.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-spectrum">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-rating">
+      <div class="ex__demo">
+        <h2>lk-rating</h2>
     <lk-rating label="How confident are you with these skills?" scale="5" low="Not at all" high="Completely" summary name="examples-skills">
       <div data-lk-statement="Planning a lesson"></div>
       <div data-lk-statement="Giving feedback"></div>
       <div data-lk-statement="Assessing progress"></div>
     </lk-rating>
-
-    <h2>lk-journal</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-rating">
+        <p class="ex__good">Good for learners to reflect on their own confidence.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>Rate your confidence on five skills at the start and again at the end.</li>
+          <li>A self-assessment before a workshop, so the tutor knows where to focus.</li>
+          <li>The summary gives learners something to refer back to.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-rating">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-journal">
+      <div class="ex__demo">
+        <h2>lk-journal</h2>
     <lk-journal name="examples-week-1" title="Week 1 reflection">
       <div data-lk-prompt="What went well this week?" data-hint="Think about one lesson or conversation."></div>
       <div data-lk-prompt="What would you change next time?"></div>
     </lk-journal>
-
-    <h2>lk-flashcards</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-journal">
+        <p class="ex__good">Good for reflection that learners keep.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>A learning log with a prompt for each week.</li>
+          <li>Evidence for a portfolio: learners write, then download their entries.</li>
+          <li>It saves in the learner’s own browser, so tell them it will not follow them to another device.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-journal">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-flashcards">
+      <div class="ex__demo">
+        <h2>lk-flashcards</h2>
     <lk-flashcards label="Assessment terms">
       <div data-lk-card="Formative assessment">Assessment during learning, used to shape what happens next.</div>
       <div data-lk-card="Summative assessment">Assessment at the end, used to judge what was learned.</div>
     </lk-flashcards>
-
-    <h2>lk-order</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-flashcards">
+        <p class="ex__good">Good for terms, facts and definitions learners need to recall.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>Key vocabulary for a new subject.</li>
+          <li>Quick revision before an assessment.</li>
+          <li>Cards a learner misses come round again, so practice goes where it is needed.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-flashcards">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-order">
+      <div class="ex__demo">
+        <h2>lk-order</h2>
     <lk-order label="Put the writing process in order">
       <ol><li>Plan</li><li>Draft</li><li>Revise</li><li>Publish</li></ol>
     </lk-order>
-
-    <h2>lk-matrix</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-order">
+        <p class="ex__good">Good for anything with a correct sequence.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>Put the stages of a lesson plan in order.</li>
+          <li>Arrange the steps of a procedure from first to last.</li>
+          <li>The buttons work with a keyboard and a screen reader, so no one is left out.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-order">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-matrix">
+      <div class="ex__demo">
+        <h2>lk-matrix</h2>
     <lk-matrix label="Complete the table" show-answers>
       <table>
         <caption>Learning theories</caption>
@@ -201,8 +394,21 @@
         </tbody>
       </table>
     </lk-matrix>
-
-    <h2>lk-hotspot</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-matrix">
+        <p class="ex__good">Good for comparing several things across the same features.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>Complete a table comparing three learning theories.</li>
+          <li>Tick which assessment methods are formative and which are summative.</li>
+          <li>Mix typing and ticking in one table. Allow more than one accepted answer when people may phrase it differently.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-matrix">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-hotspot">
+      <div class="ex__demo">
+        <h2>lk-hotspot</h2>
     <lk-hotspot label="Parts of a plant">
       <svg viewBox="0 0 200 120" role="img" aria-label="A simple plant" style="background: #e8f1e4">
         <circle cx="100" cy="22" r="14" fill="#d9467a" /><rect x="97" y="36" width="6" height="52" fill="#2f7d3a" />
@@ -210,8 +416,21 @@
       <div data-lk-spot data-x="50" data-y="18" data-title="Flower">Makes the seeds for the next plant.</div>
       <div data-lk-spot data-x="50" data-y="55" data-title="Stem">Carries water and food around the plant.</div>
     </lk-hotspot>
-
-    <h2>Menu, tree and drawer</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-hotspot">
+        <p class="ex__good">Good for learning about the parts of a picture or diagram.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>The parts of a classroom, a workplace or a piece of equipment.</li>
+          <li>A map or floor plan with points that explain each area.</li>
+          <li>It tracks which points were opened, so learners can see what they have missed.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-hotspot">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="menu-tree-drawer">
+      <div class="ex__demo">
+        <h2>Menu, tree and drawer</h2>
     <p class="row">
       <lk-menu label="More actions">
         <button data-lk-item value="duplicate">Duplicate</button>
@@ -230,8 +449,21 @@
         <li>Unit 2<ul><li>Lesson C</li></ul></li>
       </ul>
     </lk-tree>
-
-    <h2>lk-flow</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for Menu, tree and drawer">
+        <p class="ex__good">Good for finding your way around a larger course.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>The outline shows every unit and lesson, so learners can see the whole course.</li>
+          <li>A side panel keeps notes or resources close without leaving the page.</li>
+          <li>A menu tidies away less common actions such as "Print" or "Download".</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-menu">See the menu in every look</a> <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-tree">See the outline in every look</a> <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-drawer">See the side panel in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="lk-flow">
+      <div class="ex__demo">
+        <h2>lk-flow</h2>
     <lk-flow label="Handling a late submission" walkthrough>
       <ol>
         <li data-type="start">Work arrives after the deadline</li>
@@ -255,8 +487,21 @@
         </li>
       </ul>
     </lk-flow>
-
-    <h2>Toast notifications</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-flow">
+        <p class="ex__good">Good for explaining a process, or helping someone decide.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>A procedure that has choices in it, such as what to do with a late submission.</li>
+          <li>A "which approach should I use?" guide that ends in a recommendation.</li>
+          <li>Switch on the walk-through, and learners can follow it and see their route.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-flow">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="toasts">
+      <div class="ex__demo">
+        <h2>Toast notifications</h2>
     <p>
       <button type="button" class="lk-button" id="toast-ok">Show a confirmation</button>
       <button type="button" class="lk-button" id="toast-undo">Delete with undo</button>
@@ -269,8 +514,21 @@
         toast('Course deleted', { tone: 'warning', action: { label: 'Undo', onClick: () => toast('Course restored', { tone: 'success' }) } }));
       document.getElementById('toast-error').addEventListener('click', () => toast('We could not save your changes. Check your connection and try again.', { tone: 'danger' }));
     </script>
-
-    <h2>Tooltip and popover</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for Toast notifications">
+        <p class="ex__good">Good for small confirmations that should not interrupt.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>"Progress saved" when a learner finishes a section.</li>
+          <li>"Undo" after a learner removes something by mistake.</li>
+          <li>Keep messages short. They disappear on their own.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-toasts">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="tooltip-popover">
+      <div class="ex__demo">
+        <h2>Tooltip and popover</h2>
     <p>
       <button type="button" class="lk-button" id="tt-help">Hover or focus me</button>
       <lk-tooltip for="tt-help">Opens the course guide in a new tab</lk-tooltip>
@@ -279,8 +537,21 @@
     <lk-popover id="info-pop" label="About this topic">
       <p>Popovers can hold links and controls: <a href="#">read the guide</a>.</p>
     </lk-popover>
-
-    <h2>Progress and stepper</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for Tooltip and popover">
+        <p class="ex__good">Good for a little extra help that learners can ignore.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>Explain a technical term where it appears.</li>
+          <li>Add a "why does this matter?" note beside a task.</li>
+          <li>Anything essential belongs on the page itself, not in a hint.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-popover">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="progress-stepper">
+      <div class="ex__demo">
+        <h2>Progress and stepper</h2>
     <lk-progress label="Course progress" value="40" show-value></lk-progress>
     <p></p>
     <lk-progress label="Loading"></lk-progress>
@@ -288,8 +559,21 @@
     <lk-stepper current="1" label="Enrolment steps">
       <ol><li>Your details</li><li>Choose a course</li><li>Confirm</li></ol>
     </lk-stepper>
-
-    <h2>Table</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for Progress and stepper">
+        <p class="ex__good">Good for showing learners how far along they are.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>A bar at the top of a long unit.</li>
+          <li>Numbered stages for an enrolment or application.</li>
+          <li>Seeing progress keeps people going.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-progress">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="table">
+      <div class="ex__demo">
+        <h2>Table</h2>
     <lk-table label="Courses this term" sortable filter striped>
       <table>
         <caption>Courses this term</caption>
@@ -301,8 +585,21 @@
         </tbody>
       </table>
     </lk-table>
-
-    <h2>Alerts, chips, avatars and switches</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for Table">
+        <p class="ex__good">Good for information learners need to look up.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>A list of courses that learners can sort by level or filter by name.</li>
+          <li>A grading guide or timetable.</li>
+          <li>For a table learners must fill in themselves, see the fill-in table above.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-table">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="alerts-chips">
+      <div class="ex__demo">
+        <h2>Alerts, chips, avatars and switches</h2>
     <lk-alert tone="warning" heading="Deadline moved" dismissible>Submit by Friday instead.</lk-alert>
     <p>
       <lk-chip>Level 2</lk-chip>
@@ -314,23 +611,61 @@
       <lk-avatar name="Grace Hopper" size="lg"></lk-avatar>
     </p>
     <lk-switch label="Email reminders" hint="One a week, on Mondays" checked></lk-switch>
-
-    <h2>Breadcrumbs and pagination</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for Alerts, chips, avatars and switches">
+        <p class="ex__good">Good for short notices and labels.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>A message when a deadline has moved.</li>
+          <li>Tags that show the level or subject of a resource.</li>
+          <li>A switch for a setting, such as email reminders.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-alert">See the messages in every look</a> <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-chip">See the tags in every look</a> <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-switch">See the switches in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="breadcrumbs">
+      <div class="ex__demo">
+        <h2>Breadcrumbs and pagination</h2>
     <lk-breadcrumbs label="You are here">
       <ol><li><a href="#">Home</a></li><li><a href="#">Courses</a></li><li>Mathematics</li></ol>
     </lk-breadcrumbs>
     <p></p>
     <lk-pagination label="Results" total="8" page="3"></lk-pagination>
-
-    <h2>Cards, dividers and skeletons</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for Breadcrumbs and pagination">
+        <p class="ex__good">Good for helping learners know where they are.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>A trail showing Home, then Courses, then the current course.</li>
+          <li>Page numbers for a long list of resources.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-nav">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="cards">
+      <div class="ex__demo">
+        <h2>Cards, dividers and skeletons</h2>
     <div class="lk-card"><h3>A card</h3><p>A bordered, padded surface.</p></div>
     <hr class="lk-divider" />
     <div aria-busy="true">
       <span class="lk-skeleton" aria-hidden="true" style="width: 60%"></span>
       <span class="lk-skeleton" aria-hidden="true"></span>
     </div>
-
-    <h2>Form controls</h2>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for Cards, dividers and skeletons">
+        <p class="ex__good">Good for grouping related content on a page.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>A card for each resource in a library.</li>
+          <li>A divider between sections of a long page.</li>
+          <li>Placeholders show that content is still loading.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=cards">See it in every look</a>
+      </aside>
+    </section>
+    <section class="ex" id="form-controls">
+      <div class="ex__demo">
+        <h2>Form controls</h2>
     <form novalidate>
       <lk-field label="Full name" hint="As you want it to appear on your certificate">
         <input name="name" autocomplete="name" required />
@@ -370,6 +705,18 @@
         if (!ok) e.target.querySelector('[data-invalid] :is(input, select, textarea)')?.focus();
       });
     </script>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for Form controls">
+        <p class="ex__good">Good for collecting information from learners.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>A sign-up or feedback form with clear labels and helpful error messages.</li>
+          <li>A confidence slider next to a short free-text answer.</li>
+          <li>Every field has a visible label and hint, and errors are read out to screen readers.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-field">See it in every look</a>
+      </aside>
+    </section>
 
     <h2>Themes</h2>
     <p>
