@@ -643,6 +643,21 @@ A table the learner completes. It starts as an ordinary table, so it still reads
 
 `data-answer` makes a text box. Separate accepted answers with `|`; capitals and spare spaces are ignored. `data-tick="yes"` makes a tick box that should be ticked, and `data-tick="no"` one that should be left empty. Each box is named by its row and column headings (for example "Behaviourism, Main idea"). "Check answers" marks every box **in words as well as colour** (Right, Not quite, Empty), and changing a box clears its mark. Add `show-answers` for a "Show answers" button that appears after a check. Events: `lk-check` `{ score, total, complete }`, `lk-reveal`. Methods: `check()`, `reset()`, `reveal()`. `el.values` reads what the learner has entered.
 
+### `<lk-glossary>`
+
+Terms and their meanings, for one page. Write a plain list in any order; the component sorts it A to Z.
+
+```html
+<lk-glossary label="Assessment terms">
+  <dl>
+    <dt>Summative assessment</dt><dd>Judging what has been learned at the end.</dd>
+    <dt>Formative assessment</dt><dd>Checking progress during learning, to help it along.</dd>
+  </dl>
+</lk-glossary>
+```
+
+A search box looks at terms and meanings. Jump links appear for each letter that has terms, and choosing one moves focus to that letter's heading. A term may have several meanings: follow its `<dt>` with more than one `<dd>`. `level` sets the heading level for the letters (1 to 6, default 3). The result count is announced to screen readers. Event: `lk-filter` `{ query, shown, total }`. Method: `filter(query)`.
+
 ### `<lk-hotspot>`
 
 Numbered points on a picture or diagram. Choosing a point shows its explanation, and the component tracks what has been explored.

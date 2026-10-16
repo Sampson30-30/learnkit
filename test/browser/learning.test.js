@@ -244,3 +244,45 @@ test('matrix: show answers fills and locks, and start again clears', async () =>
   assert(!boxes[0].disabled, 'unlocked');
   equal(el.querySelector('.lk-matrix__feedback').textContent, '');
 });
+
+// ---- lk-glossary ----
+
+const GLOSSARY = `<lk-glossary label="Terms">
+  <dl>
+    <dt>Moderation</dt><dd>Checking marking is fair.</dd>
+    <dt>Feedback</dt><dd>Comments to help improve.</dd><dd>A reply.</dd>
+    <dt>Criteria</dt><dd>Standards for judging work.</dd>
+    <dt>Assessment</dt><dd>Judging what was learned.</dd>
+  </dl>
+</lk-glossary>`;
+
+test('glossary: terms are sorted A to Z under letter headings, with a link for each letter', async () => {
+  const el = await mount(GLOSSARY);
+  equal([...el.querySelectorAll('dt')].map((t) => t.textContent), ['Assessment', 'Criteria', 'Feedback', 'Moderation']);
+  equal([...el.querySelectorAll('.lk-glossary__heading')].map((h) => h.textContent), ['A', 'C', 'F', 'M']);
+  equal([...el.querySelectorAll('.lk-glossary__letter')].map((a) => a.textContent), ['A', 'C', 'F', 'M']);
+  equal(el.querySelectorAll('dd').length, 5);
+  equal(el.querySelector('.lk-glossary__status').textContent, '4 terms');
+});
+
+test('glossary: searching hides other terms and empty letters, and announces the count', async () => {
+  const el = await mount(GLOSSARY);
+  const seen = listen(el, 'lk-filter');
+  el.filter('improve');
+  equal([...el.querySelectorAll('.lk-glossary__entry:not([hidden]) dt')].map((t) => t.textContent), ['Feedback']);
+  equal([...el.querySelectorAll('.lk-glossary__letter:not([hidden])')].map((a) => a.textContent), ['F']);
+  equal(el.querySelector('.lk-glossary__status').textContent, 'Showing 1 of 4 terms');
+  equal(seen[0], { query: 'improve', shown: 1, total: 4 });
+  el.filter('zzz');
+  equal(el.querySelector('.lk-glossary__status').textContent, 'No terms match');
+  assert(el.querySelector('nav').hidden, 'letters hidden when nothing matches');
+  el.filter('');
+  equal(el.querySelector('.lk-glossary__status').textContent, '4 terms');
+});
+
+test('glossary: choosing a letter moves focus to its heading', async () => {
+  const el = await mount(GLOSSARY);
+  click([...el.querySelectorAll('.lk-glossary__letter')].find((a) => a.textContent === 'M'));
+  equal(document.activeElement.textContent, 'M');
+  equal(document.activeElement.localName, 'h3');
+});

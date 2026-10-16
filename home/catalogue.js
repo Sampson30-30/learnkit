@@ -41,6 +41,7 @@ export const SHELVES = [
       { id: 'lk-tabs', tags: 'lk-tabs', name: 'Tabs', what: 'Split content into sections and show one at a time.' },
       { id: 'lk-accordion', tags: 'lk-accordion', name: 'Accordion', what: 'Headings that open and close to reveal more.' },
       { id: 'lk-tree', tags: 'lk-tree', name: 'Tree', what: 'A course outline that opens and closes, with one tab stop for the keyboard.' },
+      { id: 'lk-glossary', tags: 'lk-glossary', name: 'Glossary', what: 'Terms and meanings in A to Z order, with a search box and a link for each letter.', wide: true },
       { id: 'lk-table', tags: 'lk-table', name: 'Table', what: 'A table that learners can sort and filter.', wide: true },
       { id: 'cards', tags: '.lk-card, .lk-divider, .lk-skeleton', name: 'Cards, dividers and placeholders', what: 'Simple boxes and lines to group things, and grey shapes to show while content loads.' },
       { id: 'lk-nav', tags: 'lk-breadcrumbs, lk-pagination', name: 'Breadcrumbs and pagination', what: 'Show where someone is, and move between pages of results.' },

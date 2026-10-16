@@ -33,6 +33,7 @@ Version 0.1.0. Everything on the [roadmap](ROADMAP.md) is built.
 
 | Component | Description |
 | --- | --- |
+| `<lk-glossary>` | Terms and meanings from a plain list, sorted A to Z with search and letter links |
 | `<lk-table>` | Native table made sortable and filterable, announced to screen readers |
 | `<lk-alert>`, `<lk-chip>`, `<lk-avatar>` | Messages, tags and people |
 | `<lk-switch>` | On/off setting built on a native checkbox |

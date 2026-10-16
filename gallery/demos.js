@@ -330,6 +330,20 @@ export const DEMOS = [
       </lk-matrix>`,
   },
   {
+    id: 'lk-glossary',
+    title: 'Glossary',
+    html: () => `
+      <lk-glossary label="Assessment terms">
+        <dl>
+          <dt>Summative assessment</dt><dd>Judging what has been learned at the end.</dd>
+          <dt>Formative assessment</dt><dd>Checking progress during learning, to help it along.</dd>
+          <dt>Feedback</dt><dd>Comments that tell a learner how to improve.</dd>
+          <dt>Criteria</dt><dd>The standards a piece of work is judged against.</dd>
+          <dt>Moderation</dt><dd>Checking that marking is fair and consistent.</dd>
+        </dl>
+      </lk-glossary>`,
+  },
+  {
     id: 'lk-hotspot',
     title: 'Hotspot picture',
     html: () => `
