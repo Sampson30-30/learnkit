@@ -1,4 +1,4 @@
-import { test, assert, equal, mount, click, listen } from './harness.js';
+import { test, assert, equal, mount, click, listen, dragBetween } from './harness.js';
 
 const buttonText = (el) => [...el.querySelectorAll('button')].map((b) => b.textContent);
 const find = (el, text) => [...el.querySelectorAll('button')].find((b) => b.textContent === text);
@@ -122,17 +122,32 @@ test('order: checking marks wrong items in words, then solving it is correct', a
   equal(checks[1], { score: 4, total: 4, complete: true });
 });
 
-test('order: moving an item clears the marks, and dropping reorders', async () => {
+test('order: moving an item clears the marks, and dragging reorders', async () => {
   const el = await mount(ORDER);
   click(find(el, 'Check order'));
   const moved = rows(el)[3].querySelector('[data-move=up]');
   click(moved);
   assert(rows(el).every((r) => !r.dataset.state), 'marks cleared');
   const before = [...el.sequence];
-  const data = new DataTransfer();
-  data.setData('text/plain', '0');
-  rows(el)[2].dispatchEvent(new DragEvent('drop', { dataTransfer: data, bubbles: true, cancelable: true }));
+  rows(el)[0].scrollIntoView({ block: 'center' });
+  const from = rows(el)[0].querySelector('.lk-order__handle');
+  const to = rows(el)[2].getBoundingClientRect();
+  await dragBetween(from, { x: to.left + to.width / 2, y: to.top + to.height / 2 });
   equal(el.sequence, [before[1], before[2], before[0], before[3]]);
+});
+
+test('order: a pointer drag (a finger or a mouse) reorders, and a short press does nothing', async () => {
+  const el = await mount(ORDER);
+  rows(el)[0].scrollIntoView({ block: 'center' });
+  const before = [...el.sequence];
+  const handle = rows(el)[3].querySelector('.lk-order__handle');
+  const at = handle.getBoundingClientRect();
+  await dragBetween(handle, { x: at.left + at.width / 2, y: at.top + at.height / 2 });
+  equal(el.sequence, before, 'a press without movement is not a drag');
+  const top = rows(el)[0].getBoundingClientRect();
+  await dragBetween(handle, { x: top.left + top.width / 2, y: top.top + top.height / 2 });
+  equal(el.sequence, [before[3], before[0], before[1], before[2]]);
+  assert(!document.querySelector('.lk-drag-ghost'), 'the floating copy is gone');
 });
 
 // ---- lk-hotspot ----
@@ -285,4 +300,78 @@ test('glossary: choosing a letter moves focus to its heading', async () => {
   click([...el.querySelectorAll('.lk-glossary__letter')].find((a) => a.textContent === 'M'));
   equal(document.activeElement.textContent, 'M');
   equal(document.activeElement.localName, 'h3');
+});
+
+// ---- lk-sort ----
+
+const SORT = `<lk-sort label="Assessment">
+  <ul data-lk-group="Formative"><li>Quiz</li><li>Feedback</li></ul>
+  <ul data-lk-group="Summative"><li>Exam</li></ul>
+</lk-sort>`;
+const sortItem = (el, text) => [...el.querySelectorAll('.lk-sort__item')].find((li) => li.querySelector('.lk-sort__text').textContent === text);
+const zoneOf = (el, text) => sortItem(el, text).closest('.lk-sort__zone');
+
+test('sort: everything starts shuffled in the pile, and every item has a named Move to list', async () => {
+  const el = await mount(SORT);
+  equal(el.getAttribute('role'), 'group');
+  equal(el.querySelectorAll('.lk-sort__pile .lk-sort__item').length, 3);
+  equal(el.querySelectorAll('.lk-sort__board .lk-sort__item').length, 0);
+  const select = sortItem(el, 'Exam').querySelector('select');
+  equal(select.getAttribute('aria-label'), 'Move Exam to');
+  equal([...select.options].map((o) => o.textContent), ['The pile', 'Formative', 'Summative']);
+  equal(el.placed, [null, null, null]);
+});
+
+test('sort: the Move to list files an item, announces it and keeps focus on it', async () => {
+  const el = await mount(SORT);
+  const seen = listen(el, 'lk-sortchange');
+  const select = sortItem(el, 'Exam').querySelector('select');
+  select.value = '1';
+  select.dispatchEvent(new Event('change', { bubbles: true }));
+  assert(zoneOf(el, 'Exam').dataset.group === '1', 'moved to Summative');
+  equal(seen[0], { item: 2, group: 'Summative' });
+  equal(el.querySelectorAll('[role=status]')[1].textContent, 'Exam moved to Summative');
+  assert(document.activeElement === sortItem(el, 'Exam').querySelector('select'), 'focus follows the item');
+  el.place(2, -1);
+  equal(el.placed[2], null);
+  equal(seen[1], { item: 2, group: null });
+});
+
+test('sort: checking marks items in words, moving one clears the marks, and a full set is correct', async () => {
+  const el = await mount(SORT);
+  const checks = listen(el, 'lk-check');
+  el.place(0, 1); // Quiz in Summative: wrong
+  el.place(1, 0); // Feedback in Formative: right
+  click(find(el, 'Check answers'));
+  equal(sortItem(el, 'Quiz').querySelector('.lk-sort__mark').textContent, 'Not here');
+  equal(sortItem(el, 'Feedback').querySelector('.lk-sort__mark').textContent, 'Right group');
+  equal(sortItem(el, 'Exam').querySelector('.lk-sort__mark').textContent, 'Not sorted yet');
+  assert(el.querySelector('.lk-sort__feedback').textContent.includes('1 is not sorted yet'));
+  el.place(0, 0);
+  assert(!el.querySelector('.lk-sort__mark'), 'marks cleared');
+  el.place(2, 1);
+  click(find(el, 'Check answers'));
+  equal(checks[1], { score: 3, total: 3, complete: true });
+  assert(el.querySelector('.lk-sort__feedback').textContent.startsWith('Correct.'));
+  click(find(el, 'Start again'));
+  equal(el.placed, [null, null, null]);
+});
+
+test('sort: dragging an item by its handle onto a group files it', async () => {
+  const el = await mount(SORT);
+  sortItem(el, 'Exam').scrollIntoView({ block: 'center' });
+  const handle = sortItem(el, 'Exam').querySelector('.lk-sort__handle');
+  const zone = [...el.querySelectorAll('.lk-sort__zone')].find((z) => z.dataset.group === '1').getBoundingClientRect();
+  await dragBetween(handle, { x: zone.left + zone.width / 2, y: zone.top + zone.height / 2 });
+  assert(zoneOf(el, 'Exam').dataset.group === '1', 'dropped in Summative');
+  assert(!document.querySelector('.lk-drag-ghost'), 'the floating copy is gone');
+  // Dropping on empty page leaves it where it was.
+  const again = sortItem(el, 'Exam').querySelector('.lk-sort__handle');
+  await dragBetween(again, { x: 2, y: 2 });
+  assert(zoneOf(el, 'Exam').dataset.group === '1', 'still in Summative');
+});
+
+test('sort: needs two groups and two items, otherwise it leaves the markup alone', async () => {
+  const el = await mount(`<lk-sort label="x"><ul data-lk-group="Only"><li>One</li><li>Two</li></ul></lk-sort>`);
+  assert(!el.querySelector('.lk-sort__board'), 'not built');
 });

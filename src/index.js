@@ -23,6 +23,7 @@ export { LkSwitch } from './lk-switch.js';
 export { LkBreadcrumbs, LkPagination } from './lk-nav.js';
 export { LkFlashcards } from './lk-flashcards.js';
 export { LkOrder } from './lk-order.js';
+export { LkSort } from './lk-sort.js';
 export { LkMatrix } from './lk-matrix.js';
 export { LkGlossary } from './lk-glossary.js';
 export { LkHotspot } from './lk-hotspot.js';

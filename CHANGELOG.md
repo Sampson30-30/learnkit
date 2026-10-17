@@ -9,6 +9,11 @@ All notable changes are recorded here. The format follows [Keep a Changelog](htt
 - `lk-stepper` with many steps or long names no longer squashes its labels: it goes compact (current label only, others kept for screen readers) when there are more than five steps.
 
 ### Added
+- `<lk-sort>`: learners sort items into groups. Every item has a "Move to" list for keyboard, screen reader and touch users, and can also be dragged by a handle. Marked in words as well as colour, with a pile that shuffles. Logic in `core/sort.js`.
+- `core/drag.js`: dragging with pointer events, used by `lk-sort` and `lk-order`.
+
+### Changed
+- `<lk-order>` drag now uses pointer events, so it works with a finger or pen as well as a mouse. The browser's built-in drag does not work on most touch screens.
 - `sankofa` theme: the Sankofa look, built from the Sankofa design system in Claude Design. Warm paper surfaces, brown ink, indigo actions, serif text for reading and sans-serif for controls, no shadows, 48px-tall controls, 32px dialogs and a solid 2px focus ring. Uses the design system's own light, dark and status colours; warning, info and the status tints are LearnKit's own. Names Noto Serif and Noto Sans but does not load them. Contrast-checked in light and dark.
 - `howdigital` theme: the HoW Digital look, built from the HoW Digital design system in Claude Design. Dark ink with the four bright accents, coral pill tabs with ink text, rounded panels and ink dialog headers. The design system has no dark mode or status colours, so those are LearnKit's own choices. Names Raleway and Source Sans 3 but does not load them. Contrast-checked in light and dark.
 - `blc` theme: the Blended Learning Consortium look, built from the BLC design system in Claude Design. White and warm grey surfaces, charcoal text, BLC pink as the accent, 8px corners, 44px-tall controls, and the BLC CRM's own dark colours. Names Raleway and Source Sans 3 but does not load them. Status colours are LearnKit's own, as the design system has none. Contrast-checked in light and dark.
