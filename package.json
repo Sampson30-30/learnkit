@@ -14,7 +14,9 @@
   "files": ["src", "docs"],
   "scripts": {
     "test": "node --test \"test/*.test.js\"",
-    "start": "node scripts/serve.mjs"
+    "start": "node scripts/serve.mjs",
+    "sync": "node scripts/sync-themes.mjs",
+    "sync:check": "node scripts/sync-themes.mjs --check"
   },
   "keywords": ["web-components", "learning", "education", "elearning", "accessibility"],
   "license": "MIT",

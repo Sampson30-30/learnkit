@@ -1,0 +1,277 @@
+{
+  "name": "Blended Learning Consortium",
+  "version": 1,
+  "color": {
+    "themes": [
+      {
+        "id": "light",
+        "name": "Light"
+      },
+      {
+        "id": "dark",
+        "name": "Dark"
+      }
+    ],
+    "tokens": [
+      {
+        "name": "brand-pink",
+        "value": {
+          "light": "#d40e6e",
+          "dark": "#ff5ba8"
+        },
+        "usage": "Primary brand accent (logo gradient, top) and the CONSORTIUM wordmark, tuned for screen use. The light value is deliberately deeper than the original BLC swatch (#e61077), which was 4.46:1 on light surface and 4.11:1 on surface-raised, under the 4.5:1 text floor; this one is 5.14:1 on surface and 4.73:1 on surface-raised, so it can carry text, links, small button labels, icons, borders and fills at any size. The logo files keep the original artwork colour. The dark-theme value is the CRM's own MudTheme Primary for dark mode, 6.4:1 against dark surfaces."
+      },
+      {
+        "name": "brand-orange",
+        "value": "#f3931d",
+        "usage": "Secondary brand accent (logo gradient, middle) and the 'Blended Learning' wordmark. Fills, icons and decorative use only, 2.33:1 on light surface, well under the text floor; unchanged in dark mode, the CRM's theme has no dark variant for it. Pair any text on an orange fill with on-orange."
+      },
+      {
+        "name": "brand-yellow",
+        "value": "#f8c81e",
+        "usage": "Tertiary brand accent (logo gradient, base). Fills and decorative use only, 1.58:1 on light surface; unchanged in dark mode, the CRM's theme has no dark variant for it. Pair any text on a yellow fill with on-yellow."
+      },
+      {
+        "name": "brand-cyan",
+        "value": "#55edf9",
+        "usage": "Supporting accent, the confetti detail beside the roundel mark. Fills, chips and small decorative use only, 1.41:1 on light surface, effectively unreadable as text; unchanged in dark mode. Use brand-secondary wherever the cyan family needs to appear as text or an icon."
+      },
+      {
+        "name": "brand-secondary",
+        "value": {
+          "light": "#006064",
+          "dark": "#4db6bc"
+        },
+        "usage": "The readable member of the cyan family: a dark teal in light mode, a lighter teal in dark mode, matching the CRM's MudTheme Secondary in both. 7.3:1 on light surface, 7.7:1 on dark surface. Use for text, icons and small status indicators where brand-cyan's meaning is needed but brand-cyan itself can't be read."
+      },
+      {
+        "name": "ink",
+        "value": {
+          "light": "#333333",
+          "dark": "#e0e0e0"
+        },
+        "usage": "Primary text and headings on surface and surface-raised. 12.6:1 in light mode; the dark value matches the CRM's MudTheme DrawerText (its only explicit dark text colour), applied here as the general dark text colour, 13.9:1 on dark surface."
+      },
+      {
+        "name": "ink-secondary",
+        "value": {
+          "light": "#666666",
+          "dark": "#a3a3ad"
+        },
+        "usage": "Secondary and muted text (captions, metadata, helper text) on surface and surface-raised. 5.7:1 light, 7.4:1 dark. Added scaffolding in both themes, not from a BLC source file."
+      },
+      {
+        "name": "surface",
+        "value": {
+          "light": "#ffffff",
+          "dark": "#13131f"
+        },
+        "usage": "Page background. The dark value matches the CRM's MudTheme Background."
+      },
+      {
+        "name": "surface-raised",
+        "value": {
+          "light": "#f7f5f4",
+          "dark": "#1e1e2e"
+        },
+        "usage": "Cards, panels and any surface raised above the page background. The dark value matches the CRM's MudTheme Surface. The CRM also uses a third, slightly different dark shade for its navigation drawer (DrawerBackground, #1a1a2e); left out of this two-tier model for now."
+      },
+      {
+        "name": "border",
+        "value": {
+          "light": "#e2dfdd",
+          "dark": "#34344a"
+        },
+        "usage": "Dividers, input borders and card outlines on surface and surface-raised. Added scaffolding in both themes, chosen to sit quietly within each theme rather than to meet a specific ratio."
+      },
+      {
+        "name": "on-pink",
+        "value": "{surface}",
+        "usage": "Text and icons on a brand-pink fill. 5.14:1 in light mode, so it passes at any size; in dark mode brand-pink is much lighter and surface is dark, so it passes there too (6.4:1)."
+      },
+      {
+        "name": "on-orange",
+        "value": "#333333",
+        "usage": "Text and icons on a brand-orange fill, 5.42:1. Kept as a fixed dark colour in both themes, since brand-orange itself doesn't change in dark mode."
+      },
+      {
+        "name": "on-yellow",
+        "value": "#333333",
+        "usage": "Text and icons on a brand-yellow fill, 7.98:1. Kept as a fixed dark colour in both themes, since brand-yellow itself doesn't change in dark mode."
+      },
+      {
+        "name": "on-cyan",
+        "value": "#333333",
+        "usage": "Text and icons on a brand-cyan fill, 8.94:1. Kept as a fixed dark colour in both themes, since brand-cyan itself doesn't change in dark mode."
+      },
+      {
+        "name": "on-secondary",
+        "value": "{surface}",
+        "usage": "Text and icons on a brand-secondary fill, 7.3:1 light, 7.7:1 dark."
+      },
+      {
+        "name": "focus-ring",
+        "value": "{brand-pink}",
+        "usage": "Focus outline for keyboard navigation; always solid, at least 2px. 5.14:1 against light surface, 4.73:1 against surface-raised, 6.4:1 against dark surfaces."
+      },
+      {
+        "name": "danger",
+        "value": {
+          "light": "#b3261e",
+          "dark": "#ff8a80"
+        },
+        "usage": "Validation errors in data grids and forms: the cell or field outline, the error icon and the error sentence. 6.5:1 on light surface and 6.0:1 on surface-raised; 8.1:1 on dark surface and 7.2:1 on surface-raised. Added for data entry, not taken from a BLC source. It is close to brand-pink in lightness (1.3:1), so always show an error with an icon and a sentence, never colour alone."
+      },
+      {
+        "name": "danger-bg",
+        "value": {
+          "light": "#fdecea",
+          "dark": "#3b1a1f"
+        },
+        "usage": "Background of a cell or field that has an error. Text on it: ink (11:1 light, 11.8:1 dark) and danger (5.7:1 light, 6.8:1 dark)."
+      }
+    ]
+  },
+  "type": {
+    "families": {
+      "heading": "\"Raleway\", sans-serif",
+      "body": "\"Source Sans 3\", sans-serif"
+    },
+    "groups": [
+      {
+        "name": "Text",
+        "family": "heading",
+        "styles": [
+          {
+            "name": "title",
+            "fontSize": "42px",
+            "lineHeight": "48px",
+            "fontWeight": 700,
+            "usage": "Page and hero titles, the largest style in the system."
+          },
+          {
+            "name": "subtitle",
+            "fontSize": "36px",
+            "lineHeight": "42px",
+            "fontWeight": 700,
+            "usage": "Secondary hero or page subtitle set beneath a Title."
+          },
+          {
+            "name": "heading",
+            "fontSize": "32px",
+            "lineHeight": "40px",
+            "fontWeight": 400,
+            "usage": "Top-level section headings."
+          },
+          {
+            "name": "subheading",
+            "fontSize": "24px",
+            "lineHeight": "32px",
+            "fontWeight": 400,
+            "usage": "Sub-section headings beneath a Heading."
+          },
+          {
+            "name": "section-header",
+            "fontSize": "20px",
+            "lineHeight": "28px",
+            "fontWeight": 400,
+            "usage": "Small in-page section labels above a group of content."
+          },
+          {
+            "name": "body",
+            "family": "body",
+            "fontSize": "18px",
+            "lineHeight": "28px",
+            "fontWeight": 400,
+            "usage": "Default paragraph copy."
+          },
+          {
+            "name": "quote",
+            "family": "body",
+            "fontSize": "20px",
+            "lineHeight": "30px",
+            "fontWeight": 400,
+            "fontStyle": "italic",
+            "usage": "Pull-quotes and testimonials. Not yet set in the BLC font panel this system was built from; inferred from Body at a larger italic size, confirm before treating as final."
+          },
+          {
+            "name": "caption",
+            "family": "body",
+            "fontSize": "14px",
+            "lineHeight": "20px",
+            "fontWeight": 400,
+            "usage": "Image captions, footnotes and metadata. Not yet set in the BLC font panel this system was built from; inferred as a smaller Body, confirm before treating as final."
+          }
+        ]
+      }
+    ]
+  },
+  "spacing": {
+    "tokens": [
+      {
+        "name": "space-1",
+        "value": "4px",
+        "usage": "Tight gaps: icon-to-label, chip padding. Added scaffolding, not in the BLC brand file."
+      },
+      {
+        "name": "space-2",
+        "value": "8px",
+        "usage": "Compact padding: small buttons, list-item gaps."
+      },
+      {
+        "name": "space-3",
+        "value": "12px",
+        "usage": "Default padding for compact controls."
+      },
+      {
+        "name": "space-4",
+        "value": "16px",
+        "usage": "Default padding and gap: cards, form fields, standard stacks."
+      },
+      {
+        "name": "space-6",
+        "value": "24px",
+        "usage": "Separation between components within a section."
+      },
+      {
+        "name": "space-8",
+        "value": "32px",
+        "usage": "Section padding; page gutters on mobile."
+      },
+      {
+        "name": "space-12",
+        "value": "48px",
+        "usage": "Major section breaks; page gutters on desktop."
+      },
+      {
+        "name": "target-min",
+        "value": "44px",
+        "usage": "Minimum hit area for any interactive control, in both directions (WCAG 2.5.5). Pad with space-2 or space-3 rather than shrinking the control itself."
+      }
+    ]
+  },
+  "radius": {
+    "tokens": [
+      {
+        "name": "radius-sm",
+        "value": "4px",
+        "usage": "Inputs, chips, small controls."
+      },
+      {
+        "name": "radius-md",
+        "value": "8px",
+        "usage": "Cards, buttons, standard containers."
+      },
+      {
+        "name": "radius-lg",
+        "value": "16px",
+        "usage": "Large panels, modals, hero cards."
+      },
+      {
+        "name": "radius-full",
+        "value": "999px",
+        "usage": "Pills and avatars; echoes the roundel mark's circular badge."
+      }
+    ]
+  }
+}

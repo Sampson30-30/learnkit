@@ -2,18 +2,25 @@
 
    The Blended Learning Consortium look, taken from the BLC design system in
    Claude Design: white and warm grey surfaces, charcoal text, the BLC pink as
-   the accent, and 8px corners. Light and dark. The dark colours are the BLC
-   CRM's own.
+   the accent, and 8px corners. Light and dark.
+
+   The colours are generated from the design system, which holds the originals.
+   design-systems/blc.tokens.json is a copy of its tokens, design-systems/
+   blc.map.json says which token feeds which --lk-* colour, and npm run sync
+   rewrites the generated blocks below. To change a colour, change it in the
+   design system, copy its tokens.json over the snapshot and sync. Do not edit
+   the generated blocks by hand.
+
+   The design system defines nothing for these, so they are LearnKit's own and
+   live in the map: the control border, the backdrop, success, warning and the
+   info background. Replace them if BLC sets its own. A border-strong token in
+   the design system would let the control border be inherited too.
 
    Fonts: BLC uses Raleway for headings and Source Sans 3 for body text. This
    theme names them first but does not load them, so nothing is fetched from
    the internet. Without them the page falls back to the system font. To use
    them, load them from Google Fonts or host the files yourself (see
    docs/theming.md).
-
-   Status colours (success, warning, danger, info) are not defined by the BLC
-   design system, so these are LearnKit's own choices in the BLC palette's
-   spirit. Replace them if BLC sets its own.
 
    Use:  <html data-lk-theme="blc">
    Scope it to one section by putting the attribute on a wrapper instead.
@@ -30,6 +37,7 @@
     --lk-border-width: 1px;
     --lk-shadow: none;
 
+    /* BEGIN generated:light from design-systems/blc.tokens.json. Edit that file or blc.map.json, then run npm run sync. */
     --lk-color-page: #ffffff;
     --lk-color-bg: #ffffff;
     --lk-color-surface: #f7f5f4;
@@ -46,15 +54,17 @@
     --lk-color-warning: #946200;
     --lk-color-warning-bg: #fbf0d4;
     --lk-color-danger: #b3261e;
-    --lk-color-danger-bg: #fbe4e1;
+    --lk-color-danger-bg: #fdecea;
     --lk-color-info: #006064;
     --lk-color-info-bg: #def3f4;
+    /* END generated */
   }
 
   /* ---- Tokens: dark ---- */
 
   @media (prefers-color-scheme: dark) {
     [data-lk-theme='blc']:not([data-lk-mode='light']) {
+      /* BEGIN generated:dark from design-systems/blc.tokens.json. Edit that file or blc.map.json, then run npm run sync. */
       --lk-color-page: #13131f;
       --lk-color-bg: #13131f;
       --lk-color-surface: #1e1e2e;
@@ -70,15 +80,17 @@
       --lk-color-success-bg: #12281b;
       --lk-color-warning: #f3b84a;
       --lk-color-warning-bg: #2d2110;
-      --lk-color-danger: #ff9a92;
-      --lk-color-danger-bg: #341a18;
+      --lk-color-danger: #ff8a80;
+      --lk-color-danger-bg: #3b1a1f;
       --lk-color-info: #4db6bc;
       --lk-color-info-bg: #0f2a30;
+      /* END generated */
       --lk-shadow: none;
     }
   }
 
   [data-lk-theme='blc'][data-lk-mode='dark'] {
+    /* BEGIN generated:dark from design-systems/blc.tokens.json. Edit that file or blc.map.json, then run npm run sync. */
     --lk-color-page: #13131f;
     --lk-color-bg: #13131f;
     --lk-color-surface: #1e1e2e;
@@ -94,10 +106,11 @@
     --lk-color-success-bg: #12281b;
     --lk-color-warning: #f3b84a;
     --lk-color-warning-bg: #2d2110;
-    --lk-color-danger: #ff9a92;
-    --lk-color-danger-bg: #341a18;
+    --lk-color-danger: #ff8a80;
+    --lk-color-danger-bg: #3b1a1f;
     --lk-color-info: #4db6bc;
     --lk-color-info-bg: #0f2a30;
+    /* END generated */
     --lk-shadow: none;
   }
 

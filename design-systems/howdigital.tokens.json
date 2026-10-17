@@ -1,0 +1,265 @@
+{
+  "name": "HoW Digital",
+  "version": 1,
+  "color": {
+    "themes": [
+      {
+        "id": "light",
+        "name": "Light"
+      },
+      {
+        "id": "dark",
+        "name": "Dark"
+      }
+    ],
+    "tokens": [
+      {
+        "name": "ink",
+        "value": "#2a2b25",
+        "usage": "The logo's dark neutral. Fixed in both themes: it is the text on every accent fill, and the primary text colour in the Light theme. Reads on the lighter accents (coral, sky, orchid, lime). For body text that has to flip between themes, use text."
+      },
+      {
+        "name": "text",
+        "value": {
+          "light": "#2a2b25",
+          "dark": "#f3f3ee"
+        },
+        "usage": "Primary text and headings on surface and surface-raised. 14.3:1 on light surface, 15.2:1 on dark surface."
+      },
+      {
+        "name": "text-secondary",
+        "value": {
+          "light": "#5c5d54",
+          "dark": "#b4b5ab"
+        },
+        "usage": "Captions, hints and metadata on surface and surface-raised. 6.7:1 light, 8.2:1 dark."
+      },
+      {
+        "name": "surface",
+        "value": {
+          "light": "#ffffff",
+          "dark": "#1c1d18"
+        },
+        "usage": "Page background. White in Light; in Dark a deep, warm version of ink rather than pure black."
+      },
+      {
+        "name": "surface-raised",
+        "value": {
+          "light": "#f5f5f0",
+          "dark": "#26271f"
+        },
+        "usage": "Cards, panels and fields that sit on surface."
+      },
+      {
+        "name": "border",
+        "value": {
+          "light": "#dcddd4",
+          "dark": "#35362e"
+        },
+        "usage": "Decorative dividers and card outlines. Carries no meaning on its own, so never use it for a control edge."
+      },
+      {
+        "name": "border-strong",
+        "value": "#8a8b80",
+        "usage": "Control edges such as inputs and outlined buttons. 3.5:1 on light surface and 4.9:1 on dark surface; 3.2:1 on light surface-raised and 4.4:1 on dark."
+      },
+      {
+        "name": "contrast-fill",
+        "value": {
+          "light": "#2a2b25",
+          "dark": "#f3f3ee"
+        },
+        "usage": "The strongest fill for a button or tag. Dark in Light, light in Dark, so it always stands out from surface. Pair with on-contrast-fill."
+      },
+      {
+        "name": "on-contrast-fill",
+        "value": {
+          "light": "#ffffff",
+          "dark": "#2a2b25"
+        },
+        "usage": "Text on contrast-fill. 14.3:1 in Light, 12.8:1 in Dark."
+      },
+      {
+        "name": "focus-ring",
+        "value": {
+          "light": "#2a2b25",
+          "dark": "#62c3de"
+        },
+        "usage": "Focus outline, solid and at least 3px with a 2px offset. Ink in Light; sky in Dark, 8.4:1 on dark surface."
+      },
+      {
+        "name": "coral",
+        "value": "#eb5c63",
+        "usage": "Warm accent for highlights and emphasis fills. Set ink text on it, not white. The same in both themes. On dark surface it also reads as text at 5.0:1; on dark surface-raised it is 4.5:1, so keep it to large or bold type there."
+      },
+      {
+        "name": "sky",
+        "value": "#62c3de",
+        "usage": "Cool accent for secondary highlights and informational fills. Set ink text on it. The same in both themes. On dark surface it also reads as text, 8.4:1."
+      },
+      {
+        "name": "orchid",
+        "value": "#f291e9",
+        "usage": "Playful accent for decorative fills and highlights. Set ink text on it. The same in both themes. On dark surface it also reads as text, 8.1:1."
+      },
+      {
+        "name": "lime",
+        "value": "#addb49",
+        "usage": "Fresh accent for positive or active fills. Set ink text on it. The same in both themes. On dark surface it also reads as text, 10.5:1."
+      },
+      {
+        "name": "danger",
+        "value": {
+          "light": "#b3261e",
+          "dark": "#ff8a80"
+        },
+        "usage": "Validation errors in data grids and forms: the cell or field outline, the error icon and the error sentence. 6.5:1 on light surface and 6.0:1 on surface-raised; 7.4:1 on dark surface and 6.6:1 on surface-raised. Close in feel to coral, so always show an error with an icon and a sentence, never colour alone."
+      },
+      {
+        "name": "danger-bg",
+        "value": {
+          "light": "#fdecea",
+          "dark": "#3b1f1d"
+        },
+        "usage": "Background of a cell or field that has an error. Text on it: text (12.5:1 light, 13.5:1 dark) and danger (5.7:1 light, 6.6:1 dark)."
+      }
+    ]
+  },
+  "type": {
+    "families": {
+      "heading": "\"Raleway\", sans-serif",
+      "body": "\"Source Sans 3\", sans-serif"
+    },
+    "groups": [
+      {
+        "name": "Text",
+        "family": "heading",
+        "styles": [
+          {
+            "name": "title",
+            "fontSize": "42px",
+            "lineHeight": "48px",
+            "fontWeight": 700,
+            "usage": "Page and hero titles, the largest style in the system."
+          },
+          {
+            "name": "subtitle",
+            "fontSize": "36px",
+            "lineHeight": "42px",
+            "fontWeight": 700,
+            "usage": "Secondary hero or page subtitle set beneath a Title."
+          },
+          {
+            "name": "heading",
+            "fontSize": "32px",
+            "lineHeight": "40px",
+            "fontWeight": 400,
+            "usage": "Top-level section headings."
+          },
+          {
+            "name": "subheading",
+            "fontSize": "24px",
+            "lineHeight": "32px",
+            "fontWeight": 400,
+            "usage": "Sub-section headings beneath a Heading."
+          },
+          {
+            "name": "section-header",
+            "fontSize": "20px",
+            "lineHeight": "28px",
+            "fontWeight": 400,
+            "usage": "Small in-page section labels above a group of content."
+          },
+          {
+            "name": "body",
+            "family": "body",
+            "fontSize": "18px",
+            "lineHeight": "28px",
+            "fontWeight": 400,
+            "usage": "Default paragraph copy."
+          },
+          {
+            "name": "quote",
+            "family": "body",
+            "fontSize": "20px",
+            "lineHeight": "30px",
+            "fontWeight": 400,
+            "fontStyle": "italic",
+            "usage": "Pull-quotes and testimonials. Not yet set in the BLC font panel this system was built from; inferred from Body at a larger italic size, confirm before treating as final."
+          },
+          {
+            "name": "caption",
+            "family": "body",
+            "fontSize": "14px",
+            "lineHeight": "20px",
+            "fontWeight": 400,
+            "usage": "Image captions, footnotes and metadata. Not yet set in the BLC font panel this system was built from; inferred as a smaller Body, confirm before treating as final."
+          }
+        ]
+      }
+    ]
+  },
+  "spacing": {
+    "tokens": [
+      {
+        "name": "space-1",
+        "value": "4px",
+        "usage": "Tight gaps: icon-to-label, chip padding."
+      },
+      {
+        "name": "space-2",
+        "value": "8px",
+        "usage": "Compact padding: small buttons, list-item gaps."
+      },
+      {
+        "name": "space-3",
+        "value": "12px",
+        "usage": "Default padding for compact controls."
+      },
+      {
+        "name": "space-4",
+        "value": "16px",
+        "usage": "Default padding and gap: cards, form fields, standard stacks."
+      },
+      {
+        "name": "space-6",
+        "value": "24px",
+        "usage": "Separation between components within a section."
+      },
+      {
+        "name": "space-8",
+        "value": "32px",
+        "usage": "Section padding; page gutters on mobile."
+      },
+      {
+        "name": "space-12",
+        "value": "48px",
+        "usage": "Major section breaks; page gutters on desktop."
+      }
+    ]
+  },
+  "radius": {
+    "tokens": [
+      {
+        "name": "radius-sm",
+        "value": "4px",
+        "usage": "Inputs, chips and small controls."
+      },
+      {
+        "name": "radius-md",
+        "value": "8px",
+        "usage": "Cards, buttons and standard containers."
+      },
+      {
+        "name": "radius-lg",
+        "value": "16px",
+        "usage": "Large panels, modals and hero cards."
+      },
+      {
+        "name": "radius-full",
+        "value": "999px",
+        "usage": "Pills, avatars and discs; echoes the round and pill shapes of the logo and cover."
+      }
+    ]
+  }
+}
