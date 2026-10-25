@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en-GB" data-lk-theme="clean">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Social Media Challenge</title>
+    <link rel="stylesheet" href="../../src/learnkit.css" />
+    <link rel="stylesheet" href="../../src/themes/clean.css" id="theme-sheet" />
+    <link rel="stylesheet" href="../lesson.css" />
+    <script type="module" src="../lesson.js"></script>
+  </head>
+  <body data-activities="1">
+    <p class="back-link"><a href="../../">&larr; LearnKit home</a> &middot; <a href="../">Git and GitHub lesson</a> &middot; <a href="../architecture/">How a project fits together</a></p>
+
+    <div class="top">
+      <div class="top__row">
+        <lk-progress id="progress" label="Activity completed" value="0" show-value></lk-progress>
+        <div>
+          <label for="look">Look</label>
+          <select id="look">
+            <option value="clean" selected>Clean</option>
+            <option value="soft">Soft</option>
+            <option value="bold">Bold</option>
+            <option value="contrast">High contrast</option>
+            <option value="homepage">Homepage</option>
+            <option value="blc">BLC</option>
+            <option value="howdigital">HoW Digital</option>
+            <option value="sankofa">Sankofa</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <h1>The Social Media Challenge</h1>
+
+      <details class="lk-guide" open>
+        <summary>About this page</summary>
+        <div class="lk-guide__body">
+          <p><strong>What this is.</strong> A colleague&rsquo;s activity, rebuilt from LearnKit pieces. The wording is theirs. The original was one file of about 330 lines. This page has no style or script of its own.</p>
+          <p class="lk-guide__title">What you can do here</p>
+          <ul>
+            <li>Try the activity as a learner would, then check your answers.</li>
+            <li>Change the &ldquo;Look&rdquo; at the top. The same activity changes style, with nothing edited.</li>
+            <li>Open &ldquo;What changed from the original&rdquo; at the bottom to see where each part went.</li>
+          </ul>
+        </div>
+      </details>
+
+      <section aria-labelledby="intro-title">
+        <h2 id="intro-title">Pause before you respond</h2>
+        <p>Explore a simulated social media feed. For each post, choose the action you think is most helpful: Engage, Challenge, Ignore or Report. Allow around 5–8 minutes.</p>
+        <lk-alert tone="info">
+          Select one action for each post. You can change your mind before checking your answers. There may be more than one reasonable response in real life; consider safety, context and the platform’s reporting tools.
+        </lk-alert>
+      </section>
+
+      <section aria-labelledby="feed-title">
+        <h2 id="feed-title">Your feed</h2>
+        <lk-respond label="Your feed" question="What would you do?" level="3" explanation-label="British Values and Prevent">
+          <div data-lk-case="Post 1 · Local community account" data-kind="Public post">
+            <p>“The council has cancelled every local election next year. Share this before they delete it!” The post offers no source or link to an official announcement.</p>
+            <div data-lk-action="Engage">Sharing or liking this claim may spread an unverified statement to more people.</div>
+            <div data-lk-action="Challenge" correct>A calm request for evidence, alongside a link to an official source if available, can help others assess the claim.</div>
+            <div data-lk-action="Ignore">You avoid amplifying it, but others may still mistake the claim for a verified fact.</div>
+            <div data-lk-action="Report">Reporting can help if the post breaches platform rules, but an unsupported claim does not always meet a reporting threshold.</div>
+            <p data-lk-explanation>Democracy and individual liberty depend on access to reliable information. Check credible sources before sharing, and challenge misinformation respectfully.</p>
+          </div>
+
+          <div data-lk-case="Post 2 · Comment beneath a community event" data-kind="Comment thread">
+            <p>“People from that religion don’t belong here. Keep them out of our events.”</p>
+            <div data-lk-action="Engage">Agreeing with or boosting the comment can normalise hostility towards a protected group.</div>
+            <div data-lk-action="Challenge" correct>A brief, respectful objection can show others that exclusion is not acceptable. Avoid a prolonged hostile exchange.</div>
+            <div data-lk-action="Ignore">Not replying may protect your own wellbeing, but the harmful comment can remain visible.</div>
+            <div data-lk-action="Report" correct>Using the platform’s reporting tools creates a route for the discriminatory comment to be reviewed.</div>
+            <p data-lk-explanation>Mutual respect and tolerance mean people should not be excluded because of their beliefs. Reporting is a strong response; a safe, measured challenge can also help.</p>
+          </div>
+
+          <div data-lk-case="Post 3 · Neighbourhood forum member" data-kind="Discussion post">
+            <p>“I disagree with the proposed transport policy. Here are three reasons and a link to the public consultation. What do others think?”</p>
+            <div data-lk-action="Engage" correct>A thoughtful reply can contribute to a constructive discussion, even when you disagree.</div>
+            <div data-lk-action="Challenge" correct>You can challenge the reasoning with evidence and courtesy, without attacking the person.</div>
+            <div data-lk-action="Ignore">You are free not to take part, though you miss a chance to contribute your perspective.</div>
+            <div data-lk-action="Report">Reporting respectful political disagreement as abuse may misuse reporting tools.</div>
+            <p data-lk-explanation>Democracy and individual liberty support peaceful debate. Engage or challenge the ideas respectfully; disagreement alone is not a reason to report.</p>
+          </div>
+
+          <div data-lk-case="Post 4 · Unknown account" data-kind="Direct message">
+            <p>“Our private group knows who is really to blame. Stop listening to everyone else. Join us tonight and help take action against them. Keep this between us.”</p>
+            <div data-lk-action="Engage">Replying could draw you further into a manipulative conversation or expose you to more harmful material.</div>
+            <div data-lk-action="Challenge">Arguing directly with the sender could prolong contact and may put you at risk.</div>
+            <div data-lk-action="Ignore">Disengaging prevents further conversation, but does not alert anyone to the concerning approach.</div>
+            <div data-lk-action="Report" correct>Report the message using the platform’s tools and follow your organisation’s safeguarding process. Do not investigate the account yourself.</div>
+            <p data-lk-explanation>Prevent is about recognising and responding to risks of radicalisation early. Secrecy, isolation and pressure to act are warning signs; report concerns through appropriate channels.</p>
+          </div>
+
+          <div data-lk-case="Post 5 · Unfamiliar profile" data-kind="Shared video caption">
+            <p>“The only way to fix this is to hurt the people responsible. Send this to everyone you know.”</p>
+            <div data-lk-action="Engage">Forwarding or endorsing the message risks spreading encouragement of violence.</div>
+            <div data-lk-action="Challenge">A public argument may amplify the message or invite further abuse.</div>
+            <div data-lk-action="Ignore">Not sharing reduces amplification, but leaves a potentially serious threat unreported.</div>
+            <div data-lk-action="Report" correct>Report the content and follow safeguarding procedures. If there is an immediate threat, contact the appropriate emergency service.</div>
+            <p data-lk-explanation>The rule of law rejects violence as a response to disagreement. Prevent and safeguarding processes offer appropriate ways to raise concerns without amplifying harmful content.</p>
+          </div>
+        </lk-respond>
+      </section>
+
+      <lk-alert tone="warning">
+        If online content appears to pose an immediate risk, follow your organisation’s safeguarding procedure. Do not investigate or confront someone yourself.
+      </lk-alert>
+
+      <section aria-labelledby="changed">
+        <h2 id="changed">What changed from the original</h2>
+        <lk-accordion label="Where each part of the original went" multiple>
+          <div data-lk-item="The wording stayed" open><p>Every post, outcome and explanation is the colleague&rsquo;s, in the same order. It is the one thing that belongs to this page.</p></div>
+          <div data-lk-item="About 110 lines of style became shared" open><p>The original carried its own colours, fonts, button styles and layout. Now the colours come from the look chosen at the top, and the buttons are the same buttons every other LearnKit page uses. Switch the look and the whole activity follows.</p></div>
+          <div data-lk-item="About 170 lines of script became one component" open><p>Choosing, changing your mind, checking, resetting and announcing the result to screen readers is now the <code>lk-respond</code> component. A fix to it reaches every activity that uses it, not just this one.</p></div>
+          <div data-lk-item="Six outside scripts and a font link were dropped"><p>The original loaded six scripts and a web font from the internet. Some belonged to the tool that exported it and will not exist elsewhere, and nothing used the icon or layout libraries. This page loads nothing from outside.</p></div>
+          <div data-lk-item="One thing is different"><p>The original showed each explanation twice: once on choosing, and again after checking. Here it shows once, when the learner chooses. The check step says whether the choice was suitable and names the better one.</p></div>
+        </lk-accordion>
+      </section>
+    </main>
+  </body>
+</html>
