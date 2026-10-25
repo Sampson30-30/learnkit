@@ -330,6 +330,27 @@ export const DEMOS = [
       </lk-sort>`,
   },
   {
+    id: 'lk-respond',
+    title: 'Choose a response',
+    html: () => `
+      <lk-respond label="Your feed" question="What would you do?" level="3">
+        <div data-lk-case="Post 1 · Local community account" data-kind="Public post">
+          <p>“The council has cancelled every local election next year. Share this before they delete it!”</p>
+          <div data-lk-action="Engage">Sharing it may spread an unverified claim.</div>
+          <div data-lk-action="Challenge" correct>A calm request for evidence can help others judge the claim.</div>
+          <div data-lk-action="Ignore">You avoid amplifying it, but others may believe it.</div>
+          <p data-lk-explanation>Check credible sources before sharing.</p>
+        </div>
+        <div data-lk-case="Post 2 · Neighbourhood forum" data-kind="Discussion post">
+          <p>“I disagree with the transport policy. Here are my reasons. What do others think?”</p>
+          <div data-lk-action="Engage" correct>A thoughtful reply adds to the discussion.</div>
+          <div data-lk-action="Ignore">You are free not to take part.</div>
+          <div data-lk-action="Report">Reporting respectful disagreement misuses the tools.</div>
+          <p data-lk-explanation>Disagreement alone is not a reason to report.</p>
+        </div>
+      </lk-respond>`,
+  },
+  {
     id: 'lk-matrix',
     title: 'Fill-in table',
     html: () => `

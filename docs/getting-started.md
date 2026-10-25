@@ -637,6 +637,24 @@ The learner sorts items into groups. **Write each item under the group where it 
 
 Every item has a "Move to" list, so it works by keyboard, screen reader and touch. Mouse, finger and pen users can also drag an item by its handle onto a group; each move is announced ("A final exam moved to Summative"). "Check answers" marks every item **in words as well as colour** (Right group, Not here, Not sorted yet), and moving an item clears its mark. Needs at least two groups and two items. Events: `lk-sortchange` `{ item, group }` (group is `null` for the pile), `lk-check` `{ score, total, complete }`. Methods: `place(item, group)` (use `-1` for the pile), `check()`, `reset()`. `el.placed` reads where every item is.
 
+### `<lk-respond>`
+
+A set of situations, such as posts in a feed. For each one the learner picks a response, reads what would happen, then checks them all together. **Mark every suitable response `correct`**: unlike `lk-quiz`, any one of them is enough.
+
+```html
+<lk-respond label="Your feed" question="What would you do?">
+  <div data-lk-case="Post 1 from a local account" data-kind="Public post">
+    <p>"The council has cancelled every election. Share this before it is deleted!"</p>
+    <div data-lk-action="Engage">Sharing spreads an unchecked claim.</div>
+    <div data-lk-action="Challenge" correct>Ask for evidence, calmly.</div>
+    <div data-lk-action="Ignore">You avoid amplifying it, but others may believe it.</div>
+    <p data-lk-explanation>Check credible sources before sharing.</p>
+  </div>
+</lk-respond>
+```
+
+Anything in a case that is not an action or an explanation is shown as the situation. Choosing a response shows what would happen, and the learner can change their mind until they press "Check answers", which marks every case **in words as well as colour** (Correct, Not quite). Checking before every case is answered says how many are left. "Reset" clears everything and returns focus to the first response. A case needs at least two responses and one marked `correct`; otherwise it is skipped and the console says why. Attributes: `label` (required), `question`, `level` (heading level for case titles, default 3), `explanation-label`. Events: `lk-respond` `{ index, action }`, `lk-check` `{ score, total, complete }`. Methods: `choose(index, action)`, `check()`, `reset()`. `el.answers` reads every choice.
+
 ### `<lk-matrix>`
 
 A table the learner completes. It starts as an ordinary table, so it still reads without JavaScript. Mark the cells to complete in the markup.
