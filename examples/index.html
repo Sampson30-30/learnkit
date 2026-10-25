@@ -551,6 +551,53 @@
         <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-menu">See the menu in every look</a> <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-tree">See the outline in every look</a> <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-drawer">See the side panel in every look</a>
       </aside>
     </section>
+    <section class="ex" id="lk-conversation" data-shelf="story">
+      <div class="ex__demo">
+        <h2>lk-conversation</h2>
+        <lk-conversation label="Two ways to reply to a chatbot" example>
+          <div data-lk-thread="Accepting the claim">
+            <div data-lk-from="You" data-side="end">What is the best way to plan a session for a mixed group?</div>
+            <div data-lk-from="Chatbot" data-side="start">Match each learner&rsquo;s learning style. Research shows learners remember 90% more when teaching fits their style.</div>
+            <div data-lk-from="You" data-side="end">Great, thanks. I will test every learner&rsquo;s style on day one.
+              <p data-lk-why data-label="What went wrong">Nothing was checked. The claim cites no study, and the plan is now built on it.</p>
+            </div>
+            <div data-lk-from="Chatbot" data-side="start">Good plan. Then sort your learners into groups by style.</div>
+          </div>
+          <div data-lk-thread="Questioning the claim">
+            <div data-lk-from="You" data-side="end">What is the best way to plan a session for a mixed group?</div>
+            <div data-lk-from="Chatbot" data-side="start">Match each learner&rsquo;s learning style. Research shows learners remember 90% more when teaching fits their style.</div>
+            <div data-lk-from="You" data-side="end" data-move="Ask for evidence">Which study shows that? Did it compare matched and unmatched teaching?
+              <p data-lk-why>It asks where the claim comes from, and what a fair test would look like.</p>
+            </div>
+            <div data-lk-from="Chatbot" data-side="start">I cannot name a study I am sure of. Reviews found little evidence that it helps.</div>
+            <div data-lk-from="You" data-side="end" data-move="Consider alternatives">Then what does the evidence say helps a mixed group?
+              <p data-lk-why>Once a claim falls, ask what replaces it.</p>
+            </div>
+          </div>
+        </lk-conversation>
+        <p></p>
+        <lk-conversation label="A learner questions a chatbot, one message at a time" example stepped>
+          <div data-lk-from="Chatbot" data-side="start">We only use 10% of our brains, so brain-training apps can unlock the rest.</div>
+          <div data-lk-from="You" data-side="end" data-move="Check the source">Where does the 10% figure come from?
+            <p data-lk-why>A neat number with no source is a reason to look for the original.</p>
+          </div>
+          <div data-lk-from="Chatbot" data-side="start">It is a popular saying. Brain scans show we use nearly all of our brains.</div>
+          <div data-lk-from="You" data-side="end" data-move="Test an assumption">So the claim in your first answer was wrong?
+            <p data-lk-why>It puts the two answers side by side and asks the chatbot to resolve them.</p>
+          </div>
+        </lk-conversation>
+      </div>
+      <aside class="ex__notes" aria-label="Ideas for lk-conversation">
+        <p class="ex__good">Good for showing how to question what you are told, especially by an AI.</p>
+        <p class="ex__title">Ideas for using it</p>
+        <ul>
+          <li>Put a thread that accepts a claim next to one that questions it.</li>
+          <li>Name each question&rsquo;s move, such as ask for evidence or check the source.</li>
+          <li>Hide the notes at first, so learners try to spot the move themselves.</li>
+        </ul>
+        <a class="ex__cta" href="../gallery/#view=compare&amp;component=lk-conversation">See it in every look</a>
+      </aside>
+    </section>
     <section class="ex" id="lk-flow" data-shelf="story">
       <div class="ex__demo">
         <h2>lk-flow</h2>

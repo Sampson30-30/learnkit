@@ -160,6 +160,50 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/lk-conversation.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkConversation",
+          "tagName": "lk-conversation",
+          "description": "<lk-conversation> shows a conversation going back and forth, with the questions in it named. It is made for teaching good questioning, such as checking a claim from an AI chatbot. A learner can read it all at once or step through one message at a time, and can open a note on any message.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Accessible name for the whole conversation. Required."
+            },
+            {
+              "name": "stepped",
+              "description": "Show one message at a time, with a \"Show next message\" button."
+            },
+            {
+              "name": "example",
+              "description": "Say that the conversation is made up. Give it words to replace the default."
+            },
+            {
+              "name": "why-label",
+              "description": "Words on the note button (default \"Why this works\")."
+            },
+            {
+              "name": "level",
+              "description": "Heading level for thread titles, 1 to 6 (default 3)."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-reveal",
+              "detail": "{ thread, index, remaining }"
+            }
+          ],
+          "examples": [
+            "<lk-conversation label=\"Checking a chatbot's claim\" example stepped>\n  <div data-lk-from=\"Chatbot\">Research shows learners retain 90% more.</div>\n  <div data-lk-from=\"You\" data-move=\"Ask for evidence\">Which study says that?\n    <p data-lk-why>\"Research shows\" names no source. Ask where it comes from.</p>\n  </div>\n</lk-conversation>",
+            "<lk-conversation label=\"Two ways to reply\">\n  <div data-lk-thread=\"Accepting the claim\"> ...messages... </div>\n  <div data-lk-thread=\"Questioning the claim\"> ...messages... </div>\n</lk-conversation>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/lk-drawer.js",
       "declarations": [
         {

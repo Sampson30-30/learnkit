@@ -128,7 +128,7 @@ const choose = (select, value) => {
 test('look menus: Look and Mode are labelled menus, and Look lists every look', async () => {
   const el = await mount(NAV);
   assert(menu(el, 'Look') && menu(el, 'Mode'), 'both menus exist');
-  equal(menu(el, 'Look').options.length, 9);
+  equal(menu(el, 'Look').options.length, 10);
   equal([...menu(el, 'Mode').options].map((o) => o.textContent), ['Automatic', 'Light', 'Dark']);
   equal(menu(el, 'Look').labels.length, 1);
 });

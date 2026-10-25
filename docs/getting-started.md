@@ -655,6 +655,21 @@ A set of situations, such as posts in a feed. For each one the learner picks a r
 
 Anything in a case that is not an action or an explanation is shown as the situation. Choosing a response shows what would happen, and the learner can change their mind until they press "Check answers", which marks every case **in words as well as colour** (Correct, Not quite). Checking before every case is answered says how many are left. "Reset" clears everything and returns focus to the first response. A case needs at least two responses and one marked `correct`; otherwise it is skipped and the console says why. Attributes: `label` (required), `question`, `level` (heading level for case titles, default 3), `explanation-label`. Events: `lk-respond` `{ index, action }`, `lk-check` `{ score, total, complete }`. Methods: `choose(index, action)`, `check()`, `reset()`. `el.answers` reads every choice.
 
+### `<lk-conversation>`
+
+A conversation going back and forth, with the questions in it named. It is made for teaching good questioning, such as checking a claim from an AI chatbot. Everything in it is scripted, so add `example` to say it is made up and nobody mistakes it for a live reply.
+
+```html
+<lk-conversation label="Checking a chatbot's claim" example stepped>
+  <div data-lk-from="Chatbot">Research shows learners remember 90% more.</div>
+  <div data-lk-from="You" data-move="Ask for evidence">Which study says that?
+    <p data-lk-why>"Research shows" names no source. Ask where it comes from.</p>
+  </div>
+</lk-conversation>
+```
+
+Each message is a child with `data-lk-from`. The first speaker sits at the start and everyone else at the end, unless a message has `data-side="start"` or `"end"`. `data-move` names what the question is doing and is shown beside the message **as words, not only colour**. A child marked `data-lk-why` becomes a "Why this works" note the learner opens (`data-label` gives it other words, such as "What went wrong"). Screen readers hear "Message from You. Move: Ask for evidence." before each message. `stepped` shows one message at a time with a "Show next message" button and a "Start again" button; when the last message appears, a line lists the moves used. To compare two ways of questioning, wrap the messages in `<div data-lk-thread="Title">` blocks, which sit side by side when there is room. A message with no speaker or no words is skipped and the console says so. Attributes: `label` (required), `stepped`, `example`, `why-label`, `level` (heading level for thread titles, default 3). Events: `lk-reveal` `{ thread, index, remaining }`. Methods: `revealNext(thread)`, `revealAll()`, `reset()`. `el.shown` lists how many messages each thread shows.
+
 ### `<lk-matrix>`
 
 A table the learner completes. It starts as an ordinary table, so it still reads without JavaScript. Mark the cells to complete in the markup.

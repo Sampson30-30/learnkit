@@ -478,6 +478,30 @@ export const DEMOS = [
       </lk-flow>`,
   },
   {
+    id: 'lk-conversation',
+    title: 'Conversation',
+    html: () => `
+      <lk-conversation label="Checking a chatbot’s claim" example stepped>
+        <div data-lk-from="You" data-side="end">What is the best way to plan a session for a mixed group?</div>
+        <div data-lk-from="Chatbot" data-side="start">Match each learner’s learning style. Research shows learners remember 90% more when teaching fits their style: visual, auditory or hands-on.</div>
+        <div data-lk-from="You" data-side="end" data-move="Clarify the claim">Which research do you mean? Can you name one study?
+          <p data-lk-why>“Research shows” points at no source at all. Asking exactly where a claim comes from is the first question to try.</p>
+        </div>
+        <div data-lk-from="Chatbot" data-side="start">Many studies support it, and it is widely accepted by teachers.</div>
+        <div data-lk-from="You" data-side="end" data-move="Ask for evidence">Widely accepted is not the same as tested. Has anyone compared matched and unmatched teaching and measured the results?
+          <p data-lk-why>Popular is not proof. Asking what a fair test would look like pushes the answer from opinion towards evidence.</p>
+        </div>
+        <div data-lk-from="Chatbot" data-side="start">I cannot point to a study I am sure of. Reviews of the research found little evidence that matching teaching to learning styles improves results.</div>
+        <div data-lk-from="You" data-side="end" data-move="Check the source">That is the opposite of your first answer. Which should I trust, and where would I check?
+          <p data-lk-why>When an answer changes under pressure, ask why. Then check somewhere independent, because the chatbot cannot mark its own homework.</p>
+        </div>
+        <div data-lk-from="Chatbot" data-side="start">Fair challenge. Trust the second answer, and check a recent review of the research. Treat my first answer as unreliable.</div>
+        <div data-lk-from="You" data-side="end" data-move="Consider alternatives">If styles do not matter, what does the evidence say helps a mixed group?
+          <p data-lk-why>Once a claim falls, ask what replaces it. That keeps the conversation moving towards something useful.</p>
+        </div>
+      </lk-conversation>`,
+  },
+  {
     id: 'lk-guide',
     title: 'About this page panel',
     html: () => `

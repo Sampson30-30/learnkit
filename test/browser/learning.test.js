@@ -577,3 +577,87 @@ test('pickup, sort: Escape puts the item down and checking clears what is held',
   click(find(el, 'Check answers'));
   equal(placeButtons(el), []);
 });
+
+// ---- lk-conversation ----
+
+const CONVERSATION = `<lk-conversation label="Checking a claim" example stepped>
+  <div data-lk-from="Chatbot">Research shows it works.</div>
+  <div data-lk-from="You" data-move="Ask for evidence">Which study?<p data-lk-why>Names no source.</p></div>
+  <div data-lk-from="Chatbot">None I am sure of.</div>
+  <div data-lk-from="You" data-move="Check the source">Then where do I check?</div>
+</lk-conversation>`;
+const messages = (el) => [...el.querySelectorAll('.lk-conversation__message')];
+
+test('conversation: builds a named group, says it is an example, and starts with one message', async () => {
+  const el = await mount(CONVERSATION);
+  equal(el.getAttribute('role'), 'group');
+  equal(el.getAttribute('aria-label'), 'Checking a claim');
+  assert(el.querySelector('.lk-conversation__example').textContent.includes('made up'), 'says it is made up');
+  equal(messages(el).length, 4);
+  equal(messages(el).map((m) => !m.hidden), [true, false, false, false]);
+  equal(messages(el).map((m) => m.dataset.side), ['start', 'end', 'start', 'end']);
+  assert(!el.querySelector('[data-lk-from]'), 'the markup messages are replaced');
+});
+
+test('conversation: each message names its speaker and move for a screen reader, without repeating them', async () => {
+  const el = await mount(CONVERSATION);
+  const second = messages(el)[1];
+  equal(second.querySelector('.lk-visually-hidden').textContent, 'Message from You. Move: Ask for evidence.');
+  equal(second.querySelector('.lk-conversation__who').getAttribute('aria-hidden'), 'true');
+  assert(second.querySelector('.lk-conversation__move').textContent.includes('Ask for evidence'), 'the move is written in words');
+});
+
+test('conversation: stepping shows one more message, moves focus to it and says where the learner is', async () => {
+  const el = await mount(CONVERSATION);
+  const seen = listen(el, 'lk-reveal');
+  const status = el.querySelector('[role=status]');
+  equal(status.textContent, 'Showing 1 of 4 messages.');
+  click(find(el, 'Show next message'));
+  assert(!messages(el)[1].hidden, 'second message shown');
+  assert(document.activeElement === messages(el)[1], 'focus moves to the new message');
+  equal(status.textContent, 'Showing 2 of 4 messages.');
+  equal(seen, [{ thread: 0, index: 1, remaining: 2 }]);
+});
+
+test('conversation: the last message hides the button and lists the moves used, and start again goes back', async () => {
+  const el = await mount(CONVERSATION);
+  click(find(el, 'Show next message'));
+  click(find(el, 'Show next message'));
+  click(find(el, 'Show next message'));
+  assert(getComputedStyle(find(el, 'Show next message')).display === 'none', 'the button is gone, not just marked hidden');
+  equal(el.querySelector('[role=status]').textContent, 'All 4 messages are showing.');
+  assert(!el.querySelector('.lk-conversation__moves').hidden, 'the moves are listed');
+  assert(el.querySelector('.lk-conversation__moves').textContent.includes('Ask for evidence and Check the source'), 'both moves named');
+  click(find(el, 'Start again'));
+  equal(el.shown, [1]);
+  assert(getComputedStyle(find(el, 'Start again')).display === 'none', 'nothing to start again from the first message');
+  assert(el.querySelector('.lk-conversation__moves').hidden, 'the list is hidden again');
+});
+
+test('conversation: a note opens on request and closes again on reset', async () => {
+  const el = await mount(CONVERSATION);
+  click(find(el, 'Show next message'));
+  const details = el.querySelector('details');
+  equal(details.querySelector('summary').textContent, 'Why this works');
+  details.open = true;
+  el.reset();
+  assert(!details.open, 'reset closes the note');
+});
+
+test('conversation: threads sit side by side with their own titles and steps', async () => {
+  const el = await mount(`<lk-conversation label="Two ways" stepped>
+    <div data-lk-thread="Accepting"><div data-lk-from="A">One</div><div data-lk-from="B">Two</div></div>
+    <div data-lk-thread="Questioning"><div data-lk-from="A">One</div><div data-lk-from="B" data-move="Clarify">Two</div></div>
+  </lk-conversation>`);
+  equal(el.dataset.threads, '2');
+  equal([...el.querySelectorAll('h3.lk-conversation__title')].map((h) => h.textContent), ['Accepting', 'Questioning']);
+  click(el.querySelectorAll('.lk-conversation__footer .lk-button')[2]);
+  equal(el.shown, [1, 2]);
+});
+
+test('conversation: without stepped every message shows and the moves are listed straight away', async () => {
+  const el = await mount(CONVERSATION.replace(' stepped', ''));
+  equal(messages(el).every((m) => !m.hidden), true);
+  assert(!find(el, 'Show next message'), 'no step buttons');
+  assert(el.querySelector('.lk-conversation__moves').textContent.includes('Questioning moves used'), 'the moves are listed');
+});

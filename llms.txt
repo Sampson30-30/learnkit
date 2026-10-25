@@ -96,6 +96,40 @@ Example:
 <lk-chip removable>Evening</lk-chip>
 ```
 
+### <lk-conversation>
+
+<lk-conversation> shows a conversation going back and forth, with the questions in it named. It is made for teaching good questioning, such as checking a claim from an AI chatbot. A learner can read it all at once or step through one message at a time, and can open a note on any message.
+
+Attributes:
+- `label`: Accessible name for the whole conversation. Required.
+- `stepped`: Show one message at a time, with a "Show next message" button.
+- `example`: Say that the conversation is made up. Give it words to replace the default.
+- `why-label`: Words on the note button (default "Why this works").
+- `level`: Heading level for thread titles, 1 to 6 (default 3).
+
+Events:
+- `lk-reveal` detail { thread, index, remaining }
+
+Example:
+
+```html
+<lk-conversation label="Checking a chatbot's claim" example stepped>
+  <div data-lk-from="Chatbot">Research shows learners retain 90% more.</div>
+  <div data-lk-from="You" data-move="Ask for evidence">Which study says that?
+    <p data-lk-why>"Research shows" names no source. Ask where it comes from.</p>
+  </div>
+</lk-conversation>
+```
+
+Example:
+
+```html
+<lk-conversation label="Two ways to reply">
+  <div data-lk-thread="Accepting the claim"> ...messages... </div>
+  <div data-lk-thread="Questioning the claim"> ...messages... </div>
+</lk-conversation>
+```
+
 ### <lk-drawer>
 
 <lk-drawer> is a panel that slides in from the side of the screen, for navigation, filters or details that should not take over the page. It is a modal dialog underneath: focus stays inside while it is open, the page behind is inert, and Escape or a click outside closes it.
