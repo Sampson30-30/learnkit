@@ -103,7 +103,7 @@ import { parseQuiz, scoreQuestion, scoreQuiz, shuffle } from './core/quiz.js';</
         </lk-process>
 
         <h3>Activity 1: what is loaded first?</h3>
-        <lk-order label="Put these in the order the browser reaches them, first to last">
+        <lk-order label="Put these in the order the browser reaches them, first to last" pickup>
           <ol>
             <li>lesson/index.html, the page</li>
             <li>src/index.js, the front door</li>
@@ -141,7 +141,7 @@ import { parseQuiz, scoreQuestion, scoreQuiz, shuffle } from './core/quiz.js';</
         <h2 id="blast">Blast radius</h2>
         <p>The <strong>blast radius</strong> of a change is how much else it can affect. The layers tell you in advance. The lower the file, the wider the radius.</p>
         <h3>Activity 2: how far does it spread?</h3>
-        <lk-sort label="Sort each change by how far it can spread">
+        <lk-sort label="Sort each change by how far it can spread" pickup>
           <ul data-lk-group="Small blast radius">
             <li>Fix a word in one lesson page</li>
             <li>Change the scoring rules in core/quiz.js (only the quiz uses it)</li>
@@ -193,7 +193,7 @@ import { parseQuiz, scoreQuestion, scoreQuiz, shuffle } from './core/quiz.js';</
         </lk-accordion>
 
         <h3>Activity 4: sort the bugs</h3>
-        <lk-sort label="Sort each problem into the layer where it belongs">
+        <lk-sort label="Sort each problem into the layer where it belongs" pickup>
           <ul data-lk-group="Content (the page)">
             <li>A typo in a lesson</li>
             <li>A quiz answer marked correct by mistake</li>

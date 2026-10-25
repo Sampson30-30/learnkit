@@ -1,6 +1,7 @@
 import { LkElement, define } from './core/base.js';
 import { shuffledOrder, moveItem, checkOrder, moveMessage } from './core/order.js';
 import { pointerDrag } from './core/drag.js';
+import { togglePickup, orderTargets, pickedMessage, putDownMessage, pickButton, placeButton } from './core/pickup.js';
 
 /**
  * <lk-order> asks the learner to put items in the right sequence. Write the
@@ -15,8 +16,13 @@ import { pointerDrag } from './core/drag.js';
  * handle, with a mouse, a finger or a pen. After "Check order" each item is marked right or wrong, with words
  * as well as symbols, and the learner can try again.
  *
+ * Add `pickup` for a way to move an item without dragging or stepping it one
+ * place at a time: press Pick up on an item, then Place at position N on the row
+ * where it should go. Escape, or pressing Pick up again, puts it down.
+ *
  * Attributes:
- *   label  Question or instruction. Required.
+ *   label   Question or instruction. Required.
+ *   pickup  Adds Pick up and Place buttons.
  *
  * Events: lk-orderchange { order, labels }, lk-check { score, total, complete }.
  */
@@ -52,6 +58,14 @@ export class LkOrder extends LkElement {
     this.resetButton = this.#button('Shuffle again', '', () => this.reset());
     actions.append(this.checkButton, this.resetButton);
 
+    this.picked = null;
+    this.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.picked !== null) {
+        e.preventDefault();
+        this.#putDown();
+      }
+    });
+
     this.replaceChildren(this.heading, this.list, actions, this.feedback, this.live);
     this.reset();
   }
@@ -65,6 +79,7 @@ export class LkOrder extends LkElement {
   reset() {
     this.order = shuffledOrder(this.items.length);
     this.marks = null;
+    this.picked = null;
     this.feedback.textContent = '';
     this.#render();
   }
@@ -72,6 +87,7 @@ export class LkOrder extends LkElement {
   /** Check the order now, as if the learner had pressed the button. */
   check() {
     this.marks = checkOrder(this.order);
+    this.picked = null;
     const { score, total, complete } = this.marks;
     this.feedback.textContent = complete
       ? `Correct. All ${total} are in the right order.`
@@ -86,6 +102,7 @@ export class LkOrder extends LkElement {
     if (next === this.order) return;
     this.order = next;
     this.marks = null;
+    this.picked = null;
     this.feedback.textContent = '';
     const moved = Math.min(Math.max(to, 0), this.order.length - 1);
     this.#render();
@@ -98,6 +115,27 @@ export class LkOrder extends LkElement {
       target?.focus();
     }
     this.emit('orderchange', { order: [...this.order], labels: this.sequence });
+  }
+
+  /** Picks the item at `position` up, or puts it down if it is already held. */
+  #pick(position) {
+    this.picked = togglePickup(this.picked, position);
+    this.#render();
+    const label = this.texts[this.order[position]];
+    this.live.textContent = this.picked === null ? putDownMessage(label) : pickedMessage(label, 'a position');
+    this.#focusPick(position);
+  }
+
+  #putDown() {
+    const position = this.picked;
+    this.picked = null;
+    this.#render();
+    this.live.textContent = putDownMessage(this.texts[this.order[position]]);
+    this.#focusPick(position);
+  }
+
+  #focusPick(position) {
+    this.list.children[position]?.querySelector('.lk-pickup__pick')?.focus();
   }
 
   #render() {
@@ -126,9 +164,18 @@ export class LkOrder extends LkElement {
       buttons.className = 'lk-order__buttons';
       const up = this.#moveButton('up', '↑', `Move ${this.texts[original]} up`, position === 0, () => this.#move(position, position - 1));
       const down = this.#moveButton('down', '↓', `Move ${this.texts[original]} down`, position === this.order.length - 1, () => this.#move(position, position + 1));
+      if (this.hasAttribute('pickup')) buttons.prepend(pickButton(this.texts[original], this.picked === position, () => this.#pick(position)));
       buttons.append(up, down);
 
       li.append(handle, text, buttons);
+      if (this.picked === position) li.dataset.picked = '';
+      if (this.picked !== null && orderTargets(this.picked, this.order.length).includes(position)) {
+        const from = this.picked;
+        li.append(placeButton(`Place at position ${position + 1}`, () => {
+          this.#move(from, position, false);
+          this.#focusPick(position);
+        }));
+      }
       if (this.marks) {
         const ok = this.marks.correct[position];
         li.dataset.state = ok ? 'correct' : 'wrong';

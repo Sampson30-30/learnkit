@@ -1,4 +1,4 @@
-import { test, assert, equal, mount, click, listen, dragBetween } from './harness.js';
+import { test, assert, equal, mount, click, press, listen, dragBetween } from './harness.js';
 
 const buttonText = (el) => [...el.querySelectorAll('button')].map((b) => b.textContent);
 const find = (el, text) => [...el.querySelectorAll('button')].find((b) => b.textContent === text);
@@ -472,4 +472,108 @@ test('respond: a case with no suitable response, or fewer than two, is skipped',
   </lk-respond>`);
   equal(el.querySelectorAll('.lk-respond__case').length, 1);
   equal(el.querySelector('.lk-respond__title').textContent, 'Fine');
+});
+
+// ---- pick up and place ----
+
+const ORDER_PICKUP = `<lk-order label="Writing process" pickup><ol><li>Plan</li><li>Draft</li><li>Revise</li><li>Publish</li></ol></lk-order>`;
+const pickOf = (el, text) => el.querySelector(`.lk-pickup__pick[aria-label="Pick up ${text}"]`);
+const placeButtons = (el) => [...el.querySelectorAll('.lk-pickup__place')].map((b) => b.textContent);
+
+test('pickup: without the attribute there are no pick up or place buttons', async () => {
+  const order = await mount(ORDER);
+  const sort = await mount(SORT);
+  assert(!order.querySelector('.lk-pickup__pick') && !sort.querySelector('.lk-pickup__pick'), 'nothing added');
+});
+
+test('pickup, order: Pick up shows a Place button on every other row and says what to do', async () => {
+  const el = await mount(ORDER_PICKUP);
+  equal(el.querySelectorAll('.lk-pickup__pick').length, 4);
+  equal(placeButtons(el), []);
+  const plan = pickOf(el, 'Plan');
+  equal(plan.textContent, 'Pick up');
+  click(plan);
+  equal(pickOf(el, 'Plan').getAttribute('aria-pressed'), 'true');
+  equal(placeButtons(el).length, 3);
+  assert(!rows(el)[el.order.indexOf(0)].querySelector('.lk-pickup__place'), 'none on the held item');
+  assert(el.querySelectorAll('[role=status]')[1].textContent.startsWith('Plan picked up.'), 'announced');
+  assert(document.activeElement === pickOf(el, 'Plan'), 'focus stays on the item');
+});
+
+test('pickup, order: Place moves the item straight there, announces it and keeps focus on it', async () => {
+  const el = await mount(ORDER_PICKUP);
+  const seen = listen(el, 'lk-orderchange');
+  const from = el.order.indexOf(3); // Publish
+  const to = from === 0 ? 3 : 0;
+  click(pickOf(el, 'Publish'));
+  click([...el.querySelectorAll('.lk-pickup__place')].find((b) => b.textContent === `Place at position ${to + 1}`));
+  equal(el.sequence[to], 'Publish');
+  equal(el.querySelectorAll('[role=status]')[1].textContent, `Publish moved to position ${to + 1} of 4`);
+  equal(placeButtons(el), []);
+  assert(document.activeElement === pickOf(el, 'Publish'), 'focus follows the item');
+  equal(seen.length, 1);
+});
+
+test('pickup, order: Pick up again or Escape puts it down without moving anything', async () => {
+  const el = await mount(ORDER_PICKUP);
+  const before = [...el.order];
+  click(pickOf(el, 'Plan'));
+  click(pickOf(el, 'Plan'));
+  equal(placeButtons(el), []);
+  equal(el.querySelectorAll('[role=status]')[1].textContent, 'Plan put down.');
+  click(pickOf(el, 'Draft'));
+  press(el, 'Escape');
+  equal(placeButtons(el), []);
+  assert(document.activeElement === pickOf(el, 'Draft'), 'focus back on the item');
+  equal(el.order, before);
+});
+
+test('pickup, order: Shuffle again and Check order both put the item down', async () => {
+  const el = await mount(ORDER_PICKUP);
+  click(pickOf(el, 'Plan'));
+  click(find(el, 'Check order'));
+  equal(placeButtons(el), []);
+  click(pickOf(el, 'Plan'));
+  click(find(el, 'Shuffle again'));
+  equal(placeButtons(el), []);
+});
+
+const SORT_PICKUP = `<lk-sort label="Assessment" pickup>
+  <ul data-lk-group="Formative"><li>Quiz</li><li>Feedback</li></ul>
+  <ul data-lk-group="Summative"><li>Exam</li></ul>
+</lk-sort>`;
+
+test('pickup, sort: Pick up offers a Place button under every group except where the item is', async () => {
+  const el = await mount(SORT_PICKUP);
+  equal(el.querySelectorAll('.lk-pickup__pick').length, 3);
+  click(pickOf(el, 'Exam'));
+  equal(placeButtons(el), ['Place in Formative', 'Place in Summative']);
+  assert(el.querySelectorAll('.lk-sort__zone[data-target]').length === 2, 'the places it can go are marked');
+  assert(sortItem(el, 'Exam').hasAttribute('data-picked'), 'the held item is marked');
+  assert(el.querySelectorAll('[role=status]')[1].textContent.startsWith('Exam picked up.'), 'announced');
+});
+
+test('pickup, sort: Place files the item, announces it, and offers the pile once it is in a group', async () => {
+  const el = await mount(SORT_PICKUP);
+  const seen = listen(el, 'lk-sortchange');
+  click(pickOf(el, 'Exam'));
+  click([...el.querySelectorAll('.lk-pickup__place')].find((b) => b.textContent === 'Place in Summative'));
+  assert(zoneOf(el, 'Exam').dataset.group === '1', 'in Summative');
+  equal(el.querySelectorAll('[role=status]')[1].textContent, 'Exam moved to Summative');
+  equal(placeButtons(el), []);
+  assert(document.activeElement === pickOf(el, 'Exam'), 'focus follows the item');
+  equal(seen[0], { item: 2, group: 'Summative' });
+  click(pickOf(el, 'Exam'));
+  equal(placeButtons(el), ['Place back in the pile', 'Place in Formative']);
+});
+
+test('pickup, sort: Escape puts the item down and checking clears what is held', async () => {
+  const el = await mount(SORT_PICKUP);
+  click(pickOf(el, 'Quiz'));
+  press(el, 'Escape');
+  equal(placeButtons(el), []);
+  equal(el.placed, [null, null, null]);
+  click(pickOf(el, 'Quiz'));
+  click(find(el, 'Check answers'));
+  equal(placeButtons(el), []);
 });

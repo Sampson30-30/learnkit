@@ -382,6 +382,7 @@ Example:
 
 Attributes:
 - `label`: Question or instruction. Required.
+- `pickup`: Adds Pick up and Place buttons.
 
 Events:
 - `lk-orderchange` detail { order, labels }
@@ -592,6 +593,7 @@ Example:
 
 Attributes:
 - `label`: Instruction for the activity. Required.
+- `pickup`: Adds Pick up and Place buttons.
 
 Events:
 - `lk-sortchange` detail { item, group }

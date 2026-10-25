@@ -647,6 +647,10 @@
             {
               "name": "label",
               "description": "Question or instruction. Required."
+            },
+            {
+              "name": "pickup",
+              "description": "Adds Pick up and Place buttons."
             }
           ],
           "events": [
@@ -1000,6 +1004,10 @@
             {
               "name": "label",
               "description": "Instruction for the activity. Required."
+            },
+            {
+              "name": "pickup",
+              "description": "Adds Pick up and Place buttons."
             }
           ],
           "events": [
