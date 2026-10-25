@@ -19,7 +19,7 @@ site-nav {
   padding: 0.5rem 1rem;
 }
 
-.site-nav__brand {
+.site-nav .site-nav__brand {
   font-family: var(--lk-font-heading);
   font-size: 1.125rem;
   font-weight: 700;
@@ -37,7 +37,7 @@ site-nav {
   list-style: none;
 }
 
-.site-nav__list a {
+site-nav .site-nav__list a {
   display: inline-block;
   padding-block: 0.5rem;
   color: var(--lk-color-text);
@@ -45,8 +45,35 @@ site-nav {
   border-block-end: 2px solid transparent;
 }
 
-.site-nav__list a:hover {
+site-nav .site-nav__list a:hover {
   border-block-end-color: var(--lk-color-muted);
+}
+
+/* Look and Mode: sit at the end of the row, and drop under the links when there is no room. */
+.site-nav__look {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  align-items: center;
+  margin-inline-start: auto;
+}
+
+.site-nav__look > div {
+  display: flex;
+  align-items: center;
+}
+
+.site-nav__look label {
+  margin-inline-end: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.site-nav__select {
+  width: auto;
+  min-height: 0;
+  padding-block: 0.25rem;
+  font-size: 0.875rem;
 }
 
 /* The Lessons menu's button should look like its neighbours, not like a link or a button. */
@@ -82,6 +109,15 @@ site-nav {
 
   .site-nav__list {
     gap: 0 0.875rem;
+  }
+
+  .site-nav__look {
+    gap: 0.25rem 0.75rem;
+    margin-inline-start: 0;
+  }
+
+  .site-nav__select {
+    max-width: 7rem;
   }
 }
 

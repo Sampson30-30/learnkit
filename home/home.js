@@ -65,6 +65,8 @@ function library() {
 
 // ---- Looks ----
 
+const root = document.documentElement;
+
 function looks() {
   const host = document.getElementById('looks');
   if (!host) return;
@@ -72,6 +74,7 @@ function looks() {
     const li = el('li');
     const box = el('div', 'look');
     box.setAttribute('data-lk-theme', theme.id);
+    if (root.dataset.lkMode) box.setAttribute('data-lk-mode', root.dataset.lkMode);
     box.innerHTML = `
       <h3>${escape(theme.name)}</h3>
       <p>${escape(theme.note)}</p>
@@ -88,3 +91,11 @@ function looks() {
 sample();
 library();
 looks();
+
+// The looks on show follow the page's Light or Dark choice, so the page never half-changes.
+document.addEventListener('lk-sitelook', (e) => {
+  for (const box of document.querySelectorAll('.look')) {
+    if (e.detail.mode) box.setAttribute('data-lk-mode', e.detail.mode);
+    else box.removeAttribute('data-lk-mode');
+  }
+});

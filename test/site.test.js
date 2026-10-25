@@ -5,6 +5,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { allPaths, SITE_LINKS } from '../site/links.js';
 import { labelFor, groupSections, filterGroups, countItems, filterMessage, activeSection } from '../site/pieces.js';
 import { SHELVES, ALL_PIECES } from '../home/catalogue.js';
+import { LOOKS, MODES, DEFAULT_LOOK, isLook, isMode, readChoice, saveChoice } from '../site/look.js';
 
 const root = new URL('../', import.meta.url);
 const read = (file) => readFileSync(new URL(file, root), 'utf8');
@@ -112,4 +113,56 @@ test('the piece being read is the last one whose top has reached the line', () =
   assert.equal(activeSection(tops(-10, 400, 900), 250), 's0');
   assert.equal(activeSection(tops(300, 800), 250), 's0', 'before the first piece, the first is marked');
   assert.equal(activeSection([], 250), null);
+});
+
+// ---- the look and mode menus ----
+
+const fakeStorage = (items = {}) => ({ getItem: (k) => (k in items ? items[k] : null), setItem: (k, v) => { items[k] = String(v); }, items });
+
+test('the header offers every look the gallery has, and three modes', () => {
+  assert.equal(LOOKS.length, 9);
+  assert.ok(isLook('') && isLook('clean') && isLook('sankofa'), 'the built-in look and the themes');
+  assert.ok(!isLook('neon'));
+  assert.deepEqual(MODES.map((m) => m.id), ['', 'light', 'dark']);
+  assert.ok(isMode('dark') && !isMode('sepia'));
+  assert.equal(LOOKS.find((l) => l.id === 'blc').name, 'BLC', 'a short name for the long one');
+});
+
+test('nothing saved means the page keeps its own look and follows the device', () => {
+  assert.deepEqual(readChoice(fakeStorage()), { look: DEFAULT_LOOK, mode: '' });
+  assert.deepEqual(readChoice(fakeStorage(), 'bold'), { look: 'bold', mode: '' });
+});
+
+test('a saved choice is read back, including the built-in look, which is an empty value', () => {
+  const store = fakeStorage();
+  saveChoice(store, { look: 'sankofa', mode: 'dark' });
+  assert.deepEqual(readChoice(store), { look: 'sankofa', mode: 'dark' });
+  saveChoice(store, { look: '', mode: '' });
+  assert.deepEqual(readChoice(store), { look: '', mode: '' });
+});
+
+test('an unknown saved value is ignored, so an old or edited value cannot break a page', () => {
+  assert.deepEqual(readChoice(fakeStorage({ 'lk-site-look': 'neon', 'lk-site-mode': 'sepia' })), { look: DEFAULT_LOOK, mode: '' });
+});
+
+test('storage that is missing or refuses to work never throws', () => {
+  const broken = { getItem() { throw new Error('blocked'); }, setItem() { throw new Error('blocked'); } };
+  assert.deepEqual(readChoice(broken), { look: DEFAULT_LOOK, mode: '' });
+  assert.deepEqual(readChoice(null), { look: DEFAULT_LOOK, mode: '' });
+  assert.doesNotThrow(() => saveChoice(broken, { look: 'bold', mode: 'dark' }));
+  assert.doesNotThrow(() => saveChoice(null, { look: 'bold', mode: 'dark' }));
+});
+
+test('every page says which look it starts in, so the choice always has somewhere to start', () => {
+  for (const file of Object.keys(PAGES)) {
+    const html = read(file);
+    assert.match(html.slice(0, html.indexOf('>', html.indexOf('<html')) + 1), /data-lk-theme="clean"/, `${file} does not start in a look`);
+  }
+});
+
+test('the gallery and customiser take their page colours from the theme, not a palette of their own', () => {
+  for (const file of ['gallery/gallery.css', 'customiser/customiser.css']) {
+    const css = read(file);
+    assert.doesNotMatch(css, /#[0-9a-fA-F]{3,8}\b|rgba?\(/, `${file} still hard-codes a colour`);
+  }
 });

@@ -5,10 +5,13 @@ All notable changes are recorded here. The format follows [Keep a Changelog](htt
 ## [0.1.0] - Unreleased
 
 ### Fixed
+- The header's links on the home page were the look's link colour, because a home page rule with the same weight loaded later. They now use the text colour like every other page.
 - Customiser: the sticky preview no longer slides over the contrast checks or traps the scroll wheel. Contrast and export now sit below the whole layout, and a live contrast summary sits beside the preview. A browser test covers it.
 - `lk-stepper` with many steps or long names no longer squashes its labels: it goes compact (current label only, others kept for screen readers) when there are more than five steps.
 
 ### Added
+- A Look and Mode menu in the site header on every page, remembered between pages. Look lists every theme; Mode is Automatic, Light or Dark. The lessons no longer carry their own copy. The home, gallery, customiser and Examples pages now start in the Clean look instead of the built-in one, and the gallery and customiser take their page colours from the theme instead of a palette of their own. A test fails if either stylesheet hard-codes a colour again. Logic in `site/look.js`.
+- `data-lk-theme="default"` on any element returns it to the built-in look, even inside a themed page. The gallery's Default pane and the customiser's Default base use it.
 - Site navigation. Every page now has the same header (`site/site-nav.js`): LearnKit, Pieces, Looks, Make your own, and a Lessons menu, with the current page marked and a plain link home when scripts are off. The links are written once in `site/links.js`, and a test checks each one points at a real page.
 - An index beside the Examples page (`site/pieces-index.js`): every piece in one short list, grouped on the same five shelves as the home page, with a search box, Enter to jump, and a marker on the piece being read. On a narrow screen it folds into a "Jump to a piece" panel. Each example section now says which shelf it is on with `data-shelf`, and a test checks they all do. Logic in `site/pieces.js`.
 - Pick up and place for `<lk-order>` and `<lk-sort>`: add the `pickup` attribute and each item gets a Pick up button. The learner presses it, then a Place button where the item should go. Every step is one click, tap or key press, with no dragging, aiming or holding. Escape puts the item down. Shared logic and buttons in `core/pickup.js`.

@@ -31,7 +31,7 @@ function writeHash() {
 function pane(theme, demos, { heading }) {
   const el = document.createElement('section');
   el.className = 'pane';
-  if (theme.id) el.dataset.lkTheme = theme.id;
+  el.dataset.lkTheme = theme.id || 'default';
   if (state.mode) el.dataset.lkMode = state.mode;
   el.setAttribute('aria-label', `${theme.name} theme`);
   const head = document.createElement('div');
