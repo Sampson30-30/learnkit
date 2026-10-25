@@ -1,0 +1,33 @@
+/* Shared by the sample lessons. Colours, fonts and radii all come from the
+   theme's tokens, so a lesson changes with its look and nothing here sets a colour
+   of its own. Rules for one lesson's own diagram stay in that lesson's page. */
+
+body { margin: 0; font-family: var(--lk-font); color: var(--lk-color-text); background: var(--lk-color-page); line-height: 1.6; }
+h1, h2, h3 { font-family: var(--lk-font-heading); line-height: 1.25; }
+main { max-width: 52rem; margin: 0 auto; padding: 0 1rem 4rem; }
+section { margin-top: 3rem; }
+section > h2 { margin-bottom: 0.25rem; }
+.step-no { display: block; font-size: 0.875rem; font-weight: 700; color: var(--lk-color-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.back-link { max-width: 52rem; margin: 1rem auto 0; padding: 0 1rem; font-size: 0.9375rem; }
+.finish { text-align: center; }
+
+/* The bar that stays at the top: progress and the look switcher. */
+.top { position: sticky; top: 0; z-index: 5; padding: 0.625rem 1rem; background: var(--lk-color-bg); border-bottom: 1px solid var(--lk-color-divider); }
+.top__row { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; justify-content: space-between; max-width: 52rem; margin: 0 auto; }
+.top__row > lk-progress { flex: 1 1 14rem; }
+.top label { font-size: 0.875rem; font-weight: 700; margin-inline-end: 0.5rem; }
+
+/* Learning blocks sit apart from the text around them. */
+lk-tabs, lk-timeline, lk-process, lk-quiz, lk-scenario, lk-flow, lk-order, lk-sort, lk-matrix, lk-hotspot, lk-glossary,
+lk-rating, lk-spectrum, lk-journal, lk-grid-explorer, lk-accordion, lk-table, lk-tree, lk-alert { display: block; margin-block: 1.25rem; }
+
+pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+pre { margin: 0.75rem 0; padding: 0.75rem 1rem; overflow-x: auto; background: var(--lk-color-surface); border: 1px solid var(--lk-color-divider); border-radius: var(--lk-radius); font-size: 0.875rem; }
+:not(pre) > code { padding: 0.05em 0.35em; background: var(--lk-color-surface); border-radius: 0.25rem; font-size: 0.9em; }
+
+/* Diagrams drawn as SVG inside an lk-hotspot. */
+.diagram { display: block; width: 100%; height: auto; }
+.diagram rect { stroke-width: 2; }
+.diagram text { fill: var(--lk-color-text); font: 600 15px var(--lk-font); }
+.diagram .small { font-weight: 400; font-size: 13px; fill: var(--lk-color-muted); }
+.diagram polygon { fill: var(--lk-color-muted); }

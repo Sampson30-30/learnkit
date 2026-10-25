@@ -6,61 +6,16 @@
     <title>How a project fits together</title>
     <link rel="stylesheet" href="../../src/learnkit.css" />
     <link rel="stylesheet" href="../../src/themes/clean.css" id="theme-sheet" />
+    <link rel="stylesheet" href="../lesson.css" />
     <style>
-      body { margin: 0; font-family: var(--lk-font); color: var(--lk-color-text); background: var(--lk-color-page); line-height: 1.6; }
-      h1, h2, h3 { font-family: var(--lk-font-heading); line-height: 1.25; }
-      .top { position: sticky; top: 0; z-index: 5; padding: 0.625rem 1rem; background: var(--lk-color-bg); border-bottom: 1px solid var(--lk-color-divider); }
-      .top__row { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; justify-content: space-between; max-width: 52rem; margin: 0 auto; }
-      .top__row > lk-progress { flex: 1 1 14rem; }
-      .top label { font-size: 0.875rem; font-weight: 700; margin-inline-end: 0.5rem; }
-      main { max-width: 52rem; margin: 0 auto; padding: 0 1rem 4rem; }
-      section { margin-top: 3rem; }
-      section > h2 { margin-bottom: 0.25rem; }
-      .step-no { display: block; font-size: 0.875rem; font-weight: 700; color: var(--lk-color-muted); text-transform: uppercase; letter-spacing: 0.04em; }
-      .back-link { max-width: 52rem; margin: 1rem auto 0; padding: 0 1rem; font-size: 0.9375rem; }
-      lk-tabs, lk-timeline, lk-process, lk-quiz, lk-scenario, lk-flow, lk-order, lk-sort, lk-hotspot, lk-journal, lk-rating, lk-accordion, lk-alert, lk-table { display: block; margin-block: 1.25rem; }
-      pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-      pre { margin: 0.75rem 0; padding: 0.75rem 1rem; overflow-x: auto; background: var(--lk-color-surface); border: 1px solid var(--lk-color-divider); border-radius: var(--lk-radius); font-size: 0.875rem; }
-      :not(pre) > code { padding: 0.05em 0.35em; background: var(--lk-color-surface); border-radius: 0.25rem; font-size: 0.9em; }
-      .diagram { display: block; width: 100%; height: auto; }
-      .diagram rect { stroke-width: 2; }
       .diagram .l1 { fill: var(--lk-color-surface); stroke: var(--lk-color-border); }
       .diagram .l2 { fill: var(--lk-color-surface); stroke: var(--lk-color-primary); }
       .diagram .l3 { fill: var(--lk-color-surface); stroke: var(--lk-color-border); stroke-dasharray: 6 4; }
-      .diagram text { fill: var(--lk-color-text); font: 600 15px var(--lk-font); }
-      .diagram .small { font-weight: 400; font-size: 13px; fill: var(--lk-color-muted); }
       .diagram line { stroke: var(--lk-color-muted); stroke-width: 2; }
-      .diagram polygon { fill: var(--lk-color-muted); }
-      .finish { text-align: center; }
     </style>
-    <script type="module">
-      import { toast } from '../../src/index.js';
-
-      const select = document.getElementById('look');
-      select.addEventListener('change', () => {
-        document.getElementById('theme-sheet').href = `../../src/themes/${select.value}.css`;
-        document.documentElement.setAttribute('data-lk-theme', select.value);
-      });
-
-      const ACTIVITIES = 5;
-      const done = new Set();
-      const bar = document.getElementById('progress');
-      function finish(key) {
-        if (done.has(key)) return;
-        done.add(key);
-        bar.setAttribute('value', String(Math.round((done.size / ACTIVITIES) * 100)));
-        toast(done.size === ACTIVITIES ? 'All five activities finished. Well done!' : `${done.size} of ${ACTIVITIES} activities finished`, { tone: 'success' });
-      }
-      document.addEventListener('lk-check', (e) => {
-        if (e.detail.score === e.detail.total) finish(e.target.localName);
-      });
-      document.addEventListener('lk-end', (e) => finish(e.target.localName));
-      document.addEventListener('lk-complete', (e) => {
-        if (e.target.localName === 'lk-quiz') finish('lk-quiz');
-      });
-    </script>
+    <script type="module" src="../lesson.js"></script>
   </head>
-  <body>
+  <body data-activities="5">
     <p class="back-link"><a href="../../">&larr; LearnKit home</a> &middot; <a href="../">Git and GitHub lesson</a></p>
 
     <div class="top">
