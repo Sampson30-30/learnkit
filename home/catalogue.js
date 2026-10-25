@@ -29,6 +29,7 @@ export const SHELVES = [
     pieces: [
       { id: 'lk-scenario', tags: 'lk-scenario', name: 'Scenario', what: 'A story where the learner’s choices change what happens next.', wide: true },
       { id: 'lk-flow', tags: 'lk-flow', name: 'Process chart and decision tree', what: 'Draw a process, or a set of questions that leads to an answer. Learners can walk through it and see their route.', wide: true },
+      { id: 'lk-conversation', tags: 'lk-conversation', name: 'Conversation', what: 'A chat going back and forth, with each question named, so learners see what good questioning looks like. Show it one message at a time.', wide: true },
       { id: 'lk-timeline', tags: 'lk-timeline', name: 'Timeline', what: 'Events in order. Show them all, or reveal them one at a time.', wide: true },
       { id: 'lk-process', tags: 'lk-process', name: 'Step-by-step process', what: 'A walkthrough where every step has its own content.', wide: true },
       { id: 'lk-hotspot', tags: 'lk-hotspot', name: 'Hotspot picture', what: 'Numbered points on a picture. Choosing one explains that part.', wide: true },

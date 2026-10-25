@@ -56,6 +56,7 @@ Version 0.1.0. Everything on the [roadmap](ROADMAP.md) is built.
 | `<lk-flashcards>` | Recall practice where missed cards come round again |
 | `<lk-order>` | Put items in sequence with buttons or drag (mouse or touch), marked in words |
 | `<lk-sort>` | Sort items into groups by dragging or with a menu, marked in words |
+| `<lk-conversation>` | A chat going back and forth with each question named, for teaching good questioning, such as checking an AI's claim |
 | `<lk-respond>` | Choose how to respond to each situation, see what would happen, then check them all together |
 | `<lk-matrix>` | Fill-in and tick-box tables, marked in words, from an ordinary table |
 | `<lk-hotspot>` | Numbered points on a picture or diagram, tracking what is explored |

@@ -18,12 +18,12 @@ test('home: the library shows every piece live, grouped on shelves', async () =>
     const shelfTabs = [...doc.querySelectorAll('#shelves [role=tablist] [role=tab]')].filter((t) => t.closest('lk-tabs').parentElement.id === 'shelves');
     equal(shelfTabs.length, 5);
     const pieces = [...doc.querySelectorAll('.piece')];
-    equal(pieces.length, 35);
+    equal(pieces.length, 36);
     for (const p of pieces) {
       assert(p.querySelector('.piece__demo').children.length > 0, `${p.querySelector('.piece__name').textContent} has no live demo`);
       assert(p.querySelector('.piece__what').textContent.length > 10, 'each piece says what it is');
     }
-    assert(doc.getElementById('library-count').textContent.startsWith('35 pieces on 5 shelves'));
+    assert(doc.getElementById('library-count').textContent.startsWith('36 pieces on 5 shelves'));
   } finally {
     frame.remove();
   }
@@ -33,9 +33,9 @@ test('home: every piece links to the gallery for that piece, and the links are d
   const { frame, doc } = await openHome(1200);
   try {
     const links = [...doc.querySelectorAll('.piece__more a')];
-    equal(links.length, 35);
+    equal(links.length, 36);
     const names = links.map((a) => a.textContent);
-    equal(new Set(names).size, 35, 'every link has a different accessible name');
+    equal(new Set(names).size, 36, 'every link has a different accessible name');
     for (const a of links) assert(/gallery\/#view=compare&component=[\w-]+$/.test(a.getAttribute('href')), a.getAttribute('href'));
     // the part added for screen readers is not shown
     const hidden = links[0].querySelector('.lk-visually-hidden');
@@ -62,13 +62,13 @@ test('home: each look is visibly its own look', async () => {
   const { frame, doc, win } = await openHome(1200);
   try {
     const looks = [...doc.querySelectorAll('.look')];
-    equal(looks.length, 8);
+    equal(looks.length, 9);
     const signature = (l) => {
       const s = win.getComputedStyle(l);
       const b = win.getComputedStyle(l.querySelector('.lk-button[data-variant=primary]'));
       return [s.backgroundColor, b.backgroundColor, s.fontFamily, b.borderRadius].join('|');
     };
-    equal(new Set(looks.map(signature)).size, 8, 'no two looks are the same');
+    equal(new Set(looks.map(signature)).size, 9, 'no two looks are the same');
   } finally {
     frame.remove();
   }
