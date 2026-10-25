@@ -18,7 +18,7 @@
       section > h2 { margin-bottom: 0.25rem; }
       .step-no { display: block; font-size: 0.875rem; font-weight: 700; color: var(--lk-color-muted); text-transform: uppercase; letter-spacing: 0.04em; }
       .back-link { max-width: 52rem; margin: 1rem auto 0; padding: 0 1rem; font-size: 0.9375rem; }
-      lk-tabs, lk-process, lk-quiz, lk-scenario, lk-flow, lk-order, lk-sort, lk-hotspot, lk-journal, lk-rating, lk-accordion, lk-alert, lk-table { display: block; margin-block: 1.25rem; }
+      lk-tabs, lk-timeline, lk-process, lk-quiz, lk-scenario, lk-flow, lk-order, lk-sort, lk-hotspot, lk-journal, lk-rating, lk-accordion, lk-alert, lk-table { display: block; margin-block: 1.25rem; }
       pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
       pre { margin: 0.75rem 0; padding: 0.75rem 1rem; overflow-x: auto; background: var(--lk-color-surface); border: 1px solid var(--lk-color-divider); border-radius: var(--lk-radius); font-size: 0.875rem; }
       :not(pre) > code { padding: 0.05em 0.35em; background: var(--lk-color-surface); border-radius: 0.25rem; font-size: 0.9em; }
@@ -42,14 +42,14 @@
         document.documentElement.setAttribute('data-lk-theme', select.value);
       });
 
-      const ACTIVITIES = 4;
+      const ACTIVITIES = 5;
       const done = new Set();
       const bar = document.getElementById('progress');
       function finish(key) {
         if (done.has(key)) return;
         done.add(key);
         bar.setAttribute('value', String(Math.round((done.size / ACTIVITIES) * 100)));
-        toast(done.size === ACTIVITIES ? 'All four activities finished. Well done!' : `${done.size} of ${ACTIVITIES} activities finished`, { tone: 'success' });
+        toast(done.size === ACTIVITIES ? 'All five activities finished. Well done!' : `${done.size} of ${ACTIVITIES} activities finished`, { tone: 'success' });
       }
       document.addEventListener('lk-check', (e) => {
         if (e.detail.score === e.detail.total) finish(e.target.localName);
@@ -93,9 +93,9 @@
           <p class="lk-guide__title">What you can do here</p>
           <ul>
             <li>Work through it from top to bottom, as a learner would.</li>
-            <li>Watch the bar at the top fill as you finish the four activities.</li>
+            <li>Watch the bar at the top fill as you finish the five activities.</li>
             <li>Change the &ldquo;Look&rdquo; at the top. The page is itself an example of the idea it teaches.</li>
-            <li>Take the questions in Part 5 and use them with your own project.</li>
+            <li>Take the questions in Part 7 and use them with your own project.</li>
           </ul>
         </div>
       </details>
@@ -239,8 +239,52 @@ import { parseQuiz, scoreQuestion, scoreQuiz, shuffle } from './core/quiz.js';</
         </lk-scenario>
       </section>
 
-      <section aria-labelledby="ask">
+      <section aria-labelledby="bug">
         <span class="step-no">Part 5</span>
+        <h2 id="bug">Where does the bug live?</h2>
+        <p>When something looks or works wrongly, ask one question first: which layer is it in? A bug belongs to a layer, not to a file. Three questions cover most of them.</p>
+        <lk-accordion label="The three questions" multiple>
+          <div data-lk-item="Is the content wrong?" open><p>The words, the answers, the order. Fix it on the page. Nothing else needs to change.</p></div>
+          <div data-lk-item="Is the behaviour wrong?" open><p>It does the wrong thing: a score adds up wrongly, a key does nothing. Fix it in the component or the base layer. Every page that uses it is fixed at once.</p></div>
+          <div data-lk-item="Is the look wrong?" open><p>Colour, size, spacing. Fix it in the shared styles or the theme. Every piece that uses them follows.</p></div>
+        </lk-accordion>
+
+        <h3>Activity 4: sort the bugs</h3>
+        <lk-sort label="Sort each problem into the layer where it belongs">
+          <ul data-lk-group="Content (the page)">
+            <li>A typo in a lesson</li>
+            <li>A quiz answer marked correct by mistake</li>
+          </ul>
+          <ul data-lk-group="Behaviour (the component)">
+            <li>The quiz adds up the score wrongly</li>
+            <li>Tabs ignore the arrow keys</li>
+          </ul>
+          <ul data-lk-group="Look (the shared styles)">
+            <li>Every button is the wrong blue</li>
+            <li>Text is too small in the dark look</li>
+          </ul>
+        </lk-sort>
+        <lk-alert tone="warning" heading="Why stitched pages are harder">
+          If every page was built on its own, each one has its own copy of every button and every rule. The same bug now lives in many places, and each copy differs slightly, so fixing one tells you nothing about the rest. Layers turn &ldquo;find the file&rdquo; into &ldquo;find the layer&rdquo;.
+        </lk-alert>
+      </section>
+
+      <section aria-labelledby="pays">
+        <span class="step-no">Part 6</span>
+        <h2 id="pays">Why keeping things pays off</h2>
+        <p>One developer&rsquo;s account of building the same kind of software more than once. Step through it.</p>
+        <lk-timeline label="How reuse changed the speed of building" stepped>
+          <div data-lk-date="At first" data-title="Every page made from scratch">Each page was built on its own, so each button was made again with its own style. The look was left until last, and that seemed fine.</div>
+          <div data-lk-date="Then" data-title="Pages stitched together">Standalone pages were joined into one product. When an AI was asked to do the joining, it produced small variations everywhere, and debugging got harder.</div>
+          <div data-lk-date="The change" data-title="Keep everything that works">Each component and each style was kept and reused. Every new project started with the last project&rsquo;s pieces.</div>
+          <div data-lk-date="First build" data-title="A CRM: about six months">Everything had to be learned and made for the first time.</div>
+          <div data-lk-date="Second build" data-title="A portal: about six weeks">The components and the lessons from the CRM were used again. Building got faster each time.</div>
+        </lk-timeline>
+        <p>Keep one caution in mind. Keep what you use a second time, not everything you ever make. A library only helps while it stays small enough to know.</p>
+      </section>
+
+      <section aria-labelledby="ask">
+        <span class="step-no">Part 7</span>
         <h2 id="ask">Before Claude adds anything</h2>
         <p>Claude Code is quick to add things and does not always look sideways first. These questions put you in charge of where new work lands. Start with this decision.</p>
         <lk-flow label="Where should this new feature go?" layout="tree" walkthrough>
@@ -286,9 +330,9 @@ lower layer imports from a higher one.</code></pre>
       </section>
 
       <section aria-labelledby="check">
-        <span class="step-no">Part 6</span>
+        <span class="step-no">Part 8</span>
         <h2 id="check">Check your understanding</h2>
-        <h3>Activity 4: the quiz</h3>
+        <h3>Activity 5: the quiz</h3>
         <lk-quiz label="Architecture quiz" title="Architecture quiz">
           <div data-lk-question="A file imports only from the layer below it. What does that tell you?">
             <div data-lk-option correct data-feedback="Yes: the layering is healthy and changes flow in one direction.">The layering is healthy, and the file is easy to reason about</div>
@@ -315,12 +359,12 @@ lower layer imports from a higher one.</code></pre>
       </section>
 
       <section aria-labelledby="reflect">
-        <span class="step-no">Part 7</span>
+        <span class="step-no">Part 9</span>
         <h2 id="reflect">Reflect</h2>
         <lk-journal name="arch-lesson-reflection" title="My notes on project structure">
           <div data-lk-prompt="Think of your own project. What are its layers, as best you can tell?" data-hint="Pages, shared code, styles. Guess if you need to, then ask Claude to check."></div>
           <div data-lk-prompt="Where have you already got something done twice that could be shared?"></div>
-          <div data-lk-prompt="Which question from Part 5 will you ask Claude first?"></div>
+          <div data-lk-prompt="Which question from Part 7 will you ask Claude first?"></div>
         </lk-journal>
         <lk-rating label="How confident are you now?" scale="5" low="Not at all" high="Completely" summary name="arch-lesson-after">
           <div data-lk-statement="Reading what a project's files depend on"></div>
