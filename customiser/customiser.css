@@ -46,8 +46,7 @@
 
 .plain-button { font: inherit; padding: 0.5rem 0.9rem; color: var(--g-fg); background: var(--g-bg); border: 1px solid var(--g-line); border-radius: 6px; cursor: pointer; }
 .plain-button:hover { border-color: var(--g-accent); }
-.plain-button.primary { color: #fff; background: var(--g-accent); border-color: var(--g-accent); }
-@media (prefers-color-scheme: dark) { .plain-button.primary { color: #0b1020; } }
+.plain-button.primary { color: var(--lk-color-primary-text); background: var(--g-accent); border-color: var(--g-accent); }
 
 .side { min-width: 0; align-self: stretch; } /* as tall as the settings, so the preview has room to stay in view */
 .side h2, .below h2 { margin: 0 0 0.5rem; font-size: 1.125rem; }
@@ -69,12 +68,8 @@
 #check-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; background: var(--g-card); }
 #check-table th, #check-table td { padding: 0.35rem 0.6rem; text-align: left; border-bottom: 1px solid var(--g-line); white-space: nowrap; }
 #check-table td.result { font-weight: 700; }
-#check-table tr.fail td.result { color: #b3261e; }
-#check-table tr.pass td.result { color: #1a6b3a; }
-@media (prefers-color-scheme: dark) {
-  #check-table tr.fail td.result { color: #ff9a92; }
-  #check-table tr.pass td.result { color: #7ed6a0; }
-}
+#check-table tr.fail td.result { color: var(--lk-color-danger); }
+#check-table tr.pass td.result { color: var(--lk-color-success); }
 
 #css { width: 100%; font: 0.8125rem/1.5 ui-monospace, Menlo, Consolas, monospace; padding: 0.75rem; color: var(--g-fg); background: var(--g-card); border: 1px solid var(--g-line); border-radius: 8px; resize: vertical; }
 .export .row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin: 0.5rem 0 0; }

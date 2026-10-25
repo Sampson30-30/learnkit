@@ -70,7 +70,7 @@ function save() {
 
 function readTokens(base, mode) {
   const probe = document.createElement('div');
-  if (base) probe.dataset.lkTheme = base;
+  probe.dataset.lkTheme = base || 'default';
   probe.dataset.lkMode = mode;
   probe.hidden = true;
   document.body.append(probe);
@@ -242,8 +242,7 @@ function syncControls() {
 }
 
 function applyPreview() {
-  if (state.base) preview.dataset.lkTheme = state.base;
-  else delete preview.dataset.lkTheme;
+  preview.dataset.lkTheme = state.base || 'default';
   preview.dataset.lkMode = state.editing;
   for (const name of TOKEN_ORDER) preview.style.removeProperty(`--lk-${name}`);
   for (const [name, value] of Object.entries({ ...state.edits.shared, ...state.edits[state.editing] })) {

@@ -64,6 +64,8 @@ Themes live in `src/themes/`. Load `learnkit.css` first, then the theme, then se
 
 Put the attribute on a wrapper instead of `<html>` to theme one section, or to show several themes on the same page. Set `data-lk-mode` on the same element as `data-lk-theme`.
 
+To return one section of a themed page to the built-in look, set `data-lk-theme="default"` on it. There is no theme file for this: it is the look `learnkit.css` has on its own.
+
 To see every component in every theme, run `npm start` and open `/gallery/`. It can show one component across all themes, or one theme across all components, in light, dark or system mode, and the address keeps your choices so you can share a view.
 
 ## Customiser

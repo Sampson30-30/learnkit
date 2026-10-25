@@ -1,25 +1,15 @@
-/* Chrome for the gallery page itself. It does not use LearnKit themes, so
-   switching a theme never changes the controls. */
+/* Chrome for the gallery page itself, drawn from the page's own look and mode
+   (chosen in the site header). The panes being compared set their own looks, so
+   comparing themes never changes these controls. The --g-* names are short
+   aliases for the theme's tokens, shared with the customiser page. */
 
 :root {
-  color-scheme: light dark;
-  --g-bg: #f5f5f7;
-  --g-fg: #1d1d22;
-  --g-muted: #5a5a64;
-  --g-line: #c9c9d2;
-  --g-card: #ffffff;
-  --g-accent: #1f4fd8;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --g-bg: #131316;
-    --g-fg: #ececf0;
-    --g-muted: #a8a8b4;
-    --g-line: #3a3a44;
-    --g-card: #1c1c21;
-    --g-accent: #8aa8ff;
-  }
+  --g-bg: var(--lk-color-page);
+  --g-fg: var(--lk-color-text);
+  --g-muted: var(--lk-color-muted);
+  --g-line: var(--lk-color-border);
+  --g-card: var(--lk-color-bg);
+  --g-accent: var(--lk-color-primary);
 }
 
 * { box-sizing: border-box; }
@@ -27,7 +17,7 @@
 body {
   margin: 0;
   padding: 0 1rem 3rem;
-  font: 16px/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font: 16px/1.5 var(--lk-font);
   color: var(--g-fg);
   background: var(--g-bg);
 }

@@ -15,6 +15,8 @@
 /* ---- Tokens ---- */
 
 @layer lk.tokens {
+  /* data-lk-theme="default" on any element returns it to the built-in look, even inside a themed page. */
+  [data-lk-theme='default'],
   :root {
     --lk-font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     --lk-font-heading: var(--lk-font);
@@ -50,7 +52,8 @@
   /* Dark mode follows the system unless the page sets data-lk-mode="light".
      Set data-lk-mode="dark" on any element to force dark inside it. */
   @media (prefers-color-scheme: dark) {
-    :root:not([data-lk-mode='light']) {
+    :root:not([data-lk-mode='light']),
+    [data-lk-theme='default']:not([data-lk-mode='light']) {
       color-scheme: dark;
       --lk-color-page: #14171f;
       --lk-color-bg: #14171f;
