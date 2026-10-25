@@ -8,7 +8,7 @@ import { jargonIn, longSentences, textOf, guideIn } from './plain.js';
 
 const read = (file) => readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
 
-const PAGES = ['index.html', 'gallery/index.html', 'customiser/index.html', 'examples/index.html', 'lesson/index.html', 'lesson/architecture/index.html'];
+const PAGES = ['index.html', 'gallery/index.html', 'customiser/index.html', 'examples/index.html', 'lesson/index.html', 'lesson/architecture/index.html', 'lesson/social-media/index.html'];
 
 for (const file of PAGES) {
   test(`${file} has an "About this page" panel with both parts`, () => {

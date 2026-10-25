@@ -375,3 +375,101 @@ test('sort: needs two groups and two items, otherwise it leaves the markup alone
   const el = await mount(`<lk-sort label="x"><ul data-lk-group="Only"><li>One</li><li>Two</li></ul></lk-sort>`);
   assert(!el.querySelector('.lk-sort__board'), 'not built');
 });
+
+// ---- lk-respond ----
+
+const RESPOND = `<lk-respond label="Your feed" question="What would you do?" explanation-label="Why">
+  <div data-lk-case="Post 1" data-kind="Public post">
+    <p>An unchecked claim.</p>
+    <div data-lk-action="Engage">Spreads it.</div>
+    <div data-lk-action="Challenge" correct>Ask for evidence.</div>
+    <p data-lk-explanation>Check sources.</p>
+  </div>
+  <div data-lk-case="Post 2">
+    <p>A fair disagreement.</p>
+    <div data-lk-action="Engage" correct>Join in.</div>
+    <div data-lk-action="Report" correct>Not needed, but allowed here.</div>
+    <div data-lk-action="Ignore">Skip it.</div>
+  </div>
+</lk-respond>`;
+const respondButton = (el, caseIndex, text) => [...el.querySelectorAll('.lk-respond__case')[caseIndex].querySelectorAll('.lk-respond__choice')].find((b) => b.textContent === text);
+
+test('respond: builds a named group with a titled article and a button per response', async () => {
+  const el = await mount(RESPOND);
+  equal(el.getAttribute('role'), 'group');
+  equal(el.getAttribute('aria-label'), 'Your feed');
+  equal(el.querySelectorAll('.lk-respond__case').length, 2);
+  equal(el.querySelector('h3.lk-respond__title').textContent, 'Post 1');
+  equal(el.querySelector('.lk-respond__kind').textContent, 'Public post');
+  equal(el.querySelector('.lk-respond__question').textContent, 'What would you do?');
+  equal(el.querySelectorAll('.lk-respond__case')[1].querySelectorAll('.lk-respond__choice').length, 3);
+  assert(el.querySelector('.lk-respond__stem').textContent.includes('An unchecked claim.'), 'the situation is kept');
+  assert(!el.querySelector('[data-lk-action]'), 'the markup responses are replaced by buttons');
+});
+
+test('respond: choosing shows what would happen, and the learner can change their mind', async () => {
+  const el = await mount(RESPOND);
+  const seen = listen(el, 'lk-respond');
+  click(respondButton(el, 0, 'Engage'));
+  const outcome = el.querySelector('.lk-respond__outcome');
+  assert(!outcome.hidden, 'outcome shown');
+  assert(outcome.textContent.includes('You chose Engage.'), 'says what was chosen');
+  assert(outcome.textContent.includes('Why: Check sources.'), 'the explanation is labelled');
+  equal(respondButton(el, 0, 'Engage').getAttribute('aria-pressed'), 'true');
+  click(respondButton(el, 0, 'Challenge'));
+  equal(respondButton(el, 0, 'Engage').getAttribute('aria-pressed'), 'false');
+  equal(respondButton(el, 0, 'Challenge').getAttribute('aria-pressed'), 'true');
+  equal(el.answers, ['Challenge', null]);
+  equal(seen[0], { index: 0, action: 'Engage' });
+  equal(seen.length, 2);
+});
+
+test('respond: checking before every case is answered says how many are left and marks nothing', async () => {
+  const el = await mount(RESPOND);
+  const checks = listen(el, 'lk-check');
+  click(respondButton(el, 0, 'Challenge'));
+  click(find(el, 'Check answers'));
+  assert(el.querySelector('[role=status]').textContent.includes('1 remains unanswered'), 'counts what is left');
+  assert([...el.querySelectorAll('.lk-respond__result')].every((r) => r.hidden), 'nothing marked');
+  equal(checks.length, 0);
+});
+
+test('respond: checking marks each case in words, and any suitable response counts', async () => {
+  const el = await mount(RESPOND);
+  const checks = listen(el, 'lk-check');
+  click(respondButton(el, 0, 'Engage')); // wrong
+  click(respondButton(el, 1, 'Report')); // one of two suitable responses
+  click(find(el, 'Check answers'));
+  const results = [...el.querySelectorAll('.lk-respond__result')];
+  equal(results.map((r) => r.dataset.state), ['wrong', 'correct']);
+  assert(results[0].textContent.startsWith('Not quite'), 'says it in words');
+  assert(results[0].textContent.includes('A more suitable choice here: Challenge.'), 'names the suitable response');
+  assert(results[1].textContent.startsWith('Correct'), 'a second suitable response is accepted');
+  equal(checks[0], { score: 1, total: 2, complete: false });
+  assert(el.querySelector('[role=status]').textContent.startsWith('1 of 2 decisions'), 'summarises');
+  click(respondButton(el, 0, 'Challenge'));
+  assert(results[0].hidden, 'changing a choice clears its old mark');
+  click(find(el, 'Check answers'));
+  equal(checks[1], { score: 2, total: 2, complete: true });
+});
+
+test('respond: reset clears everything and puts focus on the first response', async () => {
+  const el = await mount(RESPOND);
+  click(respondButton(el, 0, 'Engage'));
+  click(respondButton(el, 1, 'Engage'));
+  click(find(el, 'Reset'));
+  equal(el.answers, [null, null]);
+  assert([...el.querySelectorAll('.lk-respond__choice')].every((b) => b.getAttribute('aria-pressed') === 'false'), 'nothing pressed');
+  assert([...el.querySelectorAll('.lk-respond__outcome')].every((o) => o.hidden), 'outcomes hidden');
+  assert(document.activeElement === el.querySelector('.lk-respond__choice'), 'focus on the first response');
+});
+
+test('respond: a case with no suitable response, or fewer than two, is skipped', async () => {
+  const el = await mount(`<lk-respond label="x">
+    <div data-lk-case="No right answer"><div data-lk-action="A">a</div><div data-lk-action="B">b</div></div>
+    <div data-lk-case="One response"><div data-lk-action="A" correct>a</div></div>
+    <div data-lk-case="Fine"><div data-lk-action="A" correct>a</div><div data-lk-action="B">b</div></div>
+  </lk-respond>`);
+  equal(el.querySelectorAll('.lk-respond__case').length, 1);
+  equal(el.querySelector('.lk-respond__title').textContent, 'Fine');
+});

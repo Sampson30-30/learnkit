@@ -907,6 +907,49 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/lk-respond.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkRespond",
+          "tagName": "lk-respond",
+          "description": "<lk-respond> shows a set of situations, such as posts in a feed. For each one the learner picks a response, reads what would happen, then checks them all together. More than one response can be suitable for a situation.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Accessible name for the whole activity. Required."
+            },
+            {
+              "name": "question",
+              "description": "The question under each situation (default \"What would you do?\")."
+            },
+            {
+              "name": "level",
+              "description": "Heading level for each case title, 1 to 6 (default 3)."
+            },
+            {
+              "name": "explanation-label",
+              "description": "Optional words shown before each explanation, such as \"Why\"."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-respond",
+              "detail": "{ index, action }"
+            },
+            {
+              "name": "lk-check",
+              "detail": "{ score, total, complete }"
+            }
+          ],
+          "examples": [
+            "<lk-respond label=\"Your feed\" question=\"What would you do?\" level=\"3\">\n  <div data-lk-case=\"Post 1 from a local account\" data-kind=\"Public post\">\n    <p>\"The council has cancelled every election. Share this before it is deleted!\"</p>\n    <div data-lk-action=\"Engage\">Sharing spreads an unchecked claim.</div>\n    <div data-lk-action=\"Challenge\" correct>Ask for evidence, calmly.</div>\n    <div data-lk-action=\"Ignore\">You avoid amplifying it, but others may believe it.</div>\n    <p data-lk-explanation>Check credible sources before sharing.</p>\n  </div>\n</lk-respond>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/lk-scenario.js",
       "declarations": [
         {

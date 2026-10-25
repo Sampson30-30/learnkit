@@ -25,7 +25,7 @@ test('every link on the home page points at a real file or page', () => {
 });
 
 test('the other pages link back to the home page', () => {
-  for (const file of ['examples/index.html', 'lesson/index.html', 'lesson/architecture/index.html', 'gallery/index.html', 'customiser/index.html', 'test/browser/index.html']) {
+  for (const file of ['examples/index.html', 'lesson/index.html', 'lesson/architecture/index.html', 'lesson/social-media/index.html', 'gallery/index.html', 'customiser/index.html', 'test/browser/index.html']) {
     const html = readFileSync(new URL(file, root), 'utf8');
     assert.match(html, /class="back-link"/, `${file} has no way back`);
   }
