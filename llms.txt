@@ -18,7 +18,7 @@
 <script type="module" src="index.js"></script>
 ```
 
-Themes: blc, bold, clean, contrast, homepage, howdigital, sankofa, soft.
+Themes: blc, bold, clean, contrast, homepage, howdigital, monokai, sankofa, soft.
 
 ## Elements
 
