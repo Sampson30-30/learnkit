@@ -1,0 +1,168 @@
+/* Furniture for the LearnKit site's own pages: the header and the index on the
+   Examples page. Everything comes from the theme's tokens, so both follow the
+   look and mode chosen on a page. Not part of the library in src/. */
+
+site-nav {
+  display: block;
+  font-family: var(--lk-font);
+  background: var(--lk-color-bg);
+  border-block-end: 1px solid var(--lk-color-divider);
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  align-items: center;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: 0.5rem 1rem;
+}
+
+.site-nav__brand {
+  font-family: var(--lk-font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--lk-color-text);
+  text-decoration: none;
+}
+
+.site-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.25rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav__list a {
+  display: inline-block;
+  padding-block: 0.5rem;
+  color: var(--lk-color-text);
+  text-decoration: none;
+  border-block-end: 2px solid transparent;
+}
+
+.site-nav__list a:hover {
+  border-block-end-color: var(--lk-color-muted);
+}
+
+/* The Lessons menu's button should look like its neighbours, not like a link or a button. */
+.site-nav__list .lk-menu__trigger {
+  min-height: 0;
+  padding: 0.5rem 0 0.5rem;
+  font: inherit;
+  color: var(--lk-color-text);
+  text-decoration: none;
+  background: none;
+  border: 0;
+  border-block-end: 2px solid transparent;
+  border-radius: 0;
+}
+
+.site-nav__list .lk-menu__trigger:hover {
+  border-block-end-color: var(--lk-color-muted);
+}
+
+.site-nav a[aria-current='page'],
+.site-nav__list li[data-current] .lk-menu__trigger,
+.site-nav__list li[data-current] > lk-menu > button {
+  font-weight: 700;
+  border-block-end: 2px solid var(--lk-color-primary);
+}
+
+/* On a phone the links tighten up so they fit on one row under the name. */
+@media (max-width: 30rem) {
+  .site-nav {
+    gap: 0;
+    font-size: 0.9375rem;
+  }
+
+  .site-nav__list {
+    gap: 0 0.875rem;
+  }
+}
+
+/* The index on the Examples page */
+
+.pieces-index {
+  font-family: var(--lk-font);
+  font-size: 0.9375rem;
+}
+
+.pieces-index > summary {
+  padding: 0.5rem 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: var(--lk-color-surface);
+  border: var(--lk-border-width) solid var(--lk-color-border);
+  border-radius: var(--lk-radius);
+}
+
+.pieces-index__body {
+  padding-block-start: 0.75rem;
+}
+
+.pieces-index__label {
+  display: block;
+  font-weight: 700;
+}
+
+.pieces-index__search {
+  display: block;
+  width: 100%;
+  margin-block-start: 0.25rem;
+}
+
+.pieces-index__status {
+  min-height: 1.25rem;
+  margin: 0.375rem 0 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--lk-color-muted);
+}
+
+.pieces-index__shelf {
+  margin: 0.75rem 0 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--lk-color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.pieces-index__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pieces-index__list a {
+  display: block;
+  padding: 0.25rem 0.5rem;
+  color: var(--lk-color-text);
+  text-decoration: none;
+  border-inline-start: 3px solid transparent;
+}
+
+.pieces-index__list a:hover {
+  background: var(--lk-color-surface);
+}
+
+.pieces-index__list a[aria-current='true'] {
+  font-weight: 700;
+  border-inline-start-color: var(--lk-color-primary);
+  background: var(--lk-color-surface);
+}
+
+/* On a wide screen the list stays beside the page and the summary is not needed. */
+@media (min-width: 60rem) {
+  .pieces-index > summary {
+    display: none;
+  }
+
+  .pieces-index__body {
+    padding-block-start: 0;
+  }
+}
