@@ -1618,6 +1618,34 @@
     font-weight: 600;
   }
 
+  /* Pick up and place, shared by lk-order and lk-sort */
+
+  .lk-pickup__pick[aria-pressed='true'] {
+    color: var(--lk-color-primary-text);
+    background: var(--lk-color-primary);
+    border-color: var(--lk-color-primary);
+  }
+
+  .lk-pickup__place {
+    margin-block-start: 0.5rem;
+  }
+
+  .lk-order__item .lk-pickup__place {
+    flex-basis: auto;
+    margin-block-start: 0;
+  }
+
+  .lk-order__item[data-picked],
+  .lk-sort__item[data-picked] {
+    outline: 2px solid var(--lk-color-primary);
+    outline-offset: 2px;
+  }
+
+  .lk-sort__zone[data-target] {
+    outline: 2px dashed var(--lk-color-primary);
+    outline-offset: 2px;
+  }
+
   /* lk-respond */
 
   lk-respond {

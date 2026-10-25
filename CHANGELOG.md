@@ -9,6 +9,7 @@ All notable changes are recorded here. The format follows [Keep a Changelog](htt
 - `lk-stepper` with many steps or long names no longer squashes its labels: it goes compact (current label only, others kept for screen readers) when there are more than five steps.
 
 ### Added
+- Pick up and place for `<lk-order>` and `<lk-sort>`: add the `pickup` attribute and each item gets a Pick up button. The learner presses it, then a Place button where the item should go. Every step is one click, tap or key press, with no dragging, aiming or holding. Escape puts the item down. Shared logic and buttons in `core/pickup.js`.
 - `<lk-respond>`: situations such as posts in a feed. For each one the learner picks a response, reads what would happen, then checks them all together. More than one response can be suitable. Marked in words as well as colour, and a case that cannot work is skipped with a plain console message. Logic in `core/respond.js`.
 - `<lk-sort>`: learners sort items into groups. Every item has a "Move to" list for keyboard, screen reader and touch users, and can also be dragged by a handle. Marked in words as well as colour, with a pile that shuffles. Logic in `core/sort.js`.
 - `core/drag.js`: dragging with pointer events, used by `lk-sort` and `lk-order`.

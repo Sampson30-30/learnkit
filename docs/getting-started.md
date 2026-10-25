@@ -622,7 +622,7 @@ The learner puts items in sequence. **Write the items in the correct order**; th
 </lk-order>
 ```
 
-Every item has named Move up and Move down buttons, so it works by keyboard, screen reader and touch; each move is announced ("Plan moved to position 2 of 4") and focus follows the item. Mouse, finger and pen users can also drag by the handle. "Check order" marks each item right or wrong **in words as well as symbols**, and moving anything clears the marks. Events: `lk-orderchange` `{ order, labels }`, `lk-check` `{ score, total, complete }`. `el.sequence` reads the current order as text.
+Every item has named Move up and Move down buttons, so it works by keyboard, screen reader and touch; each move is announced ("Plan moved to position 2 of 4") and focus follows the item. Mouse, finger and pen users can also drag by the handle. "Check order" marks each item right or wrong **in words as well as symbols**, and moving anything clears the marks. Add `pickup` for a third way to move an item, which suits long lists: press **Pick up** on an item, then **Place at position N** on the row where it should go. Escape, or pressing Pick up again, puts it down. Events: `lk-orderchange` `{ order, labels }`, `lk-check` `{ score, total, complete }`. `el.sequence` reads the current order as text.
 
 ### `<lk-sort>`
 
@@ -635,7 +635,7 @@ The learner sorts items into groups. **Write each item under the group where it 
 </lk-sort>
 ```
 
-Every item has a "Move to" list, so it works by keyboard, screen reader and touch. Mouse, finger and pen users can also drag an item by its handle onto a group; each move is announced ("A final exam moved to Summative"). "Check answers" marks every item **in words as well as colour** (Right group, Not here, Not sorted yet), and moving an item clears its mark. Needs at least two groups and two items. Events: `lk-sortchange` `{ item, group }` (group is `null` for the pile), `lk-check` `{ score, total, complete }`. Methods: `place(item, group)` (use `-1` for the pile), `check()`, `reset()`. `el.placed` reads where every item is.
+Every item has a "Move to" list, so it works by keyboard, screen reader and touch. Mouse, finger and pen users can also drag an item by its handle onto a group; each move is announced ("A final exam moved to Summative"). "Check answers" marks every item **in words as well as colour** (Right group, Not here, Not sorted yet), and moving an item clears its mark. Add `pickup` for another way to move an item: press **Pick up**, then **Place in (group)** under the group it belongs in. Escape, or pressing Pick up again, puts it down. Needs at least two groups and two items. Events: `lk-sortchange` `{ item, group }` (group is `null` for the pile), `lk-check` `{ score, total, complete }`. Methods: `place(item, group)` (use `-1` for the pile), `check()`, `reset()`. `el.placed` reads where every item is.
 
 ### `<lk-respond>`
 

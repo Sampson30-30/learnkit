@@ -1,6 +1,7 @@
 import { LkElement, define } from './core/base.js';
 import { shuffle } from './core/flashcards.js';
 import { pointerDrag } from './core/drag.js';
+import { togglePickup, sortTargets, pickedMessage, putDownMessage, pickButton, placeButton } from './core/pickup.js';
 import { UNSORTED, placeItem, checkSort, sortMessage, markWord, placeMessage } from './core/sort.js';
 
 /**
@@ -21,8 +22,13 @@ import { UNSORTED, placeItem, checkSort, sortMessage, markWord, placeMessage } f
  * by its handle onto a group. "Check answers" marks every item in words as
  * well as colour, and moving an item clears its mark.
  *
+ * Add `pickup` for a way to move an item without dragging or opening a list:
+ * press Pick up on an item, then Place in (group) under the group it belongs
+ * in. Escape, or pressing Pick up again, puts it down.
+ *
  * Attributes:
- *   label  Instruction for the activity. Required.
+ *   label   Instruction for the activity. Required.
+ *   pickup  Adds Pick up and Place buttons.
  *
  * Events: lk-sortchange { item, group }, lk-check { score, total, complete }.
  * Methods: place(item, group) with -1 for the pile, check(), reset().
@@ -71,6 +77,14 @@ export class LkSort extends LkElement {
     this.resetButton = this.#button('Start again', '', () => this.reset());
     actions.append(this.checkButton, this.resetButton);
 
+    this.picked = null;
+    this.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.picked !== null) {
+        e.preventDefault();
+        this.#putDown();
+      }
+    });
+
     this.board.append(...this.zones);
     this.setAttribute('role', 'group');
     this.setAttribute('aria-labelledby', this.heading.id);
@@ -88,6 +102,7 @@ export class LkSort extends LkElement {
     this.placements = this.items.map(() => UNSORTED);
     this.pileOrder = shuffle(this.items.map((_, i) => i));
     this.marks = null;
+    this.picked = null;
     this.feedback.textContent = '';
     delete this.feedback.dataset.outcome;
     this.#render();
@@ -99,6 +114,7 @@ export class LkSort extends LkElement {
     if (next === this.placements) return;
     this.placements = next;
     this.marks = null;
+    this.picked = null;
     this.feedback.textContent = '';
     delete this.feedback.dataset.outcome;
     this.#render();
@@ -112,10 +128,32 @@ export class LkSort extends LkElement {
   check() {
     const result = checkSort(this.placements, this.items.map((i) => i.answer));
     this.marks = result.marks;
+    this.picked = null;
     this.feedback.textContent = sortMessage(result);
     this.feedback.dataset.outcome = result.complete ? 'good' : 'mixed';
     this.#render();
     this.emit('check', { score: result.score, total: result.total, complete: result.complete });
+  }
+
+  /** Picks an item up, or puts it down if it is already held. */
+  #pick(item) {
+    this.picked = togglePickup(this.picked, item);
+    this.#render();
+    const label = this.items[item].text;
+    this.live.textContent = this.picked === null ? putDownMessage(label) : pickedMessage(label, 'a group');
+    this.#focusPick(item);
+  }
+
+  #putDown() {
+    const item = this.picked;
+    this.picked = null;
+    this.#render();
+    this.live.textContent = putDownMessage(this.items[item].text);
+    this.#focusPick(item);
+  }
+
+  #focusPick(item) {
+    this.querySelector(`[data-item="${item}"] .lk-pickup__pick`)?.focus();
   }
 
   #render() {
@@ -142,6 +180,17 @@ export class LkSort extends LkElement {
     }
     for (const i of indexes) list.append(this.#item(i));
     zone.replaceChildren(heading, list);
+    const group = Number(zone.dataset.group);
+    if (this.picked !== null && sortTargets(this.placements[this.picked], this.groups.length).includes(group)) {
+      const item = this.picked;
+      zone.dataset.target = '';
+      zone.append(placeButton(group === UNSORTED ? 'Place back in the pile' : `Place in ${title}`, () => {
+        this.place(item, group, false);
+        this.#focusPick(item);
+      }));
+    } else {
+      delete zone.dataset.target;
+    }
   }
 
   #item(i) {
@@ -177,6 +226,8 @@ export class LkSort extends LkElement {
     select.addEventListener('change', () => this.place(i, Number(select.value), true));
 
     li.append(handle, text, select);
+    if (this.hasAttribute('pickup')) li.append(pickButton(item.text, this.picked === i, () => this.#pick(i)));
+    if (this.picked === i) li.dataset.picked = '';
     if (mark) {
       const word = document.createElement('span');
       word.className = 'lk-sort__mark';
