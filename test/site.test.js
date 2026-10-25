@@ -166,3 +166,27 @@ test('the gallery and customiser take their page colours from the theme, not a p
     assert.doesNotMatch(css, /#[0-9a-fA-F]{3,8}\b|rgba?\(/, `${file} still hard-codes a colour`);
   }
 });
+
+// ---- the header stays in view ----
+
+test('the header is sticky, and everything else that sticks to the top sits below it', () => {
+  assert.match(read('site/site.css'), /site-nav \{[^}]*position: sticky;[^}]*top: 0;/, 'the header sticks to the top');
+  assert.match(read('site/site.css'), /scroll-padding-top: calc\(var\(--site-nav-height/, 'links to a place on the page do not land underneath it');
+  const below = {
+    'lesson/lesson.css': /\.top \{[^}]*top: var\(--site-nav-height/,
+    'gallery/gallery.css': /\.controls \{[^}]*top: var\(--site-nav-height/,
+    'customiser/customiser.css': /\.preview-wrap \{[^}]*top: calc\(var\(--site-nav-height/,
+    'examples/index.html': /examples-layout__index \{[^}]*top: calc\(var\(--site-nav-height/,
+  };
+  for (const [file, pattern] of Object.entries(below)) assert.match(read(file), pattern, `${file} would slide under the header`);
+  assert.match(read('examples/index.html'), /\.ex__notes \{[^}]*top: calc\(var\(--site-nav-height/);
+});
+
+test('no page pins something to the top with a fixed offset that ignores the header', () => {
+  for (const file of ['lesson/lesson.css', 'gallery/gallery.css', 'customiser/customiser.css', 'examples/index.html']) {
+    const css = read(file);
+    for (const [, rule] of css.matchAll(/position: sticky;([^}]*)/g)) {
+      assert.match(rule, /--site-nav-height/, `${file}: a sticky rule ignores the header: "${rule.trim().slice(0, 60)}"`);
+    }
+  }
+});

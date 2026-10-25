@@ -14,7 +14,7 @@
       h2 { margin-top: 0; }
       .lk-guide, .back-link, h1 { max-width: 42rem; }
       .ex { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 1.5rem 2.5rem; align-items: start; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--lk-color-divider); }
-      .ex__notes { position: sticky; top: 1rem; padding: 1rem 1.25rem; background: var(--lk-color-surface); border: var(--lk-border-width) solid var(--lk-color-border); border-radius: var(--lk-radius); }
+      .ex__notes { position: sticky; top: calc(var(--site-nav-height, 0px) + 1rem); padding: 1rem 1.25rem; background: var(--lk-color-surface); border: var(--lk-border-width) solid var(--lk-color-border); border-radius: var(--lk-radius); }
       .ex__good { margin: 0 0 1rem; font-weight: 700; }
       .ex__title { margin: 0 0 0.375rem; font-size: 0.875rem; font-weight: 700; color: var(--lk-color-muted); text-transform: uppercase; letter-spacing: 0.03em; }
       .ex__notes ul { margin: 0 0 1rem; padding-inline-start: 1.25rem; }
@@ -25,9 +25,8 @@
       .examples-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; margin-top: 1.5rem; }
       @media (min-width: 60rem) {
         .examples-layout { grid-template-columns: 15rem minmax(0, 1fr); gap: 2rem; }
-        .examples-layout__index { position: sticky; top: 1rem; align-self: start; max-height: calc(100vh - 2rem); overflow-y: auto; }
+        .examples-layout__index { position: sticky; top: calc(var(--site-nav-height, 0px) + 1rem); align-self: start; max-height: calc(100vh - var(--site-nav-height, 0px) - 2rem); overflow-y: auto; }
       }
-      .ex { scroll-margin-top: 1rem; }
       .ex:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
       .theme-box { padding: 1rem; margin-top: 1rem; background: var(--lk-color-page); color: var(--lk-color-text); font-family: var(--lk-font); }
     </style>

@@ -101,6 +101,19 @@ export class SiteNav extends LkElement {
 
     nav.append(brand, list, this.#looks());
     this.replaceChildren(nav);
+    this.#shareHeight();
+  }
+
+  /** Tells the page how much of the top of the screen the header covers, as --site-nav-height,
+   *  so anything else that sticks to the top can sit just below it. It is 0 when the header scrolls away. */
+  #shareHeight() {
+    const share = () => {
+      const pinned = getComputedStyle(this).position === 'sticky';
+      root.style.setProperty('--site-nav-height', pinned ? `${this.offsetHeight}px` : '0px');
+    };
+    share();
+    if ('ResizeObserver' in window) new ResizeObserver(share).observe(this);
+    addEventListener('resize', share);
   }
 
   /** The Look and Mode menus. */
@@ -132,7 +145,18 @@ export class SiteNav extends LkElement {
       menu('Look', LOOKS, choice.look, (look) => change({ look })),
       menu('Mode', MODES, choice.mode, (mode) => change({ mode }))
     );
-    return wrap;
+
+    // On a narrow screen the menus fold behind a button, so a header that stays put does not take the whole screen.
+    const box = document.createElement('details');
+    box.className = 'site-nav__looks';
+    const summary = document.createElement('summary');
+    summary.textContent = 'Look and mode';
+    box.append(summary, wrap);
+    const wide = matchMedia('(min-width: 40rem)');
+    const fit = () => (box.open = wide.matches);
+    fit();
+    wide.addEventListener('change', fit);
+    return box;
   }
 }
 

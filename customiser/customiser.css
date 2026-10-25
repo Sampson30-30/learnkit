@@ -80,6 +80,6 @@
 /* Wide screens: the preview stays in view while you edit, and scrolls on its
    own without passing the scroll on to the page. */
 @media (min-width: 62.01rem) {
-  .preview-wrap { position: sticky; top: 0.75rem; display: flex; flex-direction: column; max-height: calc(100vh - 1.5rem); }
+  .preview-wrap { position: sticky; top: calc(var(--site-nav-height, 0px) + 0.75rem); display: flex; flex-direction: column; max-height: calc(100vh - var(--site-nav-height, 0px) - 1.5rem); }
   .preview { min-height: 0; overflow: auto; overscroll-behavior: contain; }
 }

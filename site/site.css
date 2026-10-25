@@ -3,10 +3,26 @@
    look and mode chosen on a page. Not part of the library in src/. */
 
 site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
   display: block;
   font-family: var(--lk-font);
   background: var(--lk-color-bg);
   border-block-end: 1px solid var(--lk-color-divider);
+}
+
+/* The header stays in view, and its height is shared as --site-nav-height (set in site-nav.js)
+   so other sticky parts sit below it and a link to a place on the page does not land underneath it. */
+html {
+  scroll-padding-top: calc(var(--site-nav-height, 0px) + 0.5rem);
+}
+
+/* A short screen, such as a phone on its side, needs all its height for the page. */
+@media (max-height: 30rem) {
+  site-nav {
+    position: static;
+  }
 }
 
 .site-nav {
@@ -50,12 +66,19 @@ site-nav .site-nav__list a:hover {
 }
 
 /* Look and Mode: sit at the end of the row, and drop under the links when there is no room. */
+.site-nav__looks {
+  margin-inline-start: auto;
+}
+
+.site-nav__looks > summary {
+  display: none;
+}
+
 .site-nav__look {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem 1rem;
   align-items: center;
-  margin-inline-start: auto;
 }
 
 .site-nav__look > div {
@@ -100,20 +123,38 @@ site-nav .site-nav__list a:hover {
   border-block-end: 2px solid var(--lk-color-primary);
 }
 
-/* On a phone the links tighten up so they fit on one row under the name. */
-@media (max-width: 30rem) {
+/* On a phone the name and links share one row, and Look and Mode fold behind a button,
+   so a header that stays in view takes about a tenth of the screen. */
+@media (max-width: 39.99rem) {
   .site-nav {
-    gap: 0;
+    gap: 0 0.625rem;
+    padding-block: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .site-nav .site-nav__brand {
     font-size: 0.9375rem;
   }
 
   .site-nav__list {
-    gap: 0 0.875rem;
+    gap: 0 0.625rem;
+  }
+
+  .site-nav__looks {
+    flex-basis: 100%;
+    margin-inline-start: 0;
+  }
+
+  .site-nav__looks > summary {
+    display: block;
+    padding-block: 0.25rem;
+    font-weight: 700;
+    cursor: pointer;
   }
 
   .site-nav__look {
     gap: 0.25rem 0.75rem;
-    margin-inline-start: 0;
+    padding-block-end: 0.5rem;
   }
 
   .site-nav__select {
