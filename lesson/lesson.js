@@ -2,17 +2,40 @@
 //
 // A lesson needs, in its page:
 //   <link id="theme-sheet" ...>               the current theme's stylesheet
-//   <select id="look">                        values are theme file names, such as "clean"
+//   <div data-lesson-controls>                where the Look and Mode choices are built
 //   <lk-progress id="progress" value="0">     the bar
 //   <body data-activities="5">                how many activities count towards it
 import { toast } from '../src/index.js';
 
+const LOOKS = [['clean', 'Clean'], ['soft', 'Soft'], ['bold', 'Bold'], ['contrast', 'High contrast'], ['homepage', 'Homepage'], ['blc', 'BLC'], ['howdigital', 'HoW Digital'], ['sankofa', 'Sankofa']];
+const MODES = [['', 'Match my device'], ['light', 'Light'], ['dark', 'Dark']];
+
+/** A labelled choice list. `onChange` gets the chosen value. */
+function choice(id, label, options, onChange) {
+  const wrap = document.createElement('div');
+  const text = document.createElement('label');
+  text.htmlFor = id;
+  text.textContent = label;
+  const select = document.createElement('select');
+  select.id = id;
+  for (const [value, name] of options) select.append(new Option(name, value));
+  select.addEventListener('change', () => onChange(select.value));
+  wrap.append(text, select);
+  return wrap;
+}
+
+const root = document.documentElement;
 const sheet = document.getElementById('theme-sheet');
-const select = document.getElementById('look');
-select.addEventListener('change', () => {
-  sheet.href = sheet.href.replace(/[^/]+\.css$/, `${select.value}.css`);
-  document.documentElement.setAttribute('data-lk-theme', select.value);
-});
+document.querySelector('[data-lesson-controls]').append(
+  choice('look', 'Look', LOOKS, (value) => {
+    sheet.href = sheet.href.replace(/[^/]+\.css$/, `${value}.css`);
+    root.setAttribute('data-lk-theme', value);
+  }),
+  choice('mode', 'Mode', MODES, (value) => {
+    if (value) root.setAttribute('data-lk-mode', value);
+    else root.removeAttribute('data-lk-mode');
+  })
+);
 
 const total = Number(document.body.dataset.activities);
 const done = new Set();
