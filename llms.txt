@@ -1,0 +1,722 @@
+# LearnKit 0.1.0
+
+> Dependency-free Web Components for accessible UI and interactive learning content. No framework and no build step: a stylesheet, a script, then HTML.
+
+## Rules for writing LearnKit HTML
+
+- Use only the elements, attributes and events listed below. If something is not listed, it does not exist.
+- Content goes in child elements marked with `data-lk-*` attributes (for example `data-lk-tab`, `data-lk-question`). The attribute value is the title or prompt.
+- Where an attribute says "Required", leave it out and the component is not accessible.
+- Write real, plain HTML inside. Do not add your own JavaScript to make a component work.
+- Give every `name` (journal, rating) a different value on each page of a site.
+
+## Install
+
+```html
+<link rel="stylesheet" href="learnkit.css" />
+<link rel="stylesheet" href="themes/clean.css" /> <!-- optional -->
+<script type="module" src="index.js"></script>
+```
+
+Themes: blc, bold, clean, contrast, homepage, howdigital, sankofa, soft.
+
+## Elements
+
+### <lk-accordion>
+
+<lk-accordion> turns child elements marked with data-lk-item="Title" into a set of collapsible sections (WAI-ARIA accordion pattern).
+
+Attributes:
+- `multiple`: Allow several sections to be open at once. Without it, opening one section closes the others.
+- `level`: Heading level for the section headings, 1 to 6 (default 3).
+- `label`: Accessible name for the group.
+
+Events:
+- `lk-toggle` detail { index, title, open }
+
+### <lk-alert>
+
+<lk-alert> is a message that sits in the page, such as a tip or a warning.
+
+Attributes:
+- `tone`: info (default), success, warning or danger.
+- `heading`: Optional bold first line.
+- `dismissible`: Adds a close button. Fires lk-dismiss, then removes the alert.
+- `live`: Announce the alert when it appears. Use it only for alerts added after the page loads, such as a save error.
+
+Events:
+- `lk-dismiss`
+
+Example:
+
+```html
+<lk-alert tone="warning" heading="Deadline moved" dismissible>
+  Submit by Friday instead.
+</lk-alert>
+```
+
+### <lk-avatar>
+
+<lk-avatar> shows a person as a picture, or as their initials when there is no picture or it fails to load.
+
+Attributes:
+- `name`: The person's name. Used for the initials and the accessible name.
+- `src`: Optional picture URL.
+- `size`: sm, md (default) or lg.
+- `tone`: A fixed colour (primary, success, warning, info, danger). By default the colour comes from the name, so it is stable.
+- `decorative`: Hide it from screen readers, for when the name is shown next to it.
+
+Example:
+
+```html
+<lk-avatar name="Ada Lovelace"></lk-avatar>
+<lk-avatar name="Grace Hopper" src="grace.jpg" size="lg"></lk-avatar>
+```
+
+### <lk-chip>
+
+<lk-chip> is a compact label. It can be plain, selectable (a toggle) or removable.
+
+Attributes:
+- `selectable`: The label becomes a toggle button (aria-pressed).
+- `selected`: Current state of a selectable chip. Set it or read it.
+- `removable`: Adds a remove button. Fires lk-remove, then removes the chip.
+- `tone`: primary, success, warning, danger or info. Optional.
+
+Events:
+- `lk-select` detail { selected }
+- `lk-remove` detail { label }
+- `lk-remove`
+
+Example:
+
+```html
+<lk-chip>Level 2</lk-chip>
+<lk-chip selectable selected>Maths</lk-chip>
+<lk-chip removable>Evening</lk-chip>
+```
+
+### <lk-drawer>
+
+<lk-drawer> is a panel that slides in from the side of the screen, for navigation, filters or details that should not take over the page. It is a modal dialog underneath: focus stays inside while it is open, the page behind is inert, and Escape or a click outside closes it.
+
+Attributes:
+- `side`: start or end (default end). It follows the reading direction.
+
+Example:
+
+```html
+<button data-lk-open="filters">Filters</button>
+<lk-drawer id="filters" heading="Filter courses" side="start">...</lk-drawer>
+```
+
+### <lk-field>
+
+<lk-field> adds a label, hint and error message to a native text-like control (input, select or textarea) and wires up the ARIA for you.
+
+Attributes:
+- `label`: Visible label text. Required for accessibility.
+- `hint`: Help text shown under the label.
+- `error`: Error message. Set it from your own validation; clear it to remove.
+
+### <lk-choices>
+
+<lk-choices> groups checkboxes or radio buttons into a fieldset with a legend, hint and error. Put plain `<label><input ...> Text</label>` children inside it.
+
+Attributes:
+- `legend`: Visible group label. Required for accessibility.
+- `hint`: Help text shown under the legend.
+- `error`: Error message from your own validation.
+- `min`: Minimum number of checked boxes, for checkbox groups.
+
+### <lk-flashcards>
+
+<lk-flashcards> is a stack of cards for recall practice. The learner reads the front, tries to remember the back, reveals it, then says whether they knew it. Cards they did not know come round again until all are known.
+
+Attributes:
+- `label`: Accessible name. Required.
+- `shuffle`: Present the cards in a random order.
+
+Events:
+- `lk-reveal` detail { index }
+- `lk-cardanswer` detail { index, known }
+- `lk-deckcomplete` detail { total, firstTime }
+
+Example:
+
+```html
+<lk-flashcards label="Key terms" shuffle>
+  <div data-lk-card="Formative assessment">Assessment during learning, used to shape the teaching.</div>
+  <div data-lk-card="Summative assessment">Assessment at the end, used to judge what was learned.</div>
+</lk-flashcards>
+```
+
+### <lk-flow>
+
+<lk-flow> draws a process or a decision tree from nested lists, and can walk a learner through it one choice at a time.
+
+Attributes:
+- `label`: Accessible name. Required.
+- `layout`: process (default) or tree. A tree never rejoins: every branch ends in a result, and nothing can follow a decision.
+- `walkthrough`: Adds a panel that asks one question at a time, shows the route taken and highlights it on the chart.
+
+Events:
+- `lk-flowstep` detail { id, text, route }
+- `lk-flowend` detail { route }
+
+Example:
+
+```html
+<lk-flow label="A late submission" walkthrough>
+  <ol>
+    <li data-type="start">Work arrives after the deadline</li>
+    <li>Was an extension agreed?
+      <ul>
+        <li data-label="Yes">Mark as normal</li>
+        <li data-label="No">Apply the late penalty</li>
+      </ul>
+    </li>
+    <li data-type="end">Return feedback</li>
+  </ol>
+</lk-flow>
+```
+
+### <lk-glossary>
+
+<lk-glossary> shows a list of terms and their meanings, sorted A to Z, with a search box and jump links for each letter. Write the terms in any order.
+
+Attributes:
+- `label`: Name for the glossary. Required.
+- `level`: Heading level for the letter headings, 1 to 6 (default 3).
+
+Events:
+- `lk-filter` detail { query, shown, total }
+
+Example:
+
+```html
+<lk-glossary label="Key terms">
+  <dl>
+    <dt>Formative assessment</dt>
+    <dd>Checking progress during learning, to help it along.</dd>
+    <dt>Summative assessment</dt>
+    <dd>Judging what has been learned at the end.</dd>
+  </dl>
+</lk-glossary>
+```
+
+### <lk-grid-explorer>
+
+<lk-grid-explorer> shows a grid of tiles. Choosing a tile reveals its details below, and the grid tracks which tiles have been explored.
+
+Attributes:
+- `label`: Accessible name for the grid. Required.
+- `columns`: Number of columns, 1 to 6 (default 3). Narrow screens use fewer.
+- `level`: Heading level for the detail title, 1 to 6 (default 3).
+
+Events:
+- `lk-explore` detail { index, title, explored, total }
+- `lk-complete` detail { explored, total }
+
+Example:
+
+```html
+<lk-grid-explorer label="Learning theories" columns="3">
+  <div data-lk-cell="Behaviourism">Learning as a change in behaviour...</div>
+  <div data-lk-cell="Constructivism">Learners build knowledge...</div>
+</lk-grid-explorer>
+```
+
+### <lk-hotspot>
+
+<lk-hotspot> puts numbered points on a picture or diagram. Choosing a point shows its explanation, and the component tracks which have been explored.
+
+Attributes:
+- `label`: Accessible name. Required.
+
+Events:
+- `lk-spot` detail { index, title }
+- `lk-allexplored` detail { total }
+
+Example:
+
+```html
+<lk-hotspot label="Parts of a plant">
+  <img src="plant.png" alt="A plant with a flower, stem and roots" />
+  <div data-lk-spot data-x="50" data-y="15" data-title="Flower">Makes seeds.</div>
+  <div data-lk-spot data-x="48" data-y="60" data-title="Stem">Carries water.</div>
+</lk-hotspot>
+```
+
+### <lk-journal>
+
+<lk-journal> is a reflection journal: a set of prompts with a text box each. Notes are saved in this browser as the learner types, and can be copied or downloaded.
+
+Attributes:
+- `name`: Storage key for this journal. Required if you want notes kept. Use a different name for each journal on your site.
+- `title`: Visible title, also used in exports.
+- `level`: Heading level for the title, 1 to 6 (default 2).
+- `rows`: Height of each text box in rows (default 5).
+
+Events:
+- `lk-save` detail { name, entries }
+- `lk-export` detail { format, filename }
+
+Example:
+
+```html
+<lk-journal name="week-1" title="Week 1 reflection">
+  <div data-lk-prompt="What went well this week?" data-hint="Think about one lesson."></div>
+  <div data-lk-prompt="What would you change?"></div>
+</lk-journal>
+```
+
+### <lk-matrix>
+
+<lk-matrix> turns a native table into an activity. Cells the learner must complete are marked in the markup; every other cell stays as written. The table reads normally without JavaScript.
+
+Attributes:
+- `label`: Instruction for the activity. Required.
+- `show-answers`: Adds a "Show answers" button after the learner has checked.
+
+Events:
+- `lk-check` detail { score, total, complete }
+- `lk-reveal`
+
+Example:
+
+```html
+<lk-matrix label="Match each theory to its idea">
+  <table>
+    <caption>Learning theories</caption>
+    <thead><tr><th></th><th>Focus</th><th>Active learner</th></tr></thead>
+    <tbody>
+      <tr><th>Behaviourism</th><td data-answer="Behaviour|Habits">Behaviour</td><td data-tick="no"></td></tr>
+      <tr><th>Constructivism</th><td data-answer="Meaning">Meaning</td><td data-tick="yes"></td></tr>
+    </tbody>
+  </table>
+</lk-matrix>
+```
+
+### <lk-menu>
+
+<lk-menu> is a button that opens a list of actions or links.
+
+Attributes:
+- `label`: Text on the trigger button. Required.
+- `variant`: Optional lk-button variant for the trigger (primary, danger, link).
+
+Events:
+- `lk-select` detail { label, value }
+- `lk-open`
+- `lk-close`
+
+Example:
+
+```html
+<lk-menu label="More actions">
+  <button data-lk-item value="duplicate">Duplicate</button>
+  <a data-lk-item href="/export">Export</a>
+  <hr />
+  <button data-lk-item value="archive" disabled>Archive</button>
+</lk-menu>
+```
+
+### <lk-modal>
+
+<lk-modal> wraps its content in a native <dialog> opened with showModal(), so the browser provides the top layer, focus containment, an inert background and the Escape key. LearnKit adds the heading, close button, backdrop click, focus return and trigger wiring.
+
+Attributes:
+- `heading`: Visible title. Gives the dialog its accessible name.
+- `label`: Accessible name to use when there is no visible heading.
+- `level`: Heading level for the title, 1 to 6 (default 2).
+- `static`: Do not close when the backdrop is clicked. Escape and the close button still work.
+- `close-label`: Accessible name for the close button (default "Close").
+
+Events:
+- `lk-open`
+- `lk-close` detail { returnValue }
+
+### <lk-breadcrumbs>
+
+<lk-breadcrumbs> shows where the learner is in a hierarchy.
+
+Attributes:
+- `label`: Accessible name (default "Breadcrumb").
+- `max`: Longest trail to show. Middle items collapse behind a button that reveals them.
+
+Example:
+
+```html
+<lk-breadcrumbs label="You are here" max="4">
+  <ol>
+    <li><a href="/">Home</a></li>
+    <li><a href="/courses">Courses</a></li>
+    <li>Maths</li>
+  </ol>
+</lk-breadcrumbs>
+```
+
+### <lk-pagination>
+
+<lk-pagination> moves between pages of results.
+
+Attributes:
+- `total`: Number of pages.
+- `page`: Current page (1-based). Change it at any time.
+- `label`: Accessible name (default "Pagination").
+- `siblings`: Pages shown either side of the current one (default 1).
+
+Events:
+- `lk-pagechange` detail { page }
+
+Example:
+
+```html
+<lk-pagination label="Results" total="12" page="1"></lk-pagination>
+```
+
+### <lk-order>
+
+<lk-order> asks the learner to put items in the right sequence. Write the items in the CORRECT order; they are shuffled for the learner.
+
+Attributes:
+- `label`: Question or instruction. Required.
+
+Events:
+- `lk-orderchange` detail { order, labels }
+- `lk-check` detail { score, total, complete }
+
+Example:
+
+```html
+<lk-order label="Put the writing process in order">
+  <ol><li>Plan</li><li>Draft</li><li>Revise</li><li>Publish</li></ol>
+</lk-order>
+```
+
+### <lk-tooltip>
+
+<lk-tooltip> shows a short hint when its target is hovered or focused.
+
+Attributes:
+- `for`: Id of the target element.
+- `placement`: top, bottom, left or right (default top). It flips when there is no room.
+
+Example:
+
+```html
+<button id="help">Help</button>
+<lk-tooltip for="help">Opens the course guide</lk-tooltip>
+```
+
+### <lk-popover>
+
+<lk-popover> is a small panel of content that opens next to a trigger. Unlike a tooltip it can hold links, buttons and form controls.
+
+Attributes:
+- `label`: Accessible name. Required.
+- `placement`: top, bottom, left or right (default bottom).
+
+Events:
+- `lk-open`
+- `lk-close`
+
+Example:
+
+```html
+<button data-lk-popover="info">More about this</button>
+<lk-popover id="info" label="About this topic">...</lk-popover>
+```
+
+### <lk-process>
+
+<lk-process> walks a learner through steps, one at a time, with a stepper showing where they are. Each step is a child marked with data-lk-step.
+
+Attributes:
+- `label`: Accessible name. Required.
+- `level`: Heading level for step titles, 1 to 6 (default 3).
+
+Events:
+- `lk-step` detail { index, title }
+- `lk-complete` detail { steps }
+
+Example:
+
+```html
+<lk-process label="Planning a lesson">
+  <div data-lk-step="Set the outcome">Decide what learners will be able to do...</div>
+  <div data-lk-step="Plan the activities">...</div>
+</lk-process>
+```
+
+### <lk-progress>
+
+<lk-progress> shows how far along something is.
+
+Attributes:
+- `value`: Current value. Leave it out for an indeterminate bar.
+- `max`: Maximum value (default 100).
+- `label`: Accessible name, for example "Course progress". Required.
+- `show-value`: Also show the percentage as text.
+
+### <lk-stepper>
+
+<lk-stepper> marks where the learner is in an ordered list of steps. It shows progress; it does not hold the content of the steps.
+
+Attributes:
+- `current`: Zero-based index of the current step (default 0). Change it at any time. Steps before it are complete.
+- `label`: Accessible name for the list.
+- `compact`: Show only the current step’s label. Added for you when there are more than five steps. The other labels stay available to screen readers.
+
+Example:
+
+```html
+<lk-stepper current="1" label="Enrolment steps">
+  <ol><li>Your details</li><li>Choose a course</li><li>Confirm</li></ol>
+</lk-stepper>
+```
+
+### <lk-quiz>
+
+<lk-quiz> is a knowledge check: one question at a time, instant feedback, then a score. Write the questions as markup, as JSON, or both.
+
+Attributes:
+- `label`: Accessible name for the quiz.
+- `title`: Visible title (the JSON title is used if this is missing).
+- `level`: Heading level for the title and results, 1 to 6 (default 2).
+- `shuffle`: Shuffle the order of the options each attempt.
+
+Events:
+- `lk-answer` detail { id, index, correct, selected }
+- `lk-complete` detail { correct, total, percent, points }
+
+Example:
+
+```html
+<lk-quiz label="Check your understanding">
+  <div data-lk-question="Which of these is formative assessment?">
+    <div data-lk-option correct data-feedback="Yes: it informs teaching.">A quick quiz</div>
+    <div data-lk-option>A final exam</div>
+    <p data-lk-explanation>Formative assessment happens during learning.</p>
+  </div>
+</lk-quiz>
+```
+
+### <lk-rating>
+
+<lk-rating> is a self-assessment: the learner rates themselves on a scale for one or more statements.
+
+Attributes:
+- `label`: Group name. Required.
+- `scale`: Number of points, 2 to 10 (default 5).
+- `low`: Description of the lowest point.
+- `high`: Description of the highest point.
+- `summary`: Show an average and areas to focus on once every statement is rated.
+- `name`: Storage key. If set, ratings are remembered in this browser.
+
+Events:
+- `lk-rate` detail { index, statement, value }
+- `lk-summary` detail { total, answered, average, focus: [statements] }
+
+Example:
+
+```html
+<lk-rating label="How confident are you with these skills?" scale="5"
+           low="Not at all" high="Completely" summary name="skills-check">
+  <div data-lk-statement="Planning a lesson"></div>
+  <div data-lk-statement="Giving feedback"></div>
+</lk-rating>
+```
+
+### <lk-scenario>
+
+<lk-scenario> is a branching story. The learner reads a situation, chooses what to do, and sees where it leads.
+
+Attributes:
+- `label`: Accessible name. Required.
+- `start`: Id of the first node (default: the first node).
+- `level`: Heading level for node titles, 1 to 6 (default 3).
+
+Events:
+- `lk-choose` detail { from, to, choice, path }
+- `lk-end` detail { node, outcome, path }
+
+Example:
+
+```html
+<lk-scenario label="A late submission" start="start">
+  <div data-lk-node="start" data-title="An email arrives">
+    <p>A learner asks for more time...</p>
+    <ul data-lk-choices>
+      <li data-lk-goto="strict">Say no</li>
+      <li data-lk-goto="flex">Agree an extension</li>
+    </ul>
+  </div>
+  <div data-lk-node="strict" data-end data-outcome="poor" data-title="The learner disengages">...</div>
+  <div data-lk-node="flex" data-end data-outcome="good" data-title="The learner catches up">...</div>
+</lk-scenario>
+```
+
+### <lk-sort>
+
+<lk-sort> asks the learner to sort items into groups. Write each item under the group where it BELONGS; the items are shuffled into a pile for the learner.
+
+Attributes:
+- `label`: Instruction for the activity. Required.
+
+Events:
+- `lk-sortchange` detail { item, group }
+- `lk-check` detail { score, total, complete }
+
+Example:
+
+```html
+<lk-sort label="Sort these into the right group">
+  <ul data-lk-group="Formative">
+    <li>A quiz in class</li><li>Feedback on a draft</li>
+  </ul>
+  <ul data-lk-group="Summative">
+    <li>A final exam</li>
+  </ul>
+</lk-sort>
+```
+
+### <lk-spectrum>
+
+<lk-spectrum> asks a learner to place their view between two poles, then compares it with an expert position.
+
+Attributes:
+- `statement`: The question or statement. Required.
+- `expert`: Expert position, 0 (left) to 100 (right). Without it there is no comparison step.
+- `explanation`: Why the expert holds that position. Shown on comparing.
+
+Events:
+- `lk-change` detail { value }
+- `lk-reveal` detail { value, expert, difference }
+
+Example:
+
+```html
+<lk-spectrum statement="How should feedback be given?"
+             left="Written" right="Spoken" expert="70"
+             explanation="Spoken feedback allows a conversation, but write down the key points.">
+</lk-spectrum>
+```
+
+### <lk-switch>
+
+<lk-switch> is an on/off setting, built on a native checkbox with role="switch" so it works in forms and with every assistive technology.
+
+Attributes:
+- `label`: Required.
+- `hint`
+- `name`
+- `value`
+- `checked`
+- `disabled`
+
+Events:
+- `lk-change` detail { checked }
+
+Example:
+
+```html
+<lk-switch label="Email reminders" hint="One a week" name="reminders" checked></lk-switch>
+```
+
+### <lk-table>
+
+<lk-table> makes a native <table> sortable and filterable. The table stays ordinary HTML, so it reads well without JavaScript.
+
+Attributes:
+- `label`: Accessible name for the scrolling region. Required.
+- `sortable`: Header cells become sort buttons. Put data-nosort on a <th> to skip it.
+- `filter`: Adds a search box that hides rows without every typed word.
+- `striped`: Shades alternate rows.
+
+Events:
+- `lk-sort` detail { column, direction }
+- `lk-filter` detail { query, shown, total }
+
+Example:
+
+```html
+<lk-table label="Courses" sortable filter>
+  <table>
+    <caption>Courses this term</caption>
+    <thead><tr><th>Course</th><th>Hours</th></tr></thead>
+    <tbody>...</tbody>
+  </table>
+</lk-table>
+```
+
+### <lk-tabs>
+
+<lk-tabs> turns child elements marked with data-lk-tab="Title" into an accessible tabbed interface (WAI-ARIA tabs pattern, manual activation off).
+
+Attributes:
+- `selected`: Zero-based index of the initially selected tab (default 0).
+- `label`: Accessible name for the tab list.
+
+Events:
+- `lk-tabchange` detail { index, title }
+
+### <lk-timeline>
+
+<lk-timeline> lays out events in order. Each event is a child marked with data-lk-date.
+
+Attributes:
+- `label`: Accessible name for the list.
+- `level`: Heading level for event titles, 1 to 6 (default 3).
+- `collapsible`: Event details open and close when the title is pressed.
+- `stepped`: Show one event at a time. A button reveals the next.
+
+Events:
+- `lk-toggle`
+- `lk-reveal`
+
+Example:
+
+```html
+<lk-timeline label="History of the college">
+  <div data-lk-date="1962" data-title="Founded">The first classes began...</div>
+  <div data-lk-date="1990" data-title="New campus">...</div>
+</lk-timeline>
+```
+
+### <lk-toasts>
+
+<lk-toasts> is the region that holds notifications. You rarely write it by hand: call toast() and one is created for you. Add one yourself to choose where notifications appear.
+
+Attributes:
+- `placement`: top-start, top-end, bottom-start or bottom-end (default).
+
+Example:
+
+```html
+<lk-toasts placement="top-end"></lk-toasts>
+```
+
+### <lk-tree>
+
+<lk-tree> shows nested content that can be opened and closed, such as a course outline. Write it as nested lists.
+
+Attributes:
+- `label`: Accessible name. Required.
+
+Example:
+
+```html
+<lk-tree label="Course contents">
+  <ul>
+    <li open>Unit 1
+      <ul>
+        <li><a href="#a">Lesson A</a></li>
+        <li data-value="b">Lesson B</li>
+      </ul>
+    </li>
+    <li>Unit 2<ul><li>Lesson C</li></ul></li>
+  </ul>
+</lk-tree>
+```
