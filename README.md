@@ -73,6 +73,7 @@ LearnKit is a free UI shop with three layers: **components**, **themes** that gi
 | `blc` | Blended Learning Consortium, from the BLC design system |
 | `howdigital` | HoW Digital, from the HoW Digital design system |
 | `sankofa` | A writer's companion look, from the Sankofa design system |
+| `monokai` | Deep aubergine and slate with hot pink, inspired by Proton's Monokai. Light and dark |
 
 `homepage`, `blc`, `howdigital` and `sankofa` are built from design systems in Claude Design. `blc` and `howdigital` inherit their colours from the design systems: the tokens are copied into `design-systems/` and `npm run sync` generates the theme from them (see [docs/theming.md](docs/theming.md)). Where a design system defines no colour, the theme's map says which colours are LearnKit's own. `blc`, `howdigital` and `sankofa` name fonts they do not load, so nothing is fetched from the internet. See [the font notes in docs/theming.md](docs/theming.md) to add them.
 

@@ -1,0 +1,99 @@
+/* LearnKit theme: Monokai.
+
+   Inspired by the Monokai theme in Proton's apps: a deep aubergine-black page,
+   cool slate panels, white text and a hot pink accent, with bright mint, amber,
+   orange and sky for status. Dark is the main look. Light is LearnKit's own
+   counterpart: a cool white page with a deeper pink so text on it stays legible.
+   Contrast checked in both.
+
+   Only the idea and the general palette are borrowed. The values are tuned here
+   so every pair passes the same contrast rules as npm test.
+
+   Use:  <html data-lk-theme="monokai">
+   Scope it to one section by putting the attribute on a wrapper instead.
+   Force dark with data-lk-mode="dark" on the same element. */
+
+@layer lk.theme {
+  /* ---- Tokens: light ---- */
+
+  [data-lk-theme='monokai'] {
+    --lk-font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --lk-font-heading: var(--lk-font);
+    --lk-radius: 8px;
+    --lk-radius-control: 6px;
+    --lk-border-width: 1px;
+    --lk-shadow: 0 1px 2px rgb(22 20 28 / 8%), 0 8px 24px rgb(22 20 28 / 10%);
+
+    --lk-color-page: #f5f4f8;
+    --lk-color-bg: #ffffff;
+    --lk-color-surface: #ecebf2;
+    --lk-color-text: #16141c;
+    --lk-color-muted: #575c75;
+    --lk-color-border: #70758f;
+    --lk-color-divider: #dcdbe6;
+    --lk-color-primary: #c41e51;
+    --lk-color-primary-text: #ffffff;
+    --lk-color-focus: #c41e51;
+    --lk-color-success: #0b7a68;
+    --lk-color-success-bg: #dff5ef;
+    --lk-color-warning: #835d00;
+    --lk-color-warning-bg: #fbf1cc;
+    --lk-color-danger: #b23a00;
+    --lk-color-danger-bg: #fde8dc;
+    --lk-color-info: #0a669f;
+    --lk-color-info-bg: #def0fb;
+    --lk-color-backdrop: rgb(22 20 28 / 48%);
+  }
+
+  /* ---- Tokens: dark ---- */
+
+  @media (prefers-color-scheme: dark) {
+    [data-lk-theme='monokai']:not([data-lk-mode='light']) {
+      --lk-shadow: 0 1px 2px rgb(0 0 0 / 50%), 0 8px 24px rgb(0 0 0 / 44%);
+
+      --lk-color-page: #16141c;
+      --lk-color-bg: #1e2130;
+      --lk-color-surface: #25283a;
+      --lk-color-text: #ffffff;
+      --lk-color-muted: #a0a4b8;
+      --lk-color-border: #7d829c;
+      --lk-color-divider: #34384e;
+      --lk-color-primary: #ff5c8a;
+      --lk-color-primary-text: #171926;
+      --lk-color-focus: #ff5c8a;
+      --lk-color-success: #2fd6b5;
+      --lk-color-success-bg: #12342f;
+      --lk-color-warning: #f5d922;
+      --lk-color-warning-bg: #363012;
+      --lk-color-danger: #ff8040;
+      --lk-color-danger-bg: #3d2013;
+      --lk-color-info: #4fb9f8;
+      --lk-color-info-bg: #14324a;
+      --lk-color-backdrop: rgb(22 20 28 / 72%);
+    }
+  }
+
+  [data-lk-theme='monokai'][data-lk-mode='dark'] {
+    --lk-shadow: 0 1px 2px rgb(0 0 0 / 50%), 0 8px 24px rgb(0 0 0 / 44%);
+
+    --lk-color-page: #16141c;
+    --lk-color-bg: #1e2130;
+    --lk-color-surface: #25283a;
+    --lk-color-text: #ffffff;
+    --lk-color-muted: #a0a4b8;
+    --lk-color-border: #7d829c;
+    --lk-color-divider: #34384e;
+    --lk-color-primary: #ff5c8a;
+    --lk-color-primary-text: #171926;
+    --lk-color-focus: #ff5c8a;
+    --lk-color-success: #2fd6b5;
+    --lk-color-success-bg: #12342f;
+    --lk-color-warning: #f5d922;
+    --lk-color-warning-bg: #363012;
+    --lk-color-danger: #ff8040;
+    --lk-color-danger-bg: #3d2013;
+    --lk-color-info: #4fb9f8;
+    --lk-color-info-bg: #14324a;
+    --lk-color-backdrop: rgb(22 20 28 / 72%);
+  }
+}

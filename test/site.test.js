@@ -120,8 +120,8 @@ test('the piece being read is the last one whose top has reached the line', () =
 const fakeStorage = (items = {}) => ({ getItem: (k) => (k in items ? items[k] : null), setItem: (k, v) => { items[k] = String(v); }, items });
 
 test('the header offers every look the gallery has, and three modes', () => {
-  assert.equal(LOOKS.length, 9);
-  assert.ok(isLook('') && isLook('clean') && isLook('sankofa'), 'the built-in look and the themes');
+  assert.equal(LOOKS.length, 10);
+  assert.ok(isLook('') && isLook('clean') && isLook('sankofa') && isLook('monokai'), 'the built-in look and the themes');
   assert.ok(!isLook('neon'));
   assert.deepEqual(MODES.map((m) => m.id), ['', 'light', 'dark']);
   assert.ok(isMode('dark') && !isMode('sepia'));

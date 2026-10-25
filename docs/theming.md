@@ -83,6 +83,7 @@ Available themes:
 | `soft` | Gentle and friendly: generous rounding and spacing, a rounded font, warm neutrals, berry accent, soft shadows. |
 | `howdigital` | The HoW Digital look, from the HoW Digital design system: dark ink, coral pill tabs with ink text, rounded panels, ink dialog headers. Light and dark. |
 | `sankofa` | The Sankofa writer’s companion look, from the Sankofa design system: warm paper and brown ink, indigo actions, serif text, sans-serif controls at least 48px tall, no shadows. Light and dark, both warm. |
+| `monokai` | Inspired by Proton's Monokai: aubergine-black page, slate panels, white text, hot pink accent. Dark is the main look; the light counterpart is LearnKit's own. Tokens only. |
 | `blc` | The Blended Learning Consortium look, from the BLC design system: white and warm grey, charcoal text, BLC pink accent, 8px corners, controls at least 44px tall. Light and dark. |
 
 **Fonts for `blc` and `howdigital`.** The themes ask for Raleway (headings) and Source Sans 3 (body) but do not load them, so nothing is fetched from the internet and a course works offline. Without them it uses the system font. To use the real fonts, add this to the page, or host the font files yourself:
