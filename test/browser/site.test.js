@@ -181,3 +181,40 @@ test('look menus: a section marked data-lk-theme="default" keeps the built-in lo
     for (const [attr, value] of [['data-lk-theme', kept.theme], ['data-lk-mode', kept.mode]]) if (value !== null) root.setAttribute(attr, value);
   }
 });
+
+// ---- the header stays in view ----
+
+/** Loads the header's stylesheet for a test, then removes it. */
+async function withSiteCss(fn) {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = new URL('../../site/site.css', import.meta.url).href;
+  await new Promise((resolve) => {
+    link.onload = resolve;
+    document.head.append(link);
+  });
+  try {
+    await fn();
+  } finally {
+    link.remove();
+    document.documentElement.style.removeProperty('--site-nav-height');
+  }
+}
+
+test('sticky header: it stays at the top and shares how tall it is', async () => {
+  await withSiteCss(async () => {
+    const el = await mount(NAV);
+    equal(getComputedStyle(el).position, 'sticky');
+    const shared = document.documentElement.style.getPropertyValue('--site-nav-height');
+    equal(shared, `${el.offsetHeight}px`);
+    assert(el.offsetHeight > 20, 'a real height was measured');
+  });
+});
+
+test('sticky header: on a narrow screen Look and Mode fold behind a button, and on a wide one they are on show', async () => {
+  const el = await mount(NAV);
+  const box = el.querySelector('details.site-nav__looks');
+  assert(box && box.querySelector('summary').textContent === 'Look and mode', 'there is a button for them');
+  equal(box.open, matchMedia('(min-width: 40rem)').matches);
+  assert(box.querySelector('select'), 'the menus are inside');
+});

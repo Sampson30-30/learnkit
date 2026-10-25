@@ -515,6 +515,8 @@ test('customiser: the sticky preview stays in view and never slides over the con
     await waitFor(() => doc.querySelectorAll('#colours .token-row').length > 0, 3000);
     const preview = doc.querySelector('.preview-wrap');
     const below = doc.querySelector('.checks');
+    // The preview sticks 12px below the site header, which stays in view above it.
+    const stuckAt = () => doc.querySelector('site-nav').getBoundingClientRect().height + 12;
     let stuck = 0;
     const overlaps = [];
     for (let y = 0; y <= doc.documentElement.scrollHeight; y += 150) {
@@ -522,7 +524,7 @@ test('customiser: the sticky preview stays in view and never slides over the con
       await tick(20);
       const a = preview.getBoundingClientRect();
       const b = below.getBoundingClientRect();
-      if (Math.abs(a.top - 12) < 2) stuck += 1;
+      if (Math.abs(a.top - stuckAt()) < 2) stuck += 1;
       if (a.bottom > b.top + 1 && a.top < b.bottom) overlaps.push(y);
     }
     equal(overlaps, []);

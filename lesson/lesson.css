@@ -12,7 +12,7 @@ section > h2 { margin-bottom: 0.25rem; }
 .finish { text-align: center; }
 
 /* The bar that stays at the top: progress. */
-.top { position: sticky; top: 0; z-index: 5; padding: 0.625rem 1rem; background: var(--lk-color-bg); border-bottom: 1px solid var(--lk-color-divider); }
+.top { position: sticky; top: var(--site-nav-height, 0px); z-index: 5; padding: 0.625rem 1rem; background: var(--lk-color-bg); border-bottom: 1px solid var(--lk-color-divider); }
 .top__row { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; justify-content: space-between; max-width: 52rem; margin: 0 auto; }
 .top__row > lk-progress { flex: 1 1 14rem; }
 
