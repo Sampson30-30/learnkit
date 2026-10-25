@@ -1,5 +1,6 @@
 import { LkElement, define } from './core/base.js';
 import { shuffledOrder, moveItem, checkOrder, moveMessage } from './core/order.js';
+import { pointerDrag } from './core/drag.js';
 
 /**
  * <lk-order> asks the learner to put items in the right sequence. Write the
@@ -11,7 +12,7 @@ import { shuffledOrder, moveItem, checkOrder, moveMessage } from './core/order.j
  *
  * Each item has Move up and Move down buttons, so it works with a keyboard,
  * a screen reader or a touch screen. Pointer users can also drag by the
- * handle. After "Check order" each item is marked right or wrong, with words
+ * handle, with a mouse, a finger or a pen. After "Check order" each item is marked right or wrong, with words
  * as well as symbols, and the learner can try again.
  *
  * Attributes:
@@ -52,8 +53,6 @@ export class LkOrder extends LkElement {
     actions.append(this.checkButton, this.resetButton);
 
     this.replaceChildren(this.heading, this.list, actions, this.feedback, this.live);
-    this.list.addEventListener('dragover', (event) => this.#dragOver(event));
-    this.list.addEventListener('drop', (event) => this.#drop(event));
     this.reset();
   }
 
@@ -105,19 +104,19 @@ export class LkOrder extends LkElement {
     const rows = this.order.map((original, position) => {
       const li = document.createElement('li');
       li.className = 'lk-order__item';
-      li.draggable = true;
       li.dataset.position = String(position);
-      li.addEventListener('dragstart', (event) => {
-        event.dataTransfer?.setData('text/plain', String(position));
-        if (event.dataTransfer) event.dataTransfer.effectAllowed = 'move';
-        li.classList.add('is-dragging');
-      });
-      li.addEventListener('dragend', () => li.classList.remove('is-dragging'));
 
       const handle = document.createElement('span');
       handle.className = 'lk-order__handle';
       handle.setAttribute('aria-hidden', 'true');
       handle.textContent = '⠇';
+      pointerDrag(handle, li, {
+        onOver: (target) => this.#highlight(target),
+        onDrop: (target) => {
+          const row = target?.closest?.('.lk-order__item');
+          if (row && row.parentElement === this.list) this.#move(position, Number(row.dataset.position), false);
+        },
+      });
 
       const text = document.createElement('span');
       text.className = 'lk-order__text';
@@ -143,17 +142,13 @@ export class LkOrder extends LkElement {
     this.list.replaceChildren(...rows);
   }
 
-  #dragOver(event) {
-    event.preventDefault();
-    if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
-  }
-
-  #drop(event) {
-    event.preventDefault();
-    const from = Number(event.dataTransfer?.getData('text/plain'));
-    const row = event.target.closest('.lk-order__item');
-    if (!Number.isInteger(from) || !row) return;
-    this.#move(from, Number(row.dataset.position), false);
+  /** Shows which row an item being dragged would land on. */
+  #highlight(target) {
+    const row = target?.closest?.('.lk-order__item');
+    for (const li of this.list.children) {
+      if (li === row && row.parentElement === this.list) li.dataset.over = '';
+      else delete li.dataset.over;
+    }
   }
 
   #moveButton(kind, glyph, label, disabled, onClick) {

@@ -1,0 +1,16 @@
+{
+  "blc": {
+    "designSystem": "Blended Learning Consortium",
+    "artifact": "https://claude.ai/artifact/NP9MrAzPEWDBamaXwpTR8q",
+    "file": "project/tokens.json",
+    "version": "1792257313-1c92",
+    "copiedOn": "2026-10-17"
+  },
+  "howdigital": {
+    "designSystem": "HoW Digital",
+    "artifact": "https://claude.ai/artifact/4Zr2GMFcx78Vg6TJJKXjtG",
+    "file": "project/tokens.json",
+    "version": "1792257318-9e00",
+    "copiedOn": "2026-10-17"
+  }
+}

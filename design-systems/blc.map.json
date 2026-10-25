@@ -1,0 +1,26 @@
+{
+  "theme": "blc",
+  "note": "Each --lk-* colour comes from a design system token (\"ds:name\") or, where the design system defines nothing, is LearnKit's own value ({ light, dark }).",
+  "tokens": {
+    "--lk-color-page": "ds:surface",
+    "--lk-color-bg": "ds:surface",
+    "--lk-color-surface": "ds:surface-raised",
+    "--lk-color-text": "ds:ink",
+    "--lk-color-muted": "ds:ink-secondary",
+    "--lk-color-border": { "light": "#8a8481", "dark": "#7d7d96" },
+    "--lk-color-divider": "ds:border",
+    "--lk-color-primary": "ds:brand-pink",
+    "--lk-color-primary-text": "ds:on-pink",
+    "--lk-color-focus": "ds:focus-ring",
+    "--lk-color-backdrop": { "light": "rgb(19 19 31 / 50%)", "dark": "rgb(0 0 0 / 65%)" },
+    "--lk-color-success": { "light": "#1e6b3d", "dark": "#6fd39a" },
+    "--lk-color-success-bg": { "light": "#e3f3ea", "dark": "#12281b" },
+    "--lk-color-warning": { "light": "#946200", "dark": "#f3b84a" },
+    "--lk-color-warning-bg": { "light": "#fbf0d4", "dark": "#2d2110" },
+    "--lk-color-danger": "ds:danger",
+    "--lk-color-danger-bg": "ds:danger-bg",
+    "--lk-color-info": "ds:brand-secondary",
+    "--lk-color-info-bg": { "light": "#def3f4", "dark": "#0f2a30" }
+  },
+  "extra": {}
+}

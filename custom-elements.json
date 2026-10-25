@@ -1,0 +1,1224 @@
+{
+  "schemaVersion": "1.0.0",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-accordion.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkAccordion",
+          "tagName": "lk-accordion",
+          "description": "<lk-accordion> turns child elements marked with data-lk-item=\"Title\" into a set of collapsible sections (WAI-ARIA accordion pattern).",
+          "attributes": [
+            {
+              "name": "multiple",
+              "description": "Allow several sections to be open at once. Without it, opening one section closes the others."
+            },
+            {
+              "name": "level",
+              "description": "Heading level for the section headings, 1 to 6 (default 3)."
+            },
+            {
+              "name": "label",
+              "description": "Accessible name for the group."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-toggle",
+              "detail": "{ index, title, open }"
+            }
+          ],
+          "examples": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-alert.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkAlert",
+          "tagName": "lk-alert",
+          "description": "<lk-alert> is a message that sits in the page, such as a tip or a warning.",
+          "attributes": [
+            {
+              "name": "tone",
+              "description": "info (default), success, warning or danger."
+            },
+            {
+              "name": "heading",
+              "description": "Optional bold first line."
+            },
+            {
+              "name": "dismissible",
+              "description": "Adds a close button. Fires lk-dismiss, then removes the alert."
+            },
+            {
+              "name": "live",
+              "description": "Announce the alert when it appears. Use it only for alerts added after the page loads, such as a save error."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-dismiss",
+              "detail": "{}"
+            }
+          ],
+          "examples": [
+            "<lk-alert tone=\"warning\" heading=\"Deadline moved\" dismissible>\n  Submit by Friday instead.\n</lk-alert>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-avatar.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkAvatar",
+          "tagName": "lk-avatar",
+          "description": "<lk-avatar> shows a person as a picture, or as their initials when there is no picture or it fails to load.",
+          "attributes": [
+            {
+              "name": "name",
+              "description": "The person's name. Used for the initials and the accessible name."
+            },
+            {
+              "name": "src",
+              "description": "Optional picture URL."
+            },
+            {
+              "name": "size",
+              "description": "sm, md (default) or lg."
+            },
+            {
+              "name": "tone",
+              "description": "A fixed colour (primary, success, warning, info, danger). By default the colour comes from the name, so it is stable."
+            },
+            {
+              "name": "decorative",
+              "description": "Hide it from screen readers, for when the name is shown next to it."
+            }
+          ],
+          "events": [],
+          "examples": [
+            "<lk-avatar name=\"Ada Lovelace\"></lk-avatar>\n<lk-avatar name=\"Grace Hopper\" src=\"grace.jpg\" size=\"lg\"></lk-avatar>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-chip.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkChip",
+          "tagName": "lk-chip",
+          "description": "<lk-chip> is a compact label. It can be plain, selectable (a toggle) or removable.",
+          "attributes": [
+            {
+              "name": "selectable",
+              "description": "The label becomes a toggle button (aria-pressed)."
+            },
+            {
+              "name": "selected",
+              "description": "Current state of a selectable chip. Set it or read it."
+            },
+            {
+              "name": "removable",
+              "description": "Adds a remove button. Fires lk-remove, then removes the chip."
+            },
+            {
+              "name": "tone",
+              "description": "primary, success, warning, danger or info. Optional."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-select",
+              "detail": "{ selected }"
+            },
+            {
+              "name": "lk-remove",
+              "detail": "{ label }"
+            },
+            {
+              "name": "lk-remove",
+              "detail": "{}"
+            }
+          ],
+          "examples": [
+            "<lk-chip>Level 2</lk-chip>\n<lk-chip selectable selected>Maths</lk-chip>\n<lk-chip removable>Evening</lk-chip>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-drawer.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkDrawer",
+          "tagName": "lk-drawer",
+          "description": "<lk-drawer> is a panel that slides in from the side of the screen, for navigation, filters or details that should not take over the page. It is a modal dialog underneath: focus stays inside while it is open, the page behind is inert, and Escape or a click outside closes it.",
+          "attributes": [
+            {
+              "name": "side",
+              "description": "start or end (default end). It follows the reading direction."
+            }
+          ],
+          "events": [],
+          "examples": [
+            "<button data-lk-open=\"filters\">Filters</button>\n<lk-drawer id=\"filters\" heading=\"Filter courses\" side=\"start\">...</lk-drawer>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-field.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkField",
+          "tagName": "lk-field",
+          "description": "<lk-field> adds a label, hint and error message to a native text-like control (input, select or textarea) and wires up the ARIA for you.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Visible label text. Required for accessibility."
+            },
+            {
+              "name": "hint",
+              "description": "Help text shown under the label."
+            },
+            {
+              "name": "error",
+              "description": "Error message. Set it from your own validation; clear it to remove."
+            }
+          ],
+          "events": [],
+          "examples": []
+        },
+        {
+          "kind": "class",
+          "name": "LkChoices",
+          "tagName": "lk-choices",
+          "description": "<lk-choices> groups checkboxes or radio buttons into a fieldset with a legend, hint and error. Put plain `<label><input ...> Text</label>` children inside it.",
+          "attributes": [
+            {
+              "name": "legend",
+              "description": "Visible group label. Required for accessibility."
+            },
+            {
+              "name": "hint",
+              "description": "Help text shown under the legend."
+            },
+            {
+              "name": "error",
+              "description": "Error message from your own validation."
+            },
+            {
+              "name": "min",
+              "description": "Minimum number of checked boxes, for checkbox groups."
+            }
+          ],
+          "events": [],
+          "examples": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-flashcards.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkFlashcards",
+          "tagName": "lk-flashcards",
+          "description": "<lk-flashcards> is a stack of cards for recall practice. The learner reads the front, tries to remember the back, reveals it, then says whether they knew it. Cards they did not know come round again until all are known.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Accessible name. Required."
+            },
+            {
+              "name": "shuffle",
+              "description": "Present the cards in a random order."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-reveal",
+              "detail": "{ index }"
+            },
+            {
+              "name": "lk-cardanswer",
+              "detail": "{ index, known }"
+            },
+            {
+              "name": "lk-deckcomplete",
+              "detail": "{ total, firstTime }"
+            }
+          ],
+          "examples": [
+            "<lk-flashcards label=\"Key terms\" shuffle>\n  <div data-lk-card=\"Formative assessment\">Assessment during learning, used to shape the teaching.</div>\n  <div data-lk-card=\"Summative assessment\">Assessment at the end, used to judge what was learned.</div>\n</lk-flashcards>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-flow.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkFlow",
+          "tagName": "lk-flow",
+          "description": "<lk-flow> draws a process or a decision tree from nested lists, and can walk a learner through it one choice at a time.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Accessible name. Required."
+            },
+            {
+              "name": "layout",
+              "description": "process (default) or tree. A tree never rejoins: every branch ends in a result, and nothing can follow a decision."
+            },
+            {
+              "name": "walkthrough",
+              "description": "Adds a panel that asks one question at a time, shows the route taken and highlights it on the chart."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-flowstep",
+              "detail": "{ id, text, route }"
+            },
+            {
+              "name": "lk-flowend",
+              "detail": "{ route }"
+            }
+          ],
+          "examples": [
+            "<lk-flow label=\"A late submission\" walkthrough>\n  <ol>\n    <li data-type=\"start\">Work arrives after the deadline</li>\n    <li>Was an extension agreed?\n      <ul>\n        <li data-label=\"Yes\">Mark as normal</li>\n        <li data-label=\"No\">Apply the late penalty</li>\n      </ul>\n    </li>\n    <li data-type=\"end\">Return feedback</li>\n  </ol>\n</lk-flow>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-glossary.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkGlossary",
+          "tagName": "lk-glossary",
+          "description": "<lk-glossary> shows a list of terms and their meanings, sorted A to Z, with a search box and jump links for each letter. Write the terms in any order.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Name for the glossary. Required."
+            },
+            {
+              "name": "level",
+              "description": "Heading level for the letter headings, 1 to 6 (default 3)."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-filter",
+              "detail": "{ query, shown, total }"
+            }
+          ],
+          "examples": [
+            "<lk-glossary label=\"Key terms\">\n  <dl>\n    <dt>Formative assessment</dt>\n    <dd>Checking progress during learning, to help it along.</dd>\n    <dt>Summative assessment</dt>\n    <dd>Judging what has been learned at the end.</dd>\n  </dl>\n</lk-glossary>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-grid.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkGridExplorer",
+          "tagName": "lk-grid-explorer",
+          "description": "<lk-grid-explorer> shows a grid of tiles. Choosing a tile reveals its details below, and the grid tracks which tiles have been explored.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Accessible name for the grid. Required."
+            },
+            {
+              "name": "columns",
+              "description": "Number of columns, 1 to 6 (default 3). Narrow screens use fewer."
+            },
+            {
+              "name": "level",
+              "description": "Heading level for the detail title, 1 to 6 (default 3)."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-explore",
+              "detail": "{ index, title, explored, total }"
+            },
+            {
+              "name": "lk-complete",
+              "detail": "{ explored, total }"
+            }
+          ],
+          "examples": [
+            "<lk-grid-explorer label=\"Learning theories\" columns=\"3\">\n  <div data-lk-cell=\"Behaviourism\">Learning as a change in behaviour...</div>\n  <div data-lk-cell=\"Constructivism\">Learners build knowledge...</div>\n</lk-grid-explorer>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-hotspot.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkHotspot",
+          "tagName": "lk-hotspot",
+          "description": "<lk-hotspot> puts numbered points on a picture or diagram. Choosing a point shows its explanation, and the component tracks which have been explored.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Accessible name. Required."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-spot",
+              "detail": "{ index, title }"
+            },
+            {
+              "name": "lk-allexplored",
+              "detail": "{ total }"
+            }
+          ],
+          "examples": [
+            "<lk-hotspot label=\"Parts of a plant\">\n  <img src=\"plant.png\" alt=\"A plant with a flower, stem and roots\" />\n  <div data-lk-spot data-x=\"50\" data-y=\"15\" data-title=\"Flower\">Makes seeds.</div>\n  <div data-lk-spot data-x=\"48\" data-y=\"60\" data-title=\"Stem\">Carries water.</div>\n</lk-hotspot>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-journal.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkJournal",
+          "tagName": "lk-journal",
+          "description": "<lk-journal> is a reflection journal: a set of prompts with a text box each. Notes are saved in this browser as the learner types, and can be copied or downloaded.",
+          "attributes": [
+            {
+              "name": "name",
+              "description": "Storage key for this journal. Required if you want notes kept. Use a different name for each journal on your site."
+            },
+            {
+              "name": "title",
+              "description": "Visible title, also used in exports."
+            },
+            {
+              "name": "level",
+              "description": "Heading level for the title, 1 to 6 (default 2)."
+            },
+            {
+              "name": "rows",
+              "description": "Height of each text box in rows (default 5)."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-save",
+              "detail": "{ name, entries }"
+            },
+            {
+              "name": "lk-export",
+              "detail": "{ format, filename }"
+            }
+          ],
+          "examples": [
+            "<lk-journal name=\"week-1\" title=\"Week 1 reflection\">\n  <div data-lk-prompt=\"What went well this week?\" data-hint=\"Think about one lesson.\"></div>\n  <div data-lk-prompt=\"What would you change?\"></div>\n</lk-journal>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-matrix.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkMatrix",
+          "tagName": "lk-matrix",
+          "description": "<lk-matrix> turns a native table into an activity. Cells the learner must complete are marked in the markup; every other cell stays as written. The table reads normally without JavaScript.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Instruction for the activity. Required."
+            },
+            {
+              "name": "show-answers",
+              "description": "Adds a \"Show answers\" button after the learner has checked."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-check",
+              "detail": "{ score, total, complete }"
+            },
+            {
+              "name": "lk-reveal",
+              "detail": "{}"
+            }
+          ],
+          "examples": [
+            "<lk-matrix label=\"Match each theory to its idea\">\n  <table>\n    <caption>Learning theories</caption>\n    <thead><tr><th></th><th>Focus</th><th>Active learner</th></tr></thead>\n    <tbody>\n      <tr><th>Behaviourism</th><td data-answer=\"Behaviour|Habits\">Behaviour</td><td data-tick=\"no\"></td></tr>\n      <tr><th>Constructivism</th><td data-answer=\"Meaning\">Meaning</td><td data-tick=\"yes\"></td></tr>\n    </tbody>\n  </table>\n</lk-matrix>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-menu.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkMenu",
+          "tagName": "lk-menu",
+          "description": "<lk-menu> is a button that opens a list of actions or links.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Text on the trigger button. Required."
+            },
+            {
+              "name": "variant",
+              "description": "Optional lk-button variant for the trigger (primary, danger, link)."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-select",
+              "detail": "{ label, value }"
+            },
+            {
+              "name": "lk-open",
+              "detail": "{}"
+            },
+            {
+              "name": "lk-close",
+              "detail": "{}"
+            }
+          ],
+          "examples": [
+            "<lk-menu label=\"More actions\">\n  <button data-lk-item value=\"duplicate\">Duplicate</button>\n  <a data-lk-item href=\"/export\">Export</a>\n  <hr />\n  <button data-lk-item value=\"archive\" disabled>Archive</button>\n</lk-menu>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-modal.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkModal",
+          "tagName": "lk-modal",
+          "description": "<lk-modal> wraps its content in a native <dialog> opened with showModal(), so the browser provides the top layer, focus containment, an inert background and the Escape key. LearnKit adds the heading, close button, backdrop click, focus return and trigger wiring.",
+          "attributes": [
+            {
+              "name": "heading",
+              "description": "Visible title. Gives the dialog its accessible name."
+            },
+            {
+              "name": "label",
+              "description": "Accessible name to use when there is no visible heading."
+            },
+            {
+              "name": "level",
+              "description": "Heading level for the title, 1 to 6 (default 2)."
+            },
+            {
+              "name": "static",
+              "description": "Do not close when the backdrop is clicked. Escape and the close button still work."
+            },
+            {
+              "name": "close-label",
+              "description": "Accessible name for the close button (default \"Close\")."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-open",
+              "detail": "{}"
+            },
+            {
+              "name": "lk-close",
+              "detail": "{ returnValue }"
+            }
+          ],
+          "examples": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-nav.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkBreadcrumbs",
+          "tagName": "lk-breadcrumbs",
+          "description": "<lk-breadcrumbs> shows where the learner is in a hierarchy.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Accessible name (default \"Breadcrumb\")."
+            },
+            {
+              "name": "max",
+              "description": "Longest trail to show. Middle items collapse behind a button that reveals them."
+            }
+          ],
+          "events": [],
+          "examples": [
+            "<lk-breadcrumbs label=\"You are here\" max=\"4\">\n  <ol>\n    <li><a href=\"/\">Home</a></li>\n    <li><a href=\"/courses\">Courses</a></li>\n    <li>Maths</li>\n  </ol>\n</lk-breadcrumbs>"
+          ]
+        },
+        {
+          "kind": "class",
+          "name": "LkPagination",
+          "tagName": "lk-pagination",
+          "description": "<lk-pagination> moves between pages of results.",
+          "attributes": [
+            {
+              "name": "total",
+              "description": "Number of pages."
+            },
+            {
+              "name": "page",
+              "description": "Current page (1-based). Change it at any time."
+            },
+            {
+              "name": "label",
+              "description": "Accessible name (default \"Pagination\")."
+            },
+            {
+              "name": "siblings",
+              "description": "Pages shown either side of the current one (default 1)."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-pagechange",
+              "detail": "{ page }"
+            }
+          ],
+          "examples": [
+            "<lk-pagination label=\"Results\" total=\"12\" page=\"1\"></lk-pagination>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-order.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkOrder",
+          "tagName": "lk-order",
+          "description": "<lk-order> asks the learner to put items in the right sequence. Write the items in the CORRECT order; they are shuffled for the learner.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Question or instruction. Required."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-orderchange",
+              "detail": "{ order, labels }"
+            },
+            {
+              "name": "lk-check",
+              "detail": "{ score, total, complete }"
+            }
+          ],
+          "examples": [
+            "<lk-order label=\"Put the writing process in order\">\n  <ol><li>Plan</li><li>Draft</li><li>Revise</li><li>Publish</li></ol>\n</lk-order>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-popover.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkTooltip",
+          "tagName": "lk-tooltip",
+          "description": "<lk-tooltip> shows a short hint when its target is hovered or focused.",
+          "attributes": [
+            {
+              "name": "for",
+              "description": "Id of the target element."
+            },
+            {
+              "name": "placement",
+              "description": "top, bottom, left or right (default top). It flips when there is no room."
+            }
+          ],
+          "events": [],
+          "examples": [
+            "<button id=\"help\">Help</button>\n<lk-tooltip for=\"help\">Opens the course guide</lk-tooltip>"
+          ]
+        },
+        {
+          "kind": "class",
+          "name": "LkPopover",
+          "tagName": "lk-popover",
+          "description": "<lk-popover> is a small panel of content that opens next to a trigger. Unlike a tooltip it can hold links, buttons and form controls.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Accessible name. Required."
+            },
+            {
+              "name": "placement",
+              "description": "top, bottom, left or right (default bottom)."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-open",
+              "detail": "{}"
+            },
+            {
+              "name": "lk-close",
+              "detail": "{}"
+            }
+          ],
+          "examples": [
+            "<button data-lk-popover=\"info\">More about this</button>\n<lk-popover id=\"info\" label=\"About this topic\">...</lk-popover>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-process.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkProcess",
+          "tagName": "lk-process",
+          "description": "<lk-process> walks a learner through steps, one at a time, with a stepper showing where they are. Each step is a child marked with data-lk-step.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Accessible name. Required."
+            },
+            {
+              "name": "level",
+              "description": "Heading level for step titles, 1 to 6 (default 3)."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-step",
+              "detail": "{ index, title }"
+            },
+            {
+              "name": "lk-complete",
+              "detail": "{ steps }"
+            }
+          ],
+          "examples": [
+            "<lk-process label=\"Planning a lesson\">\n  <div data-lk-step=\"Set the outcome\">Decide what learners will be able to do...</div>\n  <div data-lk-step=\"Plan the activities\">...</div>\n</lk-process>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-progress.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkProgress",
+          "tagName": "lk-progress",
+          "description": "<lk-progress> shows how far along something is.",
+          "attributes": [
+            {
+              "name": "value",
+              "description": "Current value. Leave it out for an indeterminate bar."
+            },
+            {
+              "name": "max",
+              "description": "Maximum value (default 100)."
+            },
+            {
+              "name": "label",
+              "description": "Accessible name, for example \"Course progress\". Required."
+            },
+            {
+              "name": "show-value",
+              "description": "Also show the percentage as text."
+            }
+          ],
+          "events": [],
+          "examples": []
+        },
+        {
+          "kind": "class",
+          "name": "LkStepper",
+          "tagName": "lk-stepper",
+          "description": "<lk-stepper> marks where the learner is in an ordered list of steps. It shows progress; it does not hold the content of the steps.",
+          "attributes": [
+            {
+              "name": "current",
+              "description": "Zero-based index of the current step (default 0). Change it at any time. Steps before it are complete."
+            },
+            {
+              "name": "label",
+              "description": "Accessible name for the list."
+            },
+            {
+              "name": "compact",
+              "description": "Show only the current step’s label. Added for you when there are more than five steps. The other labels stay available to screen readers."
+            }
+          ],
+          "events": [],
+          "examples": [
+            "<lk-stepper current=\"1\" label=\"Enrolment steps\">\n  <ol><li>Your details</li><li>Choose a course</li><li>Confirm</li></ol>\n</lk-stepper>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-quiz.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkQuiz",
+          "tagName": "lk-quiz",
+          "description": "<lk-quiz> is a knowledge check: one question at a time, instant feedback, then a score. Write the questions as markup, as JSON, or both.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Accessible name for the quiz."
+            },
+            {
+              "name": "title",
+              "description": "Visible title (the JSON title is used if this is missing)."
+            },
+            {
+              "name": "level",
+              "description": "Heading level for the title and results, 1 to 6 (default 2)."
+            },
+            {
+              "name": "shuffle",
+              "description": "Shuffle the order of the options each attempt."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-answer",
+              "detail": "{ id, index, correct, selected }"
+            },
+            {
+              "name": "lk-complete",
+              "detail": "{ correct, total, percent, points }"
+            }
+          ],
+          "examples": [
+            "<lk-quiz label=\"Check your understanding\">\n  <div data-lk-question=\"Which of these is formative assessment?\">\n    <div data-lk-option correct data-feedback=\"Yes: it informs teaching.\">A quick quiz</div>\n    <div data-lk-option>A final exam</div>\n    <p data-lk-explanation>Formative assessment happens during learning.</p>\n  </div>\n</lk-quiz>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-rating.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkRating",
+          "tagName": "lk-rating",
+          "description": "<lk-rating> is a self-assessment: the learner rates themselves on a scale for one or more statements.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Group name. Required."
+            },
+            {
+              "name": "scale",
+              "description": "Number of points, 2 to 10 (default 5)."
+            },
+            {
+              "name": "low",
+              "description": "Description of the lowest point."
+            },
+            {
+              "name": "high",
+              "description": "Description of the highest point."
+            },
+            {
+              "name": "summary",
+              "description": "Show an average and areas to focus on once every statement is rated."
+            },
+            {
+              "name": "name",
+              "description": "Storage key. If set, ratings are remembered in this browser."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-rate",
+              "detail": "{ index, statement, value }"
+            },
+            {
+              "name": "lk-summary",
+              "detail": "{ total, answered, average, focus: [statements] }"
+            }
+          ],
+          "examples": [
+            "<lk-rating label=\"How confident are you with these skills?\" scale=\"5\"\n           low=\"Not at all\" high=\"Completely\" summary name=\"skills-check\">\n  <div data-lk-statement=\"Planning a lesson\"></div>\n  <div data-lk-statement=\"Giving feedback\"></div>\n</lk-rating>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-scenario.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkScenario",
+          "tagName": "lk-scenario",
+          "description": "<lk-scenario> is a branching story. The learner reads a situation, chooses what to do, and sees where it leads.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Accessible name. Required."
+            },
+            {
+              "name": "start",
+              "description": "Id of the first node (default: the first node)."
+            },
+            {
+              "name": "level",
+              "description": "Heading level for node titles, 1 to 6 (default 3)."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-choose",
+              "detail": "{ from, to, choice, path }"
+            },
+            {
+              "name": "lk-end",
+              "detail": "{ node, outcome, path }"
+            }
+          ],
+          "examples": [
+            "<lk-scenario label=\"A late submission\" start=\"start\">\n  <div data-lk-node=\"start\" data-title=\"An email arrives\">\n    <p>A learner asks for more time...</p>\n    <ul data-lk-choices>\n      <li data-lk-goto=\"strict\">Say no</li>\n      <li data-lk-goto=\"flex\">Agree an extension</li>\n    </ul>\n  </div>\n  <div data-lk-node=\"strict\" data-end data-outcome=\"poor\" data-title=\"The learner disengages\">...</div>\n  <div data-lk-node=\"flex\" data-end data-outcome=\"good\" data-title=\"The learner catches up\">...</div>\n</lk-scenario>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-sort.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkSort",
+          "tagName": "lk-sort",
+          "description": "<lk-sort> asks the learner to sort items into groups. Write each item under the group where it BELONGS; the items are shuffled into a pile for the learner.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Instruction for the activity. Required."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-sortchange",
+              "detail": "{ item, group }"
+            },
+            {
+              "name": "lk-check",
+              "detail": "{ score, total, complete }"
+            }
+          ],
+          "examples": [
+            "<lk-sort label=\"Sort these into the right group\">\n  <ul data-lk-group=\"Formative\">\n    <li>A quiz in class</li><li>Feedback on a draft</li>\n  </ul>\n  <ul data-lk-group=\"Summative\">\n    <li>A final exam</li>\n  </ul>\n</lk-sort>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-spectrum.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkSpectrum",
+          "tagName": "lk-spectrum",
+          "description": "<lk-spectrum> asks a learner to place their view between two poles, then compares it with an expert position.",
+          "attributes": [
+            {
+              "name": "statement",
+              "description": "The question or statement. Required."
+            },
+            {
+              "name": "expert",
+              "description": "Expert position, 0 (left) to 100 (right). Without it there is no comparison step."
+            },
+            {
+              "name": "explanation",
+              "description": "Why the expert holds that position. Shown on comparing."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-change",
+              "detail": "{ value }"
+            },
+            {
+              "name": "lk-reveal",
+              "detail": "{ value, expert, difference }"
+            }
+          ],
+          "examples": [
+            "<lk-spectrum statement=\"How should feedback be given?\"\n             left=\"Written\" right=\"Spoken\" expert=\"70\"\n             explanation=\"Spoken feedback allows a conversation, but write down the key points.\">\n</lk-spectrum>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-switch.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkSwitch",
+          "tagName": "lk-switch",
+          "description": "<lk-switch> is an on/off setting, built on a native checkbox with role=\"switch\" so it works in forms and with every assistive technology.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Required."
+            },
+            {
+              "name": "hint",
+              "description": ""
+            },
+            {
+              "name": "name",
+              "description": ""
+            },
+            {
+              "name": "value",
+              "description": ""
+            },
+            {
+              "name": "checked",
+              "description": ""
+            },
+            {
+              "name": "disabled",
+              "description": ""
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-change",
+              "detail": "{ checked }"
+            }
+          ],
+          "examples": [
+            "<lk-switch label=\"Email reminders\" hint=\"One a week\" name=\"reminders\" checked></lk-switch>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-table.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkTable",
+          "tagName": "lk-table",
+          "description": "<lk-table> makes a native <table> sortable and filterable. The table stays ordinary HTML, so it reads well without JavaScript.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Accessible name for the scrolling region. Required."
+            },
+            {
+              "name": "sortable",
+              "description": "Header cells become sort buttons. Put data-nosort on a <th> to skip it."
+            },
+            {
+              "name": "filter",
+              "description": "Adds a search box that hides rows without every typed word."
+            },
+            {
+              "name": "striped",
+              "description": "Shades alternate rows."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-sort",
+              "detail": "{ column, direction }"
+            },
+            {
+              "name": "lk-filter",
+              "detail": "{ query, shown, total }"
+            }
+          ],
+          "examples": [
+            "<lk-table label=\"Courses\" sortable filter>\n  <table>\n    <caption>Courses this term</caption>\n    <thead><tr><th>Course</th><th>Hours</th></tr></thead>\n    <tbody>...</tbody>\n  </table>\n</lk-table>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-tabs.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkTabs",
+          "tagName": "lk-tabs",
+          "description": "<lk-tabs> turns child elements marked with data-lk-tab=\"Title\" into an accessible tabbed interface (WAI-ARIA tabs pattern, manual activation off).",
+          "attributes": [
+            {
+              "name": "selected",
+              "description": "Zero-based index of the initially selected tab (default 0)."
+            },
+            {
+              "name": "label",
+              "description": "Accessible name for the tab list."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-tabchange",
+              "detail": "{ index, title }"
+            }
+          ],
+          "examples": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-timeline.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkTimeline",
+          "tagName": "lk-timeline",
+          "description": "<lk-timeline> lays out events in order. Each event is a child marked with data-lk-date.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Accessible name for the list."
+            },
+            {
+              "name": "level",
+              "description": "Heading level for event titles, 1 to 6 (default 3)."
+            },
+            {
+              "name": "collapsible",
+              "description": "Event details open and close when the title is pressed."
+            },
+            {
+              "name": "stepped",
+              "description": "Show one event at a time. A button reveals the next."
+            }
+          ],
+          "events": [
+            {
+              "name": "lk-toggle",
+              "detail": "{}"
+            },
+            {
+              "name": "lk-reveal",
+              "detail": "{}"
+            }
+          ],
+          "examples": [
+            "<lk-timeline label=\"History of the college\">\n  <div data-lk-date=\"1962\" data-title=\"Founded\">The first classes began...</div>\n  <div data-lk-date=\"1990\" data-title=\"New campus\">...</div>\n</lk-timeline>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-toast.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkToasts",
+          "tagName": "lk-toasts",
+          "description": "<lk-toasts> is the region that holds notifications. You rarely write it by hand: call toast() and one is created for you. Add one yourself to choose where notifications appear.",
+          "attributes": [
+            {
+              "name": "placement",
+              "description": "top-start, top-end, bottom-start or bottom-end (default)."
+            }
+          ],
+          "events": [],
+          "examples": [
+            "<lk-toasts placement=\"top-end\"></lk-toasts>"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/lk-tree.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "LkTree",
+          "tagName": "lk-tree",
+          "description": "<lk-tree> shows nested content that can be opened and closed, such as a course outline. Write it as nested lists.",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Accessible name. Required."
+            }
+          ],
+          "events": [],
+          "examples": [
+            "<lk-tree label=\"Course contents\">\n  <ul>\n    <li open>Unit 1\n      <ul>\n        <li><a href=\"#a\">Lesson A</a></li>\n        <li data-value=\"b\">Lesson B</li>\n      </ul>\n    </li>\n    <li>Unit 2<ul><li>Lesson C</li></ul></li>\n  </ul>\n</lk-tree>"
+          ]
+        }
+      ]
+    }
+  ]
+}

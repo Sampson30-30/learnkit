@@ -622,7 +622,20 @@ The learner puts items in sequence. **Write the items in the correct order**; th
 </lk-order>
 ```
 
-Every item has named Move up and Move down buttons, so it works by keyboard, screen reader and touch; each move is announced ("Plan moved to position 2 of 4") and focus follows the item. Pointer users can also drag. "Check order" marks each item right or wrong **in words as well as symbols**, and moving anything clears the marks. Events: `lk-orderchange` `{ order, labels }`, `lk-check` `{ score, total, complete }`. `el.sequence` reads the current order as text.
+Every item has named Move up and Move down buttons, so it works by keyboard, screen reader and touch; each move is announced ("Plan moved to position 2 of 4") and focus follows the item. Mouse, finger and pen users can also drag by the handle. "Check order" marks each item right or wrong **in words as well as symbols**, and moving anything clears the marks. Events: `lk-orderchange` `{ order, labels }`, `lk-check` `{ score, total, complete }`. `el.sequence` reads the current order as text.
+
+### `<lk-sort>`
+
+The learner sorts items into groups. **Write each item under the group where it belongs**; the items are shuffled into a pile.
+
+```html
+<lk-sort label="Sort each example into the right kind of assessment">
+  <ul data-lk-group="Formative"><li>A quiz in class</li><li>Feedback on a draft</li></ul>
+  <ul data-lk-group="Summative"><li>A final exam</li></ul>
+</lk-sort>
+```
+
+Every item has a "Move to" list, so it works by keyboard, screen reader and touch. Mouse, finger and pen users can also drag an item by its handle onto a group; each move is announced ("A final exam moved to Summative"). "Check answers" marks every item **in words as well as colour** (Right group, Not here, Not sorted yet), and moving an item clears its mark. Needs at least two groups and two items. Events: `lk-sortchange` `{ item, group }` (group is `null` for the pile), `lk-check` `{ score, total, complete }`. Methods: `place(item, group)` (use `-1` for the pile), `check()`, `reset()`. `el.placed` reads where every item is.
 
 ### `<lk-matrix>`
 

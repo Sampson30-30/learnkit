@@ -61,6 +61,20 @@ export function settle(el) {
   for (const animation of el.getAnimations({ subtree: true })) animation.finish();
 }
 
+/** Drags from a handle to a point with pointer events, as a finger or mouse would. */
+export async function dragBetween(handle, to, id = 7) {
+  const from = handle.getBoundingClientRect();
+  const x = from.left + from.width / 2;
+  const y = from.top + from.height / 2;
+  const fire = (target, type, at) =>
+    target.dispatchEvent(new PointerEvent(type, { pointerId: id, isPrimary: true, button: 0, clientX: at.x, clientY: at.y, bubbles: true, cancelable: true }));
+  fire(handle, 'pointerdown', { x, y });
+  fire(handle, 'pointermove', { x: (x + to.x) / 2, y: (y + to.y) / 2 });
+  fire(handle, 'pointermove', to);
+  fire(handle, 'pointerup', to);
+  await tick();
+}
+
 /** Records events of one type fired on or below `target`. */
 export function listen(target, type) {
   const seen = [];

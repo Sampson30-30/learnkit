@@ -95,6 +95,16 @@ Available themes:
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600&family=Noto+Sans:wght@400;600&display=swap" />
 ```
 
+### Themes that inherit from a design system
+
+`blc` and `howdigital` do not hold their own colours. The design system in Claude Design is the original, and the theme inherits from it.
+
+- `design-systems/<theme>.tokens.json` is a copy of the design system's `tokens.json`. `design-systems/sources.json` records which design system and version it came from.
+- `design-systems/<theme>.map.json` says which design system token feeds each `--lk-*` colour. Where the design system defines nothing (for example success and warning), the map holds LearnKit's own value for light and dark, so you can see exactly what is borrowed and what is not.
+- `npm run sync` rewrites the colour blocks in `src/themes/<theme>.css` between the `BEGIN generated` and `END generated` markers. `npm run sync:check` fails if a theme is out of date, and `npm test` runs the same check.
+
+To change a colour, change it in the design system, copy the new `tokens.json` over the snapshot (and update `sources.json`), then run `npm run sync` and `npm test`. Do not edit the generated blocks by hand. Everything outside them, such as fonts, corner radius and component rules, is still written by hand in the theme file.
+
 ## 3. Write a theme
 
 A theme is one CSS file in `src/themes/<name>.css`. Start from `clean.css` or `soft.css`, which are mostly tokens, or `homepage.css` if your theme needs extra rules. A theme made only of tokens already works for every component.

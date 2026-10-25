@@ -317,6 +317,19 @@ export const DEMOS = [
       </lk-order>`,
   },
   {
+    id: 'lk-sort',
+    title: 'Sort into groups',
+    html: () => `
+      <lk-sort label="Sort each example into the right kind of assessment">
+        <ul data-lk-group="Formative">
+          <li>A quiz in class</li><li>Feedback on a draft</li>
+        </ul>
+        <ul data-lk-group="Summative">
+          <li>A final exam</li><li>An end-of-year report</li>
+        </ul>
+      </lk-sort>`,
+  },
+  {
     id: 'lk-matrix',
     title: 'Fill-in table',
     html: () => `

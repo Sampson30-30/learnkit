@@ -11,10 +11,16 @@
     "./themes/*.css": "./src/themes/*.css",
     "./*.js": "./src/*.js"
   },
-  "files": ["src", "docs"],
+  "customElements": "custom-elements.json",
+  "files": ["src", "docs", "custom-elements.json", "llms.txt"],
   "scripts": {
     "test": "node --test \"test/*.test.js\"",
-    "start": "node scripts/serve.mjs"
+    "start": "node scripts/serve.mjs",
+    "sync": "node scripts/sync-themes.mjs",
+    "sync:check": "node scripts/sync-themes.mjs --check",
+    "bundle": "node scripts/bundle-for-design-system.mjs",
+    "manifest": "node scripts/manifest.mjs",
+    "manifest:check": "node scripts/manifest.mjs --check"
   },
   "keywords": ["web-components", "learning", "education", "elearning", "accessibility"],
   "license": "MIT",

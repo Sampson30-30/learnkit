@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en-GB" data-lk-theme="clean">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How a project fits together</title>
+    <link rel="stylesheet" href="../../src/learnkit.css" />
+    <link rel="stylesheet" href="../../src/themes/clean.css" id="theme-sheet" />
+    <link rel="stylesheet" href="../lesson.css" />
+    <style>
+      .diagram .l1 { fill: var(--lk-color-surface); stroke: var(--lk-color-border); }
+      .diagram .l2 { fill: var(--lk-color-surface); stroke: var(--lk-color-primary); }
+      .diagram .l3 { fill: var(--lk-color-surface); stroke: var(--lk-color-border); stroke-dasharray: 6 4; }
+      .diagram line { stroke: var(--lk-color-muted); stroke-width: 2; }
+    </style>
+    <script type="module" src="../lesson.js"></script>
+  </head>
+  <body data-activities="5">
+    <p class="back-link"><a href="../../">&larr; LearnKit home</a> &middot; <a href="../">Git and GitHub lesson</a></p>
+
+    <div class="top">
+      <div class="top__row">
+        <lk-progress id="progress" label="Activities completed" value="0" show-value></lk-progress>
+        <div>
+          <label for="look">Look</label>
+          <select id="look">
+            <option value="clean" selected>Clean</option>
+            <option value="soft">Soft</option>
+            <option value="bold">Bold</option>
+            <option value="contrast">High contrast</option>
+            <option value="homepage">Homepage</option>
+            <option value="blc">BLC</option>
+            <option value="howdigital">HoW Digital</option>
+            <option value="sankofa">Sankofa</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <h1>How a project fits together</h1>
+      <p>A lesson of about 30 minutes for anyone building software with Claude Code. By the end you can read a project as layers, judge how far a change will spread, and know what to ask before anything is added.</p>
+
+      <details class="lk-guide" open>
+        <summary>About this page</summary>
+        <div class="lk-guide__body">
+          <p><strong>What this is.</strong> A second sample lesson built only from LearnKit blocks. It uses LearnKit itself as the worked example, so every number in it is real.</p>
+          <p class="lk-guide__title">What you can do here</p>
+          <ul>
+            <li>Work through it from top to bottom, as a learner would.</li>
+            <li>Watch the bar at the top fill as you finish the five activities.</li>
+            <li>Change the &ldquo;Look&rdquo; at the top. The page is itself an example of the idea it teaches.</li>
+            <li>Take the questions in Part 7 and use them with your own project.</li>
+          </ul>
+        </div>
+      </details>
+
+      <lk-alert tone="info" heading="Who this is for">
+        Claude Code can add features faster than you can read them. This lesson is about keeping a map, so you stay in charge of the shape of what gets built.
+      </lk-alert>
+
+      <section aria-labelledby="start">
+        <h2 id="start">Where are you starting from?</h2>
+        <lk-rating label="How confident are you with these ideas?" scale="5" low="Not at all" high="Completely" summary name="arch-lesson-before">
+          <div data-lk-statement="Reading what a project's files depend on"></div>
+          <div data-lk-statement="Knowing where a change to the look belongs"></div>
+          <div data-lk-statement="Judging how much a change will affect"></div>
+          <div data-lk-statement="Telling Claude to reuse what exists"></div>
+        </lk-rating>
+      </section>
+
+      <section aria-labelledby="layers">
+        <span class="step-no">Part 1</span>
+        <h2 id="layers">A project is layers, not a list</h2>
+        <p>A folder of files looks flat. It is not. Each file sits in a layer, and a file only knows about the layers <strong>below</strong> it. Choose each numbered point to see what the layer does. The numbers are from LearnKit.</p>
+        <lk-hotspot label="The layers of a project, from the page down to the base">
+          <svg class="diagram" viewBox="0 0 720 310" role="img" aria-label="Four layers from top to bottom: the page, the front door, the components and the base layer, with arrows pointing down. A separate panel on the right is the look.">
+            <rect class="l1" x="50" y="20" width="420" height="52" rx="8" /><text x="76" y="42">The page</text><text class="small" x="76" y="61">lesson/index.html</text>
+            <rect class="l1" x="50" y="92" width="420" height="52" rx="8" /><text x="76" y="114">The front door</text><text class="small" x="76" y="133">src/index.js</text>
+            <rect class="l1" x="50" y="164" width="420" height="52" rx="8" /><text x="76" y="186">The components</text><text class="small" x="76" y="205">src/lk-quiz.js and 30 more</text>
+            <rect class="l2" x="50" y="236" width="420" height="52" rx="8" /><text x="76" y="258">The base layer</text><text class="small" x="76" y="277">src/core/base.js, utils.js and others</text>
+            <line x1="260" y1="72" x2="260" y2="85" /><polygon points="260,91 255,83 265,83" />
+            <line x1="260" y1="144" x2="260" y2="157" /><polygon points="260,163 255,155 265,155" />
+            <line x1="260" y1="216" x2="260" y2="229" /><polygon points="260,235 255,227 265,227" />
+            <rect class="l3" x="520" y="92" width="180" height="196" rx="8" /><text x="610" y="190" style="text-anchor:middle">The look</text><text class="small" x="610" y="212" style="text-anchor:middle">learnkit.css + a theme</text>
+          </svg>
+          <div data-lk-spot data-x="5" data-y="14" data-title="The page">The page chooses what to show and writes the content. It uses the pieces below but contains none of their working. If a page breaks, only that page breaks.</div>
+          <div data-lk-spot data-x="5" data-y="37" data-title="The front door">One short file that loads everything, so a page needs a single line. It decides what exists but does no work itself.</div>
+          <div data-lk-spot data-x="5" data-y="60" data-title="The components">Each building block has its own file: a quiz, tabs, a table. Each one does one job and borrows from the layer below.</div>
+          <div data-lk-spot data-x="5" data-y="83" data-title="The base layer">Shared code every component stands on. All 31 component files import <code>base.js</code>. Change it and 31 things change.</div>
+          <div data-lk-spot data-x="74" data-y="33" data-title="The look">Colours, fonts and spacing live in one stylesheet and one theme, never inside a component. A theme changes the look and cannot change what anything does.</div>
+        </lk-hotspot>
+      </section>
+
+      <section aria-labelledby="reading">
+        <span class="step-no">Part 2</span>
+        <h2 id="reading">Reading a file by its imports</h2>
+        <p>Every file opens with a list of what it borrows. That list is a free summary of where the file sits. Step through it with <code>src/lk-quiz.js</code>.</p>
+        <lk-process label="Reading the top of a component file">
+          <div data-lk-step="Open one component">
+            <p>Pick a file in the middle layer. Do not read the whole thing. Read only the first lines.</p>
+            <pre><code>import { LkElement, define } from './core/base.js';
+import { clamp } from './core/utils.js';
+import { parseQuiz, scoreQuestion, scoreQuiz, shuffle } from './core/quiz.js';</code></pre>
+          </div>
+          <div data-lk-step="Read each line as 'I borrow'">
+            <p>Each line says: <em>I borrow these things from that file.</em> The quiz borrows the shared blueprint for every component, a small helper, and its own scoring rules.</p>
+          </div>
+          <div data-lk-step="Look at the paths">
+            <p>Every path points into <code>core/</code>, which is the layer below. Nothing points up. That is how you know the layering is healthy.</p>
+          </div>
+          <div data-lk-step="Follow one line down">
+            <p>Open <code>core/base.js</code>. It imports almost nothing. You have reached the bottom, and you know what everything above stands on.</p>
+          </div>
+        </lk-process>
+
+        <h3>Activity 1: what is loaded first?</h3>
+        <lk-order label="Put these in the order the browser reaches them, first to last">
+          <ol>
+            <li>lesson/index.html, the page</li>
+            <li>src/index.js, the front door</li>
+            <li>src/lk-quiz.js, a component</li>
+            <li>src/core/base.js, the base layer</li>
+          </ol>
+        </lk-order>
+      </section>
+
+      <section aria-labelledby="rules">
+        <span class="step-no">Part 3</span>
+        <h2 id="rules">Three habits that keep a project healthy</h2>
+        <p>Each one is a way of keeping concerns apart. Each has a real example from LearnKit.</p>
+        <lk-tabs label="Three habits">
+          <div data-lk-tab="Borrow before you build">
+            <p><strong>Before adding something, find out whether it already exists.</strong></p>
+            <p>When <code>lk-sort</code> was added, it needed dragging. <code>lk-order</code> already dragged, so the dragging code was lifted into one shared file, <code>core/drag.js</code>, and both components borrow it. The same change fixed dragging on touch screens for both.</p>
+            <p><strong>The trap:</strong> copy the dragging code into the new component. Now there are two copies. Every later fix has to be made twice, and one is always forgotten.</p>
+          </div>
+          <div data-lk-tab="Style in one place">
+            <p><strong>Never style a component on its own. Style the system.</strong></p>
+            <p>The main colour is written once per theme and read in 49 places in the stylesheet. Components create their buttons by giving them the class <code>lk-button</code>, instead of making their own. To change every button, you change one rule.</p>
+            <p><strong>The trap:</strong> colour one component directly. It now ignores every theme, so switching the look leaves one odd piece behind.</p>
+          </div>
+          <div data-lk-tab="One job per layer">
+            <p><strong>Each layer does one thing and does not reach into another.</strong></p>
+            <p>The quiz's scoring rules sit in <code>core/quiz.js</code>, apart from the code that draws the quiz. That is why the scoring can be tested without a browser, and why a theme can never alter a score.</p>
+            <p><strong>The trap:</strong> mix the rules and the drawing together. Then you cannot change one without risking the other.</p>
+          </div>
+        </lk-tabs>
+      </section>
+
+      <section aria-labelledby="blast">
+        <span class="step-no">Part 4</span>
+        <h2 id="blast">Blast radius</h2>
+        <p>The <strong>blast radius</strong> of a change is how much else it can affect. The layers tell you in advance. The lower the file, the wider the radius.</p>
+        <h3>Activity 2: how far does it spread?</h3>
+        <lk-sort label="Sort each change by how far it can spread">
+          <ul data-lk-group="Small blast radius">
+            <li>Fix a word in one lesson page</li>
+            <li>Change the scoring rules in core/quiz.js (only the quiz uses it)</li>
+          </ul>
+          <ul data-lk-group="Large blast radius">
+            <li>Edit core/base.js (all 31 components use it)</li>
+            <li>Change the main colour in a theme (used in 49 places)</li>
+            <li>Change a helper in core/utils.js (11 components use it)</li>
+          </ul>
+        </lk-sort>
+        <p>A large radius is not forbidden. It is a reason to slow down, check what depends on it, and run the tests. A small radius is a reason to relax.</p>
+
+        <h3>Activity 3: a request lands</h3>
+        <lk-scenario label="Make the quiz button orange" start="start">
+          <div data-lk-node="start" data-title="A request to Claude Code">
+            <p>You are happy with the quiz, but its Next button looks dull. You ask Claude Code to make it orange. What do you do next?</p>
+            <ul data-lk-choices>
+              <li data-lk-goto="direct">Let it make the change in the quiz file</li>
+              <li data-lk-goto="ask">Ask it first where buttons are styled, and how many things share that style</li>
+            </ul>
+          </div>
+          <div data-lk-node="direct" data-end data-outcome="poor" data-title="One odd button">
+            <p>The quiz button is orange. Every other button is not. Then you change the theme, and the orange button ignores it. Now there is one place that always needs special handling, and nobody remembers why.</p>
+          </div>
+          <div data-lk-node="ask" data-title="The answer comes back">
+            <p>Claude reports that buttons get their look from one shared style, <code>lk-button</code>, used by many components. The quiz button is not special. Now you can decide on purpose.</p>
+            <ul data-lk-choices>
+              <li data-lk-goto="shared">Change the shared button style, or the theme colour, so it is consistent</li>
+              <li data-lk-goto="variant">Add a clearly named variant for orange buttons, and use it only where needed</li>
+            </ul>
+          </div>
+          <div data-lk-node="shared" data-end data-outcome="good" data-title="One edit, consistent everywhere">
+            <p>Every button across every component follows. You checked the blast radius first, so you know exactly what changed, and the next theme still works.</p>
+          </div>
+          <div data-lk-node="variant" data-end data-outcome="good" data-title="A deliberate exception">
+            <p>Only the quiz button is orange, and it is a named option in the shared styles, not a one-off. The exception is visible, reusable and themeable.</p>
+          </div>
+        </lk-scenario>
+      </section>
+
+      <section aria-labelledby="bug">
+        <span class="step-no">Part 5</span>
+        <h2 id="bug">Where does the bug live?</h2>
+        <p>When something looks or works wrongly, ask one question first: which layer is it in? A bug belongs to a layer, not to a file. Three questions cover most of them.</p>
+        <lk-accordion label="The three questions" multiple>
+          <div data-lk-item="Is the content wrong?" open><p>The words, the answers, the order. Fix it on the page. Nothing else needs to change.</p></div>
+          <div data-lk-item="Is the behaviour wrong?" open><p>It does the wrong thing: a score adds up wrongly, a key does nothing. Fix it in the component or the base layer. Every page that uses it is fixed at once.</p></div>
+          <div data-lk-item="Is the look wrong?" open><p>Colour, size, spacing. Fix it in the shared styles or the theme. Every piece that uses them follows.</p></div>
+        </lk-accordion>
+
+        <h3>Activity 4: sort the bugs</h3>
+        <lk-sort label="Sort each problem into the layer where it belongs">
+          <ul data-lk-group="Content (the page)">
+            <li>A typo in a lesson</li>
+            <li>A quiz answer marked correct by mistake</li>
+          </ul>
+          <ul data-lk-group="Behaviour (the component)">
+            <li>The quiz adds up the score wrongly</li>
+            <li>Tabs ignore the arrow keys</li>
+          </ul>
+          <ul data-lk-group="Look (the shared styles)">
+            <li>Every button is the wrong blue</li>
+            <li>Text is too small in the dark look</li>
+          </ul>
+        </lk-sort>
+        <lk-alert tone="warning" heading="Why stitched pages are harder">
+          If every page was built on its own, each one has its own copy of every button and every rule. The same bug now lives in many places, and each copy differs slightly, so fixing one tells you nothing about the rest. Layers turn &ldquo;find the file&rdquo; into &ldquo;find the layer&rdquo;.
+        </lk-alert>
+      </section>
+
+      <section aria-labelledby="pays">
+        <span class="step-no">Part 6</span>
+        <h2 id="pays">Why keeping things pays off</h2>
+        <p>One developer&rsquo;s account of building the same kind of software more than once. Step through it.</p>
+        <lk-timeline label="How reuse changed the speed of building" stepped>
+          <div data-lk-date="At first" data-title="Every page made from scratch">Each page was built on its own, so each button was made again with its own style. The look was left until last, and that seemed fine.</div>
+          <div data-lk-date="Then" data-title="Pages stitched together">Standalone pages were joined into one product. When an AI was asked to do the joining, it produced small variations everywhere, and debugging got harder.</div>
+          <div data-lk-date="The change" data-title="Keep everything that works">Each component and each style was kept and reused. Every new project started with the last project&rsquo;s pieces.</div>
+          <div data-lk-date="First build" data-title="A CRM: about six months">Everything had to be learned and made for the first time.</div>
+          <div data-lk-date="Second build" data-title="A portal: about six weeks">The components and the lessons from the CRM were used again. Building got faster each time.</div>
+        </lk-timeline>
+        <p>Keep one caution in mind. Keep what you use a second time, not everything you ever make. A library only helps while it stays small enough to know.</p>
+      </section>
+
+      <section aria-labelledby="ask">
+        <span class="step-no">Part 7</span>
+        <h2 id="ask">Before Claude adds anything</h2>
+        <p>Claude Code is quick to add things and does not always look sideways first. These questions put you in charge of where new work lands. Start with this decision.</p>
+        <lk-flow label="Where should this new feature go?" layout="tree" walkthrough>
+          <ul>
+            <li>Does something that already exists do most of this?
+              <ul>
+                <li data-label="Yes">Reuse or extend it. Ask Claude to show you the existing file first</li>
+                <li data-label="No">Will two or more parts need it?
+                  <ul>
+                    <li data-label="Yes">Put it in the base layer and import it</li>
+                    <li data-label="No">Build it inside the one component that needs it</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </lk-flow>
+        <p>Then use these questions in your own project. Open each one for the exact words to give Claude.</p>
+        <lk-accordion label="Questions to ask Claude">
+          <div data-lk-item="Before it builds: what already exists?">
+            <pre><code>Before you add anything, search this project for existing code that
+does something similar. Tell me what you found and whether we should
+reuse or extend it instead of writing something new.</code></pre>
+          </div>
+          <div data-lk-item="Before it changes: what depends on this?">
+            <pre><code>List every file that imports the file you are about to change. Tell
+me how many there are, and which ones could behave differently.</code></pre>
+          </div>
+          <div data-lk-item="When it styles something: is this the right place?">
+            <pre><code>Do not add colours, fonts or sizes directly to a component. Find
+where the shared styles live and use those. If a style is missing,
+add it there and tell me.</code></pre>
+          </div>
+          <div data-lk-item="Once a week: draw me the map">
+            <pre><code>Read this project and write ARCHITECTURE.md: the layers, one line per
+folder, and which layer each file belongs to. Flag anything where a
+lower layer imports from a higher one.</code></pre>
+          </div>
+        </lk-accordion>
+        <lk-alert tone="success" heading="Keep the map in the project">
+          Ask for that <code>ARCHITECTURE.md</code> file and keep it up to date. Every new Claude session then starts from the same map, and so do you.
+        </lk-alert>
+      </section>
+
+      <section aria-labelledby="check">
+        <span class="step-no">Part 8</span>
+        <h2 id="check">Check your understanding</h2>
+        <h3>Activity 5: the quiz</h3>
+        <lk-quiz label="Architecture quiz" title="Architecture quiz">
+          <div data-lk-question="A file imports only from the layer below it. What does that tell you?">
+            <div data-lk-option correct data-feedback="Yes: the layering is healthy and changes flow in one direction.">The layering is healthy, and the file is easy to reason about</div>
+            <div data-lk-option data-feedback="Not quite. Importing from below is the normal, good pattern.">Something has gone wrong</div>
+            <div data-lk-option data-feedback="No. Layering says nothing about size.">The file must be very small</div>
+          </div>
+          <div data-lk-question="Which change has the widest blast radius?">
+            <div data-lk-option data-feedback="Narrow: only one page changes.">Editing the wording on one page</div>
+            <div data-lk-option correct data-feedback="Yes: every component stands on the base layer.">Editing the base layer that all components import</div>
+            <div data-lk-option data-feedback="Narrow: only one component uses its own scoring.">Changing one component's scoring rules</div>
+            <p data-lk-explanation>The lower a file sits, the more depends on it.</p>
+          </div>
+          <div data-lk-question="Why not colour one component directly?">
+            <div data-lk-option data-feedback="Not the reason. It would work for that one component.">It will not work</div>
+            <div data-lk-option correct data-feedback="Yes: the look stops being consistent and every later change has an exception.">It ignores the shared look, so one piece stays behind when the style changes</div>
+            <div data-lk-option data-feedback="No. Colour has nothing to do with speed.">It makes the page slow</div>
+          </div>
+          <div data-lk-question="Claude suggests writing new dragging code for a new component. What should you ask?">
+            <div data-lk-option data-feedback="Too hasty. Duplicate code means every fix has to be made twice.">Nothing. Let it go ahead</div>
+            <div data-lk-option correct data-feedback="Yes: borrow before you build.">Does any existing component already do this, so we can share the code?</div>
+            <div data-lk-option data-feedback="Not needed. The existing code can be shared.">Can you rewrite the whole project first?</div>
+          </div>
+        </lk-quiz>
+      </section>
+
+      <section aria-labelledby="reflect">
+        <span class="step-no">Part 9</span>
+        <h2 id="reflect">Reflect</h2>
+        <lk-journal name="arch-lesson-reflection" title="My notes on project structure">
+          <div data-lk-prompt="Think of your own project. What are its layers, as best you can tell?" data-hint="Pages, shared code, styles. Guess if you need to, then ask Claude to check."></div>
+          <div data-lk-prompt="Where have you already got something done twice that could be shared?"></div>
+          <div data-lk-prompt="Which question from Part 7 will you ask Claude first?"></div>
+        </lk-journal>
+        <lk-rating label="How confident are you now?" scale="5" low="Not at all" high="Completely" summary name="arch-lesson-after">
+          <div data-lk-statement="Reading what a project's files depend on"></div>
+          <div data-lk-statement="Knowing where a change to the look belongs"></div>
+          <div data-lk-statement="Judging how much a change will affect"></div>
+          <div data-lk-statement="Telling Claude to reuse what exists"></div>
+        </lk-rating>
+      </section>
+
+      <p class="finish"><strong>That is the lesson.</strong> Change the look at the top: one edit, the whole page follows. That is the idea in action.</p>
+    </main>
+  </body>
+</html>

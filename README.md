@@ -54,7 +54,8 @@ Version 0.1.0. Everything on the [roadmap](ROADMAP.md) is built.
 | `<lk-process>` | Step-by-step walkthrough with a stepper |
 | `<lk-scenario>` | Branching story from markup or JSON |
 | `<lk-flashcards>` | Recall practice where missed cards come round again |
-| `<lk-order>` | Put items in sequence with buttons or drag, marked in words |
+| `<lk-order>` | Put items in sequence with buttons or drag (mouse or touch), marked in words |
+| `<lk-sort>` | Sort items into groups by dragging or with a menu, marked in words |
 | `<lk-matrix>` | Fill-in and tick-box tables, marked in words, from an ordinary table |
 | `<lk-hotspot>` | Numbered points on a picture or diagram, tracking what is explored |
 | `<lk-flow>` | Process chart or decision tree from nested lists, with a walk-through that marks your route |
@@ -72,7 +73,7 @@ LearnKit is a free UI shop with three layers: **components**, **themes** that gi
 | `howdigital` | HoW Digital, from the HoW Digital design system |
 | `sankofa` | A writer's companion look, from the Sankofa design system |
 
-`homepage`, `blc`, `howdigital` and `sankofa` are built from design systems in Claude Design. Where a design system has no dark mode or status colours, the theme says which colours are LearnKit's own. `blc`, `howdigital` and `sankofa` name fonts they do not load, so nothing is fetched from the internet. See [the font notes in docs/theming.md](docs/theming.md) to add them.
+`homepage`, `blc`, `howdigital` and `sankofa` are built from design systems in Claude Design. `blc` and `howdigital` inherit their colours from the design systems: the tokens are copied into `design-systems/` and `npm run sync` generates the theme from them (see [docs/theming.md](docs/theming.md)). Where a design system defines no colour, the theme's map says which colours are LearnKit's own. `blc`, `howdigital` and `sankofa` name fonts they do not load, so nothing is fetched from the internet. See [the font notes in docs/theming.md](docs/theming.md) to add them.
 
 ## Principles
 
