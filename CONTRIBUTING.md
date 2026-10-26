@@ -32,3 +32,5 @@ npm test    # Node tests: helpers, contrast checks for every theme
 ## Pull requests
 
 Keep them focused, describe what changed and why, and include a screenshot or short recording for visual changes.
+
+Pull requests from the repository owner merge themselves into `main` once the `test` check passes (`.github/workflows/auto-merge.yml`), and the branch is deleted afterwards. Open a draft to ask for a look first; marking it ready turns auto-merge on. Pull requests from anyone else are merged by hand.
