@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en-GB" data-lk-theme="clean">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Teaching Claude your routines with skills</title>
+    <link rel="stylesheet" href="../../src/learnkit.css" />
+    <link rel="stylesheet" href="../../site/site.css" />
+    <link rel="stylesheet" href="../../src/themes/clean.css" />
+    <link rel="stylesheet" href="../lesson.css" />
+    <style>
+      .diagram rect { fill: var(--lk-color-surface); stroke: var(--lk-color-border); }
+      .diagram .code { font: 400 13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-anchor: start; }
+    </style>
+    <script type="module" src="../lesson.js"></script>
+    <script type="module" src="../../site/site-nav.js"></script>
+  </head>
+  <body data-activities="5">
+    <site-nav current="lessons"><p class="back-link"><a href="../../">&larr; LearnKit home</a></p></site-nav>
+
+    <div class="top">
+      <div class="top__row">
+        <lk-progress id="progress" label="Activities completed" value="0" show-value></lk-progress>
+      </div>
+    </div>
+
+    <main>
+      <h1>Teaching Claude your routines with skills</h1>
+      <p>A lesson of about 35 minutes. By the end you can explain what a skill is, say where it is saved, write a description that gets it used, and choose between a skill and the other ways of guiding Claude.</p>
+
+      <details class="lk-guide" open>
+        <summary>About this page</summary>
+        <div class="lk-guide__body">
+          <p><strong>What this is.</strong> A short sample lesson built only from LearnKit blocks. It shows how the blocks work together in a real course. The subject is skills in Claude Code, but the point is the blocks.</p>
+          <p class="lk-guide__title">What you can do here</p>
+          <ul>
+            <li>Work through the lesson from top to bottom, as a learner would.</li>
+            <li>Watch the bar at the top fill as you finish the five activities.</li>
+            <li>Change the &ldquo;Look&rdquo; at the top to see the same lesson in each style.</li>
+            <li>Ask Claude for any block by name, such as &ldquo;add an lk-sort here&rdquo;.</li>
+          </ul>
+        </div>
+      </details>
+
+      <lk-alert tone="info" heading="Before you start">
+        You do not need to know any code. Where the lesson shows a file or a command, you can read it as a plain instruction. Claude Code changes quickly, so its own documentation has the last word on details.
+      </lk-alert>
+
+      <section aria-labelledby="start">
+        <h2 id="start">Where are you starting from?</h2>
+        <lk-rating label="How confident are you with these ideas?" scale="5" low="Not at all" high="Completely" summary name="skills-lesson-before">
+          <div data-lk-statement="Explaining what a skill is"></div>
+          <div data-lk-statement="Knowing where a skill is saved"></div>
+          <div data-lk-statement="Writing a description that gets a skill used"></div>
+          <div data-lk-statement="Choosing between a skill, CLAUDE.md and a hook"></div>
+        </lk-rating>
+      </section>
+
+      <section aria-labelledby="why">
+        <span class="step-no">Part 1</span>
+        <h2 id="why">Why teach Claude a routine?</h2>
+        <p>Claude starts each new conversation knowing nothing about how you like things done. Compare the same Monday morning with and without a skill.</p>
+        <lk-conversation label="The same request, with and without a skill" example>
+          <div data-lk-thread="Without a skill">
+            <div data-lk-from="You">Write my weekly update.</div>
+            <div data-lk-from="Claude">Happy to. What format should it be in, and who is it for?</div>
+            <div data-lk-from="You" data-move="Explain it all again">Three parts: done, next and blocked. Short, plain English, for my manager.</div>
+            <div data-lk-from="Claude">Here is your update.</div>
+            <div data-lk-from="You">A week later: write my weekly update.</div>
+            <div data-lk-from="Claude">Happy to. What format should it be in, and who is it for?
+              <p data-lk-why data-label="What went wrong">Claude does not carry last week&rsquo;s explanation into a new conversation. Unless it is written down where Claude can find it, you explain it again every time.</p>
+            </div>
+          </div>
+          <div data-lk-thread="With a skill">
+            <div data-lk-from="You" data-move="Name the skill">/weekly-update</div>
+            <div data-lk-from="Claude">Here is your weekly update, in your usual three parts: done, next and blocked.
+              <p data-lk-why>The format lives in the skill, so you wrote it once. Typing the skill&rsquo;s name runs it.</p>
+            </div>
+            <div data-lk-from="You" data-move="Ask in your own words">Can you do my status summary for this week?</div>
+            <div data-lk-from="Claude">Here is your weekly update, in your usual three parts.
+              <p data-lk-why>You did not say the skill&rsquo;s name. Claude matched your request to its description and used it anyway.</p>
+            </div>
+          </div>
+        </lk-conversation>
+        <p>A <strong>skill</strong> is a saved set of instructions for one kind of job. Claude reads it only when it is needed, so it costs nothing the rest of the time.</p>
+      </section>
+
+      <section aria-labelledby="inside">
+        <span class="step-no">Part 2</span>
+        <h2 id="inside">What is inside a skill</h2>
+        <p>A skill is a folder with one file in it, called <code>SKILL.md</code>. Choose each numbered point to see what that part does.</p>
+        <lk-hotspot label="The parts of a SKILL.md file">
+          <svg class="diagram" viewBox="0 0 720 390" role="img" aria-label="A file called SKILL.md. Between two lines of dashes at the top are a name and a description. Below them are plain instructions, ending with a pointer to another file.">
+            <rect x="60" y="10" width="650" height="370" rx="8" />
+            <text class="code" x="84" y="55">---</text>
+            <text class="code" x="84" y="105">name: weekly-update</text>
+            <text class="code" x="84" y="155">description: Writes my weekly update. Use when I ask for a status summary.</text>
+            <text class="code" x="84" y="205">---</text>
+            <text class="code" x="84" y="265">Write the update in three short parts: done, next, blocked.</text>
+            <text class="code" x="84" y="315">Keep it under 150 words and avoid jargon.</text>
+            <text class="code" x="84" y="365">For our layout, read template.md.</text>
+          </svg>
+          <div data-lk-spot data-x="4" data-y="12" data-title="The dashes">The two lines of dashes fence off a small settings block at the top. Everything between them is information <em>about</em> the skill. Everything after is the skill itself.</div>
+          <div data-lk-spot data-x="4" data-y="25" data-title="The name">What you type to run the skill, after a slash. This one is run with <code>/weekly-update</code>. If you leave it out, the folder&rsquo;s name is used.</div>
+          <div data-lk-spot data-x="4" data-y="38" data-title="The description">The most important line. Claude reads the descriptions of all your skills to decide which one fits your request. It says what the skill does and when to use it.</div>
+          <div data-lk-spot data-x="4" data-y="66" data-title="The instructions">Plain sentences, written as you would brief a new colleague. Claude reads them only when the skill is used.</div>
+          <div data-lk-spot data-x="4" data-y="92" data-title="Other files">A skill can point at more files in its folder, such as a template. Claude opens them only when it needs them, so long reference material costs little.</div>
+        </lk-hotspot>
+        <p>Open the folders to see how it sits on disk.</p>
+        <lk-tree label="A skill's folder">
+          <ul>
+            <li open>weekly-update
+              <ul>
+                <li>SKILL.md: the name, description and instructions</li>
+                <li>template.md: an optional extra, read only when needed</li>
+                <li>scripts: optional small programs the skill can run</li>
+              </ul>
+            </li>
+          </ul>
+        </lk-tree>
+      </section>
+
+      <section aria-labelledby="where">
+        <span class="step-no">Part 3</span>
+        <h2 id="where">Where a skill is saved decides who gets it</h2>
+        <p>The folder you save a skill in sets who can use it. The <code>~</code> means your own home folder.</p>
+        <lk-accordion label="The three places a skill can live">
+          <div data-lk-item="Personal" open><p>Saved in <code>~/.claude/skills/</code>. It follows you into every project on your computer, and nobody else gets it.</p></div>
+          <div data-lk-item="Project"><p>Saved in a <code>.claude/skills/</code> folder inside one project. It belongs to that project, and everyone who works on it gets it when the project is shared.</p></div>
+          <div data-lk-item="Plugin"><p>Arrives inside a plugin, which is a bundle someone made. You run it with the plugin&rsquo;s name in front, such as <code>/toolkit:review</code>.</p></div>
+        </lk-accordion>
+
+        <h3>Activity 1: who gets it?</h3>
+        <lk-sort label="Sort each skill by where it would be saved" pickup>
+          <ul data-lk-group="Personal: just you, in every project">
+            <li>Your own checklist for tidying notes, wanted in everything you do</li>
+            <li>A shortcut for your personal style of email, used on every project</li>
+          </ul>
+          <ul data-lk-group="Project: everyone on this project">
+            <li>The release checklist for this one project, saved with its files</li>
+            <li>The way this team names files, which every new teammate should get automatically</li>
+          </ul>
+          <ul data-lk-group="Plugin: comes in a bundle">
+            <li>A skill that arrived when you switched on a team toolkit</li>
+            <li>A skill you run as /toolkit:review, with the toolkit&rsquo;s name in front</li>
+          </ul>
+        </lk-sort>
+      </section>
+
+      <section aria-labelledby="trigger">
+        <span class="step-no">Part 4</span>
+        <h2 id="trigger">The description is the trigger</h2>
+        <p>Claude does not read every skill in full. It reads each description and decides from that alone. A vague description means the skill is never picked, however good the instructions are.</p>
+        <p>A good description says <strong>what the skill does</strong> and <strong>when to use it</strong>, using words you would really say.</p>
+
+        <h3>Activity 2: which description gets the skill used?</h3>
+        <lk-respond label="Choose the best description for each skill" question="Which description would you choose?" level="4">
+          <div data-lk-case="Skill 1: weekly-update" data-kind="Status reports">
+            <p>You often ask, &ldquo;Can you put together my status summary?&rdquo; Here are three descriptions.</p>
+            <ul>
+              <li><strong>A:</strong> Helps with work stuff.</li>
+              <li><strong>B:</strong> Writes my weekly update in three short parts. Use when I ask for a weekly update or a status summary.</li>
+              <li><strong>C:</strong> weekly-update</li>
+            </ul>
+            <div data-lk-action="Description A">Too vague. &ldquo;Work stuff&rdquo; matches everything and nothing, so Claude has no reason to pick this skill for a status summary.</div>
+            <div data-lk-action="Description B" correct>It says what the skill does and the words you would use to ask for it, so a request for a status summary finds it.</div>
+            <div data-lk-action="Description C">This only repeats the name. Claude learns nothing about what the skill does or when to use it.</div>
+            <p data-lk-explanation>Write the description for Claude, as an answer to &ldquo;when should I use this?&rdquo;</p>
+          </div>
+          <div data-lk-case="Skill 2: meeting-notes" data-kind="Meetings">
+            <p>The skill turns rough notes into clear actions with an owner for each. Here are three descriptions.</p>
+            <ul>
+              <li><strong>A:</strong> Use whenever the user asks anything about writing.</li>
+              <li><strong>B:</strong> Turns rough meeting notes into a list of actions with an owner for each. Use after a meeting, or when I paste notes.</li>
+              <li><strong>C:</strong> Use only when I type exactly /meeting-notes and nothing else.</li>
+            </ul>
+            <div data-lk-action="Description A">Too broad. It would be picked for emails, essays and everything else, and get in the way.</div>
+            <div data-lk-action="Description B" correct>Clear about the job, and it names the moments when it applies.</div>
+            <div data-lk-action="Description C">Typing the name would still work, but Claude would never pick the skill itself, because the description tells it not to.</div>
+            <p data-lk-explanation>Aim for specific, not broad and not tiny. If a skill is picked at the wrong times, narrow the description. If it is never picked, add the words people really use.</p>
+          </div>
+          <div data-lk-case="Skill 3: course-review" data-kind="Checking course pages">
+            <p>The skill checks a course page for broken links and unclear headings. Here are three descriptions.</p>
+            <ul>
+              <li><strong>A:</strong> Checks a course page for broken links and unclear headings. Use when I ask to review, proofread or check a course page before it goes live.</li>
+              <li><strong>B:</strong> A really useful skill that I built last term.</li>
+              <li><strong>C:</strong> Checks things.</li>
+            </ul>
+            <div data-lk-action="Description A" correct>It says what is checked and lists the ways you might ask, including &ldquo;review&rdquo;, &ldquo;proofread&rdquo; and &ldquo;check&rdquo;.</div>
+            <div data-lk-action="Description B">It describes how you feel about the skill, not what it does or when to use it.</div>
+            <div data-lk-action="Description C">Too short to match anything. Claude cannot tell this from any other checking job.</div>
+            <p data-lk-explanation>A few extra words of when-to-use cost nothing and make the skill far more likely to be found.</p>
+          </div>
+        </lk-respond>
+      </section>
+
+      <section aria-labelledby="who">
+        <span class="step-no">Part 5</span>
+        <h2 id="who">Who presses the button?</h2>
+        <p>By default, both you and Claude can start a skill. Two settings in the top block change that. You rarely need either, but the first one matters a great deal for anything risky.</p>
+
+        <h3>Activity 3: who can start it?</h3>
+        <lk-matrix label="Tick who can start a skill under each setting" show-answers>
+          <table>
+            <caption>Who can start a skill</caption>
+            <thead><tr><th>Setting</th><th>You, by typing its name</th><th>Claude, by itself</th></tr></thead>
+            <tbody>
+              <tr><th>Nothing set</th><td data-tick="yes"></td><td data-tick="yes"></td></tr>
+              <tr><th><code>disable-model-invocation: true</code></th><td data-tick="yes"></td><td data-tick="no"></td></tr>
+              <tr><th><code>user-invocable: false</code></th><td data-tick="no"></td><td data-tick="yes"></td></tr>
+            </tbody>
+          </table>
+        </lk-matrix>
+        <ul>
+          <li><strong>Nothing set</strong> suits everyday routines, such as the weekly update.</li>
+          <li><strong>Only you</strong> suits anything with side effects, such as sending or publishing.</li>
+          <li><strong>Only Claude</strong> suits background knowledge, such as house rules it should always know.</li>
+        </ul>
+        <lk-alert tone="warning" heading="Rule of thumb">
+          If the skill sends, publishes, deletes or spends anything, make it start only when you type its name. You decide when, not Claude.
+        </lk-alert>
+      </section>
+
+      <section aria-labelledby="tool">
+        <span class="step-no">Part 6</span>
+        <h2 id="tool">Skill, CLAUDE.md, hook or helper?</h2>
+        <p>A skill is one of four ways to guide Claude. Choosing the right one is the real skill. Answer the questions and follow your route.</p>
+        <lk-flow label="Which way of guiding Claude fits?" layout="tree" walkthrough>
+          <ul>
+            <li>Must it happen automatically, every time, with no thinking needed?
+              <ul>
+                <li data-label="Yes">A hook: a setting that runs a command at set moments, such as after every file is changed</li>
+                <li data-label="No">Is it a rule or fact Claude needs in every conversation?
+                  <ul>
+                    <li data-label="Yes">CLAUDE.md: a file Claude reads at the start of every conversation</li>
+                    <li data-label="No">Is it a routine with steps, or a how-to needed only sometimes?
+                      <ul>
+                        <li data-label="Yes">A skill: read only when the job comes up</li>
+                        <li data-label="No">Is it a big side job whose working would clutter your chat?
+                          <ul>
+                            <li data-label="Yes">A helper (subagent): a separate Claude that does the digging and reports back</li>
+                            <li data-label="No">Just ask in the chat</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </lk-flow>
+
+        <h3>Activity 4: you keep pasting the same instructions</h3>
+        <lk-scenario label="Choosing the right tool" start="start">
+          <div data-lk-node="start" data-title="The same six lines, again">
+            <p>Every month you paste six lines into the chat that say how your team lays out the monthly report. You are tired of it. What do you do?</p>
+            <ul data-lk-choices>
+              <li data-lk-goto="skill">Save it as a skill</li>
+              <li data-lk-goto="rule">Put it in CLAUDE.md</li>
+              <li data-lk-goto="paste">Keep a note and carry on pasting</li>
+            </ul>
+          </div>
+          <div data-lk-node="skill" data-title="A skill called monthly-report">
+            <p>You write the six lines into a skill with a clear description. It works. A teammate asks whether they can have it too. Where do you save it so they get it?</p>
+            <ul data-lk-choices>
+              <li data-lk-goto="project">In the project&rsquo;s own skills folder, shared with the project</li>
+              <li data-lk-goto="personal">In your personal folder, and email them the file</li>
+            </ul>
+          </div>
+          <div data-lk-node="project" data-end data-outcome="good" data-title="Written once, shared by everyone">
+            <p>Everyone on the project gets the skill when they get the project. The layout loads only in the month you write the report, so it never crowds out other work. When the layout changes, you change one file.</p>
+          </div>
+          <div data-lk-node="personal" data-end data-outcome="poor" data-title="Copies drift apart">
+            <p>Your teammate saves their copy in their own folder. When you change the layout next quarter, their copy stays as it was. Soon two versions of the report are going round.</p>
+          </div>
+          <div data-lk-node="rule" data-end data-outcome="poor" data-title="Carried everywhere">
+            <p>It works, but CLAUDE.md is read at the start of every conversation. The report layout now sits in view while you fix a typo or answer an email. It belongs in a skill, which loads only when the job comes up.</p>
+          </div>
+          <div data-lk-node="paste" data-end data-outcome="poor" data-title="Still repeating yourself">
+            <p>Pasting works until you forget a line or paste last year&rsquo;s version. Anything you explain more than twice is worth saving once, where Claude can find it.</p>
+          </div>
+        </lk-scenario>
+      </section>
+
+      <section aria-labelledby="make">
+        <span class="step-no">Part 7</span>
+        <h2 id="make">Make your first skill</h2>
+        <p>You can write the file yourself, or describe the routine to Claude and ask it to make the skill for you. Either way, these are the four steps.</p>
+        <lk-process label="From routine to skill">
+          <div data-lk-step="Choose">
+            <p>Pick one routine you have explained at least twice. Small and specific beats big and clever.</p>
+          </div>
+          <div data-lk-step="Make the folder">
+            <p>Make a folder named after the skill, inside your personal skills folder.</p>
+            <pre><code>~/.claude/skills/weekly-update/</code></pre>
+          </div>
+          <div data-lk-step="Write SKILL.md">
+            <p>Inside it, add a file called <code>SKILL.md</code>. Start with the name and description, then the instructions in plain sentences.</p>
+            <pre><code>---
+name: weekly-update
+description: Writes my weekly update. Use when I ask for a status summary.
+---
+Write the update in three short parts: done, next, blocked.
+Keep it under 150 words and avoid jargon.</code></pre>
+          </div>
+          <div data-lk-step="Try it">
+            <p>In Claude Code, type <code>/weekly-update</code>. Then ask in your own words and see whether Claude picks it. If it does not, improve the description. If the skill does not appear at all, start a new conversation.</p>
+          </div>
+        </lk-process>
+        <p>
+          <button class="lk-button" data-lk-open="tips" type="button">Tips for good instructions</button>
+        </p>
+        <lk-drawer id="tips" heading="Tips for good instructions">
+          <ul>
+            <li>Write it as you would brief a new colleague on their first day.</li>
+            <li>Say what to do, not the story of why. Once a skill is used, its words stay in the conversation.</li>
+            <li>Keep <code>SKILL.md</code> short. Move long reference material into a second file and point to it.</li>
+            <li>Test with a request in your own words, not the skill&rsquo;s name.</li>
+          </ul>
+        </lk-drawer>
+      </section>
+
+      <section aria-labelledby="cheat">
+        <span class="step-no">Part 8</span>
+        <h2 id="cheat">Keep this handy</h2>
+        <p>Search the words, or sort the table by any column.</p>
+        <lk-glossary label="Skill terms">
+          <dl>
+            <dt>Skill</dt>
+            <dd>A folder holding saved instructions for one kind of job. Claude reads it when the job comes up.</dd>
+            <dt>SKILL.md</dt>
+            <dd>The one file every skill needs. It holds the name, the description and the instructions.</dd>
+            <dt>Description</dt>
+            <dd>The line that tells Claude what a skill does and when to use it. It decides whether the skill is picked.</dd>
+            <dt>Slash command</dt>
+            <dd>Starting a skill by typing a slash and its name, such as <code>/weekly-update</code>.</dd>
+            <dt>Plugin</dt>
+            <dd>A bundle of skills and other add-ons that someone made, which you can switch on.</dd>
+            <dt>CLAUDE.md</dt>
+            <dd>A file of rules and facts that Claude reads at the start of every conversation.</dd>
+            <dt>Hook</dt>
+            <dd>A setting that runs a command automatically at set moments, without Claude deciding.</dd>
+            <dt>Subagent</dt>
+            <dd>A separate helper Claude hands a side job to, which reports back when it is done.</dd>
+          </dl>
+        </lk-glossary>
+        <lk-table label="Four ways to guide Claude" sortable striped>
+          <table>
+            <caption>Four ways to guide Claude</caption>
+            <thead><tr><th>Way</th><th>When it is used</th><th>Best for</th></tr></thead>
+            <tbody>
+              <tr><td>CLAUDE.md</td><td>Every conversation</td><td>Rules and facts that always apply</td></tr>
+              <tr><td>Skill</td><td>When the job comes up, or you type its name</td><td>Routines and how-tos</td></tr>
+              <tr><td>Hook</td><td>At a set moment, automatically</td><td>Things that must always happen</td></tr>
+              <tr><td>Subagent</td><td>When a side job is handed over</td><td>Big jobs that would clutter the chat</td></tr>
+            </tbody>
+          </table>
+        </lk-table>
+      </section>
+
+      <section aria-labelledby="check">
+        <span class="step-no">Part 9</span>
+        <h2 id="check">Check your understanding</h2>
+        <h3>Activity 5: the quiz</h3>
+        <lk-quiz label="Skills quiz" title="Skills quiz">
+          <div data-lk-question="What does Claude read to decide whether to use a skill by itself?">
+            <div data-lk-option data-feedback="Not quite. It does not read every skill in full just to decide.">The whole of every skill&rsquo;s instructions</div>
+            <div data-lk-option correct data-feedback="Yes: the description is how a skill gets found.">The skill&rsquo;s description</div>
+            <div data-lk-option data-feedback="Not quite. The folder&rsquo;s place on disk decides who gets the skill, not when it is used.">The folder the skill is saved in</div>
+            <p data-lk-explanation>Descriptions are always in view. Instructions are read only once the skill is used.</p>
+          </div>
+          <div data-lk-question="You want one skill available in every project you work on. Where do you save it?">
+            <div data-lk-option correct data-feedback="Yes: the personal folder follows you everywhere.">In your personal skills folder, <code>~/.claude/skills/</code></div>
+            <div data-lk-option data-feedback="Not quite. That would give it to one project only.">In one project&rsquo;s <code>.claude/skills/</code> folder</div>
+            <div data-lk-option data-feedback="Not quite. A skill needs a folder of its own with a SKILL.md file.">In CLAUDE.md</div>
+          </div>
+          <div data-lk-question="Which routine should start only when you type its name?">
+            <div data-lk-option data-feedback="Safe to leave to Claude. Nothing is sent or changed.">Explaining what an unfamiliar acronym means</div>
+            <div data-lk-option correct data-feedback="Yes: it sends something to many people, so you choose when.">Sending the monthly report to every member of staff</div>
+            <div data-lk-option data-feedback="Safe to leave to Claude. It only reads and suggests.">Suggesting clearer headings for a draft</div>
+            <p data-lk-explanation>Setting <code>disable-model-invocation: true</code> keeps Claude from starting it by itself.</p>
+          </div>
+          <div data-lk-question="&ldquo;Always write in British English&rdquo; applies to everything you do. Where does it belong?">
+            <div data-lk-option correct data-feedback="Yes: a rule that always applies belongs where Claude reads it every time.">CLAUDE.md</div>
+            <div data-lk-option data-feedback="Not quite. A skill is read only when its job comes up, and this rule is needed all the time.">A skill with a long description</div>
+            <div data-lk-option data-feedback="Not quite. Nothing here needs to run automatically.">A hook</div>
+          </div>
+        </lk-quiz>
+
+        <h3>Now try it from memory</h3>
+        <lk-flashcards label="Skill terms" shuffle>
+          <div data-lk-card="Skill">Saved instructions for one kind of job, read when it comes up.</div>
+          <div data-lk-card="Description">The line that decides whether Claude picks the skill.</div>
+          <div data-lk-card="Personal skill">Saved in your own folder. Follows you into every project.</div>
+          <div data-lk-card="CLAUDE.md">Rules and facts Claude reads at the start of every conversation.</div>
+        </lk-flashcards>
+      </section>
+
+      <section aria-labelledby="reflect">
+        <span class="step-no">Part 10</span>
+        <h2 id="reflect">Reflect</h2>
+        <lk-journal name="skills-lesson-reflection" title="My notes on skills">
+          <div data-lk-prompt="What do you keep explaining to Claude, again and again?" data-hint="Think of a report, an email, a check or a format."></div>
+          <div data-lk-prompt="Write the description you would give a skill for it. What would you say to ask for it?"></div>
+        </lk-journal>
+        <lk-rating label="How confident are you now?" scale="5" low="Not at all" high="Completely" summary name="skills-lesson-after">
+          <div data-lk-statement="Explaining what a skill is"></div>
+          <div data-lk-statement="Knowing where a skill is saved"></div>
+          <div data-lk-statement="Writing a description that gets a skill used"></div>
+          <div data-lk-statement="Choosing between a skill, CLAUDE.md and a hook"></div>
+        </lk-rating>
+      </section>
+
+      <p class="finish"><strong>That is the lesson.</strong> Change the look at the top and read it again.</p>
+    </main>
+  </body>
+</html>

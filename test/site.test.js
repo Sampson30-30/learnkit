@@ -32,6 +32,7 @@ const PAGES = {
   'lesson/index.html': 'lessons',
   'lesson/architecture/index.html': 'lessons',
   'lesson/social-media/index.html': 'lessons',
+  'lesson/claude-skills/index.html': 'lessons',
 };
 
 test('every page carries the header, says which page it is, and keeps a plain way home without scripts', () => {
