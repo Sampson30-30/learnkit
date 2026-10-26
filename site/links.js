@@ -15,6 +15,7 @@ export const SITE_LINKS = [
       { label: 'Git and GitHub', path: 'lesson/' },
       { label: 'How a project fits together', path: 'lesson/architecture/' },
       { label: 'The Social Media Challenge', path: 'lesson/social-media/' },
+      { label: 'Teaching Claude with skills', path: 'lesson/claude-skills/' },
     ],
   },
 ];
